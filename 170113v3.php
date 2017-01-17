@@ -108,8 +108,8 @@ if(1){
   }
 }  
   
-$date01=gmdate("Y-m-d H:i:s",strtotime("-5 min"));
-$date02=gmdate("Y-m-d H:i:s",strtotime("-5 hour"));
+$date01=date("Y-m-d H:i:s",strtotime("-5 min"));
+$date02=date("Y-m-d H:i:s",strtotime("-5 hour"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 day"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 month"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 year"));
