@@ -94,6 +94,16 @@ echo $rows_max = $stmt->rowCount();//計數
 echo "\n";
 echo 'ALL='.$rows_max;
 
+if(1){
+  $cc=0;
+  while ($row = $stmt->fetch() ) {
+    $cc++;
+    if($cc>1000){break;}
+    echo "\n";
+    print_r($row['c01'].'/'.$row['c02'].'/'.$row['c03'].'/'.$row['c04'].'/'.$row['id'].'/'.$row['timestamp']);
+  }
+}  
+  
 $date01=gmdate("Y-m-d h:i:s",strtotime("-5 min"));
 $date02=gmdate("Y-m-d h:i:s",strtotime("-5 hour"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 day"));
@@ -122,11 +132,7 @@ echo $rows_max;
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>1000){
-    break;
-  }else{
-    //continue;
-  }
+  if($cc>1000){break;}
   echo "\n";
   print_r($row['c01'].'/'.$row['c02'].'/'.$row['c03'].'/'.$row['c04'].'/'.$row['id'].'/'.$row['timestamp']);
 }
