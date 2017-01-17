@@ -64,8 +64,7 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 while ($row = $stmt->fetch() ) {
-  echo "\n";
-  print_r($row['tablename']);
+  echo $row['tablename']."\n";
 }
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -74,7 +73,7 @@ try{
 //插入資料
 $sql=<<<EOT
 INSERT INTO xopowo123 (c01,c02,c03,c04)
-VALUES ( 'c01語りたい', 'c02字幕組', 'c03ぴょんぴょん', 04 );
+VALUES ( 'c01語りたい', 'c02字幕組', 'c03ぴょんぴょん', $time );
 EOT;
 
 $stmt = $db->prepare($sql);
@@ -97,17 +96,17 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 echo $rows_max = $stmt->rowCount();//計數
 
-echo "\n";
-echo 'ALL='.$rows_max;
+echo 'ALL='.$rows_max."\n";
 
 if(1){
-  $cc=0;
-  while ($row = $stmt->fetch() ) {
-    $cc++;
-    if($cc>1000){break;}
-    echo "\n";
-    print_r($row['c01'].'/'.$row['c02'].'/'.$row['c03'].'/'.$row['c04'].'/'.$row['id'].'/'.$row['timestamp']);
-  }
+  //
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  $cc++;
+  if($cc>1000){break;}
+  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+}
+  //
 }  
   
 $date01=date("Y-m-d H:i:s",strtotime("-5 min"));
@@ -125,48 +124,42 @@ ORDER BY timestamp DESC
 limit 100 offset 0
 EOT;
 //WHERE timestamp BETWEEN '2017-01-15 00:00:01' AND '2017-01-15 23:59:59' 
-echo "\n";
-echo $sql; 
+echo $sql."\n"; 
 
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
   
-echo "\n";
-echo $rows_max;
+echo $rows_max."\n";
 
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   if($cc>1000){break;}
-  echo "\n";
-  print_r($row['c01'].'/'.$row['c02'].'/'.$row['c03'].'/'.$row['c04'].'/'.$row['id'].'/'.$row['timestamp']);
+  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
 }
-echo "\n";
-echo $cc;
+echo $cc."\n";
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 try{
-//刪除1天前的資料
+//刪除5天前的資料
 /////////
 //echo $date01=gmdate("Y-m-d h:i:s",strtotime("-20 hour"));
-$date01=gmdate("Y-m-d H:i:s",strtotime("-5 day"));
+$date01=date("Y-m-d H:i:s",strtotime("-5 day"));
 /////////////
 
 $sql=<<<EOT
 DELETE FROM xopowo123 WHERE timestamp <= '$date01';
 EOT;
 //WHERE timestamp BETWEEN '2017-01-15 00:00:01' AND '2017-01-15 23:59:59' 
-echo "\n";
-echo $sql; 
+echo $sql."\n"; 
 $stmt = $db->prepare($sql);
 $stmt->execute();
 
 $count = $stmt->rowCount();
-echo "\n";
-echo $count;
+echo '刪除='.$count."\n";
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
