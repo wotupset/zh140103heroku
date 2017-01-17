@@ -1,5 +1,6 @@
 <?php
-header("content-Type: application/json; charset=utf-8"); //強制
+
+//header("content-Type: application/json; charset=utf-8"); //強制
 /*
 Heroku Postgres :: Database 設定
 Heroku Postgres是屬於PostgreSQL類型的資料庫(簡稱pgsql) 
@@ -29,6 +30,9 @@ $dbname = ltrim($dbopts["path"],'/');
 
 */
 
+////////
+//連接到pgsql
+try{
 $tmp=getenv('DATABASE_URL');
 //print_r($tmp);
 
@@ -40,9 +44,7 @@ $dbuser = $dbopts["user"];
 $dbpass = $dbopts["pass"];
 $dbname = ltrim($dbopts["path"],'/');
 
-////////
-//連接到pgsql
-try{
+
 $db = new PDO('pgsql:'.
               'dbname='.$dbname.';'.
               'host='.$dbhost.';'.
@@ -57,12 +59,12 @@ try{
 $db->query("SET TIME ZONE '+8';");//+8
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //$db->setAttribute(PDO::PGSQL_ATTR_INIT_COMMAND, "SET time_zone='+08:00'; ");//不存在PDO::PGSQL_ATTR_INIT_COMMAND 這個方法
-echo "PDO::ATTR_SERVER_VERSION => ".$db->getAttribute(constant("PDO::ATTR_SERVER_VERSION")) . "\n";
-echo "PDO::ATTR_SERVER_INFO => ".$db->getAttribute(constant("PDO::ATTR_SERVER_INFO")) . "\n";
-echo "PDO::ATTR_CLIENT_VERSION => ".$db->getAttribute(constant("PDO::ATTR_CLIENT_VERSION")) . "\n";
+echo "PDO::ATTR_SERVER_VERSION => ".$db->getAttribute(constant("PDO::ATTR_SERVER_VERSION")) . "<br/>\n";
+echo "PDO::ATTR_SERVER_INFO => ".$db->getAttribute(constant("PDO::ATTR_SERVER_INFO")) . "<br/>\n";
+echo "PDO::ATTR_CLIENT_VERSION => ".$db->getAttribute(constant("PDO::ATTR_CLIENT_VERSION")) . "<br/>\n";
 
-echo "PDO::ATTR_ERRMODE => ".$db->getAttribute(constant("PDO::ATTR_ERRMODE")) . "\n";
-//echo "PDO::ATTR_TIMEOUT => ".$db->getAttribute(constant("PDO::ATTR_TIMEOUT")) . "\n";
+echo "PDO::ATTR_ERRMODE => ".$db->getAttribute(constant("PDO::ATTR_ERRMODE")) . "<br/>\n";
+//echo "PDO::ATTR_TIMEOUT => ".$db->getAttribute(constant("PDO::ATTR_TIMEOUT")) . "<br/>\n";
   // Driver does not support this function:
   
 
@@ -78,7 +80,7 @@ try{
 //$sql="SHOW CHARACTER SET";
 $sql="SHOW ALL";
   
-$stmt = $db->prepare($sql);
+$stmt=$db->prepare($sql);
 $stmt->execute();
 echo "<table>";
 while ($row = $stmt->fetch() ) {
@@ -123,7 +125,7 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 
 while ($row = $stmt->fetch() ) {
-  print_r($row);
+  echo "<pre>".print_r($row,true)."</pre>";
 }
 
 
