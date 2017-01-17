@@ -80,10 +80,11 @@ $sql="SHOW ALL";
   
 $stmt = $db->prepare($sql);
 $stmt->execute();
-
+echo "<table>";
 while ($row = $stmt->fetch() ) {
-  print_r($row[0].' => '.$row[1]."\n");
+  print_r('<tr><td>'.$row[0].'</td><td>'.$row[1].'</td></tr>'."\n");
 }
+echo "</table>";
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
