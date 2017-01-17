@@ -1,5 +1,5 @@
 <?php
-header("content-Type: text/html; charset=utf-8"); //強制
+header("content-Type: application/json; charset=utf-8"); //強制
 
 echo "\n".'系統預設';
 echo date_default_timezone_get();
