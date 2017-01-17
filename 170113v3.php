@@ -23,7 +23,7 @@ $db = new PDO('pgsql:'.
               'user='.$dbuser.';'.
               'password='.$dbpass.';'
               );
-//$db->query("SET TIME ZONE '+8';");//+8
+$db->query("SET TIME ZONE '+8';");//+8
 echo $db->exec("show timezone;");//+8
 echo "\n";
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
