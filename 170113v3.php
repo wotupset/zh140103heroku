@@ -24,7 +24,7 @@ $db = new PDO('pgsql:'.
               'password='.$dbpass.';'
               );
 $db->exec("SET TIME ZONE 'Asia/Taipei';");//+8
-echo $db->exec("show timezone;");//+8
+echo $db->exec("show TimeZone");//+8
 echo "\n";
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
