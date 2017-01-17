@@ -24,7 +24,7 @@ $db = new PDO('pgsql:'.
               'password='.$dbpass.';'
               );
 $db->exec("SET TIME ZONE 'Asia/Taipei';");//+8
-foreach( $db->exec("show TimeZone") as $k => $v ){
+foreach( $db->query("show TimeZone") as $k => $v ){
   echo $v;//+8
   echo "\n";
 }
