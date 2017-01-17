@@ -3,11 +3,10 @@ header("content-Type: application/json; charset=utf-8"); //強制
 
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
-//date_default_timezone_get();
+echo 'timezone='.date_default_timezone_get()."\n";
 $time=time();
-//date("y-m-d h-i-s",$time);
-echo "\n";
-echo gmdate("Y-m-d h:i:s",$time);
+echo 'now='.date("Y-m-d h:i:s",$time)."\n";
+echo 'UTC='.gmdate("Y-m-d h:i:s",$time)."\n";
 
 
 try{
@@ -24,6 +23,8 @@ $db = new PDO('pgsql:'.
               'user='.$dbuser.';'.
               'password='.$dbpass.';'
               );
+$db->query("SET TIME ZONE '+8';");//+8
+
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
