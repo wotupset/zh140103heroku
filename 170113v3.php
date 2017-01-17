@@ -5,8 +5,8 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 echo 'timezone='.date_default_timezone_get()."\n";
 $time=time();
-echo 'now='.date("Y-m-d h:i:s",$time)."\n";
-echo 'UTC='.gmdate("Y-m-d h:i:s",$time)."\n";
+echo 'now='.date("Y-m-d H:i:s",$time)."\n";
+echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
 
 try{
@@ -106,8 +106,8 @@ if(1){
   }
 }  
   
-$date01=gmdate("Y-m-d h:i:s",strtotime("-5 min"));
-$date02=gmdate("Y-m-d h:i:s",strtotime("-5 hour"));
+$date01=gmdate("Y-m-d H:i:s",strtotime("-5 min"));
+$date02=gmdate("Y-m-d H:i:s",strtotime("-5 hour"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 day"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 month"));
 //echo $date02=gmdate("Y-m-d h:i:s",strtotime("-5 year"));
@@ -148,7 +148,7 @@ try{
 //刪除1天前的資料
 /////////
 //echo $date01=gmdate("Y-m-d h:i:s",strtotime("-20 hour"));
-$date01=gmdate("Y-m-d h:i:s",strtotime("-5 day"));
+$date01=gmdate("Y-m-d H:i:s",strtotime("-5 day"));
 /////////////
 
 $sql=<<<EOT
