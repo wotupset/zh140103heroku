@@ -3,7 +3,8 @@ header("content-Type: application/json; charset=utf-8"); //強制
 
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
-echo 'timezone='.date_default_timezone_get()."\n";
+$tz=date_default_timezone_get()
+echo 'timezone='.$tz."\n";
 $time=time();
 echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
@@ -23,10 +24,9 @@ $db = new PDO('pgsql:'.
               'user='.$dbuser.';'.
               'password='.$dbpass.';'
               );
-$db->exec("SET TIME ZONE 'Asia/Taipei';");//+8
+$db->exec("SET TIME ZONE '$tz';");//+8
 foreach( $db->query("show TimeZone") as $k => $v ){
-  print_r($v);//+8
-  echo "\n";
+  echo $v[0]."\n";
 }
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
