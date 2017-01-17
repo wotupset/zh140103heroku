@@ -1,4 +1,5 @@
 <?php
+header("content-Type: application/json; charset=utf-8"); //強制
 
 try{
 $dbopts=parse_url(getenv('DATABASE_URL'));

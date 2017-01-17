@@ -1,4 +1,5 @@
 <?php
+header("content-Type: application/json; charset=utf-8"); //強制
 /*
 Heroku Postgres :: Database 設定
 Heroku Postgres是屬於PostgreSQL類型的資料庫(簡稱pgsql) 
