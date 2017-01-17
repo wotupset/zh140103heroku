@@ -3,7 +3,7 @@ header("content-Type: application/json; charset=utf-8"); //強制
 
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
-$tz=date_default_timezone_get()
+$tz=date_default_timezone_get();
 echo 'timezone='.$tz."\n";
 $time=time();
 echo 'now='.date("Y-m-d H:i:s",$time)."\n";
