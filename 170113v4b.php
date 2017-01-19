@@ -235,6 +235,7 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 			$htmlbody.= "<br/>\n";
 		}
 		$htmlbody.= '</div>'."\n";
+		if($cc==1){$htmlbody.= '<!--more-->'."\n";}
 		//
 		$cc1++;//計算推文數量
 	}//迴圈//
