@@ -20,7 +20,7 @@ $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
 $curlpost=curlpost_html($output_path);
-
+print_r($curlpost);
 
 
 function curlpost_html($x){
