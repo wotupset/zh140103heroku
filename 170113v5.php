@@ -28,7 +28,7 @@ function curlpost_html($x){
 	$output_path=$x;
 	//
 	$tmp=$output_path;
-	$upf='@'.realpath($tmp).';';//filename=this.htm
+	$upf='@'.realpath($tmp);//filename=this.htm
 	$md5=md5_file($tmp);
 	$myvars['upf']= $upf;
 	$myvars['pass']= 'xopowo';
