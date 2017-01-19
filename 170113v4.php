@@ -101,7 +101,21 @@ $stmt->execute($array);
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
+try{
+//插入資料
+//;
+$sql=<<<EOT
+INSERT INTO nya123 (c01,c02,c03)
+VALUES ( :c01 , :c02 , :c03 );
+EOT;
+$stmt=$db->prepare($sql);
+$stmt->bindParam(':c01', uniqid('u',1));
+$stmt->bindParam(':c02', '空氣汙染重罰一百萬ㄛ');
+$stmt->bindParam(':c03', $time);
+$stmt->execute();
 
+  
+}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 try{
