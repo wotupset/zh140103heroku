@@ -68,6 +68,7 @@ function output_html($x){
 	$board_title2=$GLOBALS['board_title2'];
 	$url_num=$GLOBALS['url_num'];
 	$url_num2=$GLOBALS['url_num2'];
+	$phpself2=$GLOBALS['phpself2'];
 	//
 	$htmlbody=$x;
 	//
