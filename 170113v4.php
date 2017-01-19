@@ -93,8 +93,10 @@ INSERT INTO nya123 (c01,c02,c03)
 VALUES ( :c01 , :c02 , :c03 );
 EOT;
 $stmt=$db->prepare($sql);
+$stmt->bindParam(':c01', uniqid('u',1));
+$stmt->bindParam(':c02', '不用不用');
 $stmt->bindParam(':c03', $time);
-$stmt->execute(array(':c01' => uniqid('u',1), ':c02' => '不用不用'));
+$stmt->execute();
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -111,7 +113,7 @@ EOT;
 // LIMIT 10
 $stmt = $db->prepare($sql);
 $stmt->execute();
-echo $rows_max = $stmt->rowCount();//計數
+$rows_max = $stmt->rowCount();//計數
 echo 'ALL='.$rows_max."\n";
 if(1){
   //
