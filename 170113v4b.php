@@ -30,7 +30,19 @@ $chat_array='';
 $chat_array = $html->outertext;
 //echo print_r($chat_array,true);exit;//檢查點
 $board_title = $html->find('span',0)->innertext;//版面標題
+//抓首串編號
+$pattern="%index.php\?res=([0-9]+)%";
+if(preg_match($pattern, $url, $matches_url)){
+	//echo $matches_url[1];
+	$url_num=$matches_url[1];
+}
+//$time = (string)time();
+date_default_timezone_set("Asia/Taipei");//時區設定
+$time=sprintf('%s',time());//%u=零或正整數//%s=字串
+$ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
+
 $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
+
 $cc=0;
 foreach( $html->find('blockquote') as $k => $v){$cc++;}
 if($cc==0){$htmlbody='[x]blockquote';exit;}
