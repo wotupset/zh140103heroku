@@ -25,7 +25,7 @@ $curlpost=curlpost_html($output_path);
 //ob_start();var_dump($curlpost);$result = ob_get_clean();
 //echo $result;//檢查點
 
-
+header("content-Type: application/json; charset=utf-8"); //強制
 echo $htmlbody;
 
 exit;//
