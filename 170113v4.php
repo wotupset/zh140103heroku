@@ -9,6 +9,10 @@ $time=time();
 echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
+
+require_once('170113v4b.php');
+
+
 try{
 $dbopts=parse_url(getenv('DATABASE_URL'));
 //print_r($dbopts);
