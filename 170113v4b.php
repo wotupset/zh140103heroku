@@ -228,10 +228,10 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 			}
 			if(1){
 				if( preg_match('/\.webm$/',$v['image'])){
-					//$tmp="".$tmp0;
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$v['image_t'].'"/></span>]<b>webm內容</b>';//縮圖
-					//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';//讀取
-					$htmlbody.= '<video controls muted preload="metadata" src="'.$tmp_w2.'">[video]</video><br/>'.$v['image'];
+					$FFF='http://web.archive.org/web/2016/'.$v['image_t'];
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]<b>webm內容</b>';//縮圖
+					$FFF='http://web.archive.org/web/2016/'.$v['image'];
+					$htmlbody.= '<video controls muted preload="metadata" src="'.$FFF.'">[video]</video><br/>'.$FFF;
 				}else{
 					$FFF='http://web.archive.org/web/2016/'.$v['image'];
 					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
