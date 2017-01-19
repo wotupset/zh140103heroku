@@ -216,7 +216,7 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 			}
 			if(1){
 				$FFF='http://web.archive.org/web/2016/'.$v['image'];
-				$htmlbody.= '[<span class="image"><img class="zoom" src="'.$v['image'].'"/></span>]';
+				$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
 			}
 			
 			//$tmp="http://assembly.firesize.com/n/g_none/".$tmp0;
