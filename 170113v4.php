@@ -109,14 +109,17 @@ INSERT INTO nya123 (c01,c02,c03)
 VALUES ( :c01 , :c02 , :c03 );
 EOT;
 $stmt=$db->prepare($sql);
-$array=array();
-$array[0]=uniqid('u',1);
-$array[1]='空氣汙染重罰一百萬ㄛ';
-$array[2]=$time;
+
 //bindParam的第二個參數不能放字串
-$stmt->bindParam(':c01', $array[0]);
-$stmt->bindParam(':c02', $array[1]);
-$stmt->bindParam(':c03', $array[2]);
+//$stmt->bindParam(':c01', $array[':c01']);
+//$stmt->bindParam(':c02', $array[':c02']);
+//$stmt->bindParam(':c03', $array[':c03']);
+$array=array(
+  ':c01' => uniqid('u',1), 
+  ':c02' => '有害氣體不會傷害環境和人員',
+  ':c03' => $time,
+);
+  
 $stmt->execute();
 
   
