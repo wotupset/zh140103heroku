@@ -9,7 +9,7 @@ require_once('curl_getinfo.php');
 if( substr_count($url, "?res=")>0 ){
 	//ok
 }else{
-	echo "?res=";
+	echo "?res=";exit;
 }
 
 if(1){
@@ -20,7 +20,7 @@ if(1){
   $geterror=$x_2 =$x[2];//錯誤
   //simple_html_dom
   if(!$getdata){echo print_r($getinfo,true);exit;}
-  echo print_r($getinfo,true);
+  //echo print_r($getinfo,true);//檢查點
   $content=$getdata;
 }
 
