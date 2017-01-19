@@ -224,8 +224,7 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 	//$output_path=output_html($htmlbody);//回傳檔案位置
 	//$output_path=$output_path."?".date('ymd-His',$time);//輸出的檔案名稱;
 	//$curlpost=curlpost_html($output_path);
-}
-//有輸入url/
+
 //////
 //
 $auth="國";
