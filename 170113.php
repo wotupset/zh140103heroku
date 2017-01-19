@@ -56,14 +56,14 @@ $db = new PDO('pgsql:'.
 ///////////
 //測試pdo的設定
 try{
-$db->query("SET TIME ZONE '+8';");//+8
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//$db->query("SET TIME ZONE '+8';");//+8
+$db->exec("set timezone TO 'Asia/Taipei';");//設定時區
+//$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//
 //$db->setAttribute(PDO::PGSQL_ATTR_INIT_COMMAND, "SET time_zone='+08:00'; ");//不存在PDO::PGSQL_ATTR_INIT_COMMAND 這個方法
 echo "PDO::ATTR_SERVER_VERSION => ".$db->getAttribute(constant("PDO::ATTR_SERVER_VERSION")) . "<br/>\n";
 echo "PDO::ATTR_SERVER_INFO => ".$db->getAttribute(constant("PDO::ATTR_SERVER_INFO")) . "<br/>\n";
 echo "PDO::ATTR_CLIENT_VERSION => ".$db->getAttribute(constant("PDO::ATTR_CLIENT_VERSION")) . "<br/>\n";
-
-echo "PDO::ATTR_ERRMODE => ".$db->getAttribute(constant("PDO::ATTR_ERRMODE")) . "<br/>\n";
+//echo "PDO::ATTR_ERRMODE => ".$db->getAttribute(constant("PDO::ATTR_ERRMODE")) . "<br/>\n";
 //echo "PDO::ATTR_TIMEOUT => ".$db->getAttribute(constant("PDO::ATTR_TIMEOUT")) . "<br/>\n";
   // Driver does not support this function:
   
