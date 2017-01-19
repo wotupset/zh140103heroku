@@ -14,7 +14,7 @@ if(1){
   $geterror=$x_2 =$x[2];//錯誤
   //simple_html_dom
   if(!$getdata){echo print_r($getinfo,true);exit;}
-  //echo print_r($getinfo,true);
+  echo print_r($getinfo,true);
   $content=$getdata;
 }
 
