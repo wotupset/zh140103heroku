@@ -19,7 +19,7 @@ if( $auth != "國" ){exit;}
 $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
-$curlpost=curlpost_html($output_path);
+//$curlpost=curlpost_html($output_path);//curl上傳
 //print_r($curlpost);//檢查點
 //var_export($curlpost);
 //ob_start();var_dump($curlpost);$result = ob_get_clean();
