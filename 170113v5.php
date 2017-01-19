@@ -27,8 +27,8 @@ function curlpost_html($x){
 	//$output_path=$GLOBALS['output_path'];
 	$output_path=$x;
 	//
-	$tmp=$output_path;
-	if( file_exists(realpath($tmp)) ){
+	$tmp=realpath($output_path);
+	if( file_exists( $tmp ) ){
 	 echo "檔案存在";
 	}else{
 	 echo "檔案不存在";
@@ -36,7 +36,7 @@ function curlpost_html($x){
 	//$upf='@'.realpath($tmp);//filename=this.htm
 	//$upf='@'.$output_path;//filename=this.htm
 	//$md5=md5_file($tmp);
-	$myvars['upf']= '@'.realpath($tmp);
+	$myvars['upf']= '@'.$tmp;
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	print_r($myvars);
