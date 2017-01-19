@@ -184,8 +184,8 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 		$htmlbody.= '<div id="block'.$cc.'">'."\n";
 		//名稱
 		$v['name']=strip_tags($v['name']);
-		$htmlbody.= '<span class="name">'.$v['name'].'</span>'."\n";
-		$htmlbody.= '<span class="title">'.$v['title'].'</span>'."\n";
+		$htmlbody.= '<span class="name">'.$v['name'].'</span>';
+		$htmlbody.= '<span class="title">'.$v['title'].'</span>';
 		//名稱 ID時間
 		$v['time']=preg_replace('/\]/', '', $v['time']);
 		$v['time']=strip_tags($v['time']);
