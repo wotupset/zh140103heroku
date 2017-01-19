@@ -209,6 +209,7 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 				//$tmp=preg_replace('/\.webm$/', 's.jpg', $tmp);
 			}
 			if(1){
+				$FFF='http://web.archive.org/web/2016/'.$v['image'];
 				$htmlbody.= '[<span class="image"><img class="zoom" src="'.$v['image'].'"/></span>]';
 			}
 			
