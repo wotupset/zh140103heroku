@@ -120,7 +120,7 @@ $array=array(
   ':c03' => $time,
 );
   
-$stmt->execute();
+$stmt->execute($array);
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
