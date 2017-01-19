@@ -59,6 +59,8 @@ if(class_exists('CurlFile')) {
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);//跟随重定向页面//safe_mode = Off 
 	curl_setopt($ch, CURLOPT_HEADER,         0);//是否顯示header信息
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//curl_exec不直接輸出獲取內容
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,4); 
+	curl_setopt($ch, CURLOPT_TIMEOUT,        4); //timeout in seconds
 	//curl_setopt($ch, CURLOPT_SAFE_UPLOAD,    0);
 	//curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
 	
