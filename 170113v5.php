@@ -20,7 +20,7 @@ $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
 $curlpost=curlpost_html($output_path);
-print_r($curlpost);
+//print_r($curlpost);//檢查點
 
 
 function curlpost_html($x){
@@ -46,7 +46,7 @@ if(class_exists('CurlFile')) {
 	//$myvars['upfile']= '@'.realpath($output_path);
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	$myvars['pass']= 'xopowo';
-	print_r($myvars);
+	//print_r($myvars);//檢查點
 	//
 	$url='http://zh161005.comli.com/htm/151225-2244put.php';
 	//$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
