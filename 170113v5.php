@@ -33,12 +33,19 @@ function curlpost_html($x){
 	}else{
 	 echo "檔案不存在";
 	}
+if(class_exists('CurlFile')) {
+	//5.6+
+	$myvars['upfile']= new CurlFile(realpath($output_path));//
+}else{
+	//old version(php)
+	$myvars['upfile']= '@'.realpath($output_path);
+}
 	//$upf='@'.realpath($tmp);//filename=this.htm
 	//$upf='@'.$output_path;//filename=this.htm
 	//$md5=md5_file($tmp);
-	$myvars['upf']= '@'.realpath($output_path);
-	$myvars['pass']= 'xopowo';
+	//$myvars['upfile']= '@'.realpath($output_path);
 	//$myvars=array('file' => '@' . realpath('example.txt'));
+	$myvars['pass']= 'xopowo';
 	print_r($myvars);
 	//
 	$url='http://zh161005.comli.com/htm/151225-2244put.php';
@@ -52,6 +59,7 @@ function curlpost_html($x){
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);//跟随重定向页面//safe_mode = Off 
 	curl_setopt($ch, CURLOPT_HEADER,         0);//是否顯示header信息
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//curl_exec不直接輸出獲取內容
+	//curl_setopt($ch, CURLOPT_SAFE_UPLOAD,    0);
 	//curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
 	
 	$getdata  = curl_exec($ch);//抓取URL並把它傳遞給變數
