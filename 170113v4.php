@@ -98,7 +98,7 @@ $stmt->bindParam(':c02', '不用不用');
 $stmt->bindParam(':c03', $time);
 $stmt->execute();
   
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
 
