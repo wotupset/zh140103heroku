@@ -29,6 +29,7 @@ function curlpost_html($x){
 	//
 	if( file_exists( realpath($output_path) ) ){
 	 echo "檔案存在";
+	 echo filesize(realpath($output_path));
 	}else{
 	 echo "檔案不存在";
 	}
