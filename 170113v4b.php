@@ -196,44 +196,15 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 		if( $v['image'] ){//回應中有圖 // 網址字串
 			$cc2++;//計算圖片數量
 			//
-			//$htmlbody.= '[<span class="image"><a href="'.$v['image'].'" target="_blank"><img class="zoom" src="'.$v['image'].'"/></a></span>]'."<br/>\n";
-			//$tmp='http://zh150609.xp3.biz/mysql_blob.php?cdn!'.$v['image'];
-			//$tmp0="http://web.archive.org/web/2016/".$v['image'];
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
-			//$tmp="http://demo.cloudimg.io/cdn/n/n/".$v['image'];
-			//$tmp="http://demo.cloudimg.io/cdn/n/n/"."http://web.archive.org/web/2016/".$v['image'];
-			//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
-			//$tmp='http://crossorigin.me/http://zh150614.athost.biz/img_hot_url.php?door='.$tmp;
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
-			if(0){
-				//
-				//
-				$tmp_r=$v['image'];//原圖
-				$tmp_t=$v['image_t'];//縮圖
-				$tmp_w2='https://web.archive.org/web/2016/'.$v['image'];
-				if( preg_match('/\.webm$/',$v['image'])){
-					//$tmp="".$tmp0;
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_t.'"/></span>]';//縮圖
-					$htmlbody.='<b>webm內容</b>';
-					//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';//讀取
-					$htmlbody.= '[<span class="image"><video controls preload="metadata">您<source src="'.$tmp_w2.'" type="video/webm"></video></span>]';
-				}else{
-					//$tmp="http://demo.cloudimg.io/cdn/n/n/".$tmp0;
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';
-				}
-				//$tmp="".$tmp0;
-				//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
-				//$tmp=preg_replace('/\.webm$/', 's.jpg', $tmp);
-			}
+
 			if(1){
 				if( preg_match('/\.webm$/',$v['image'])){
-					$FFF='http://web.archive.org/web/2016/'.$v['image_t'];
+					$FFF='http://web.archive.org/web/2017/'.$v['image_t'];
 					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]<b>webm內容</b>';//縮圖
-					$FFF='http://web.archive.org/web/2016/'.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$v['image'];
 					$htmlbody.= '<video controls muted preload="metadata" src="'.$FFF.'">[video]</video><br/>'.$FFF;
 				}else{
-					$FFF='http://web.archive.org/web/2016/'.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$v['image'];
 					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
 				}
 			}
