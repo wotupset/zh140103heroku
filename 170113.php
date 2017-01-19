@@ -78,6 +78,7 @@ echo "PDO::ATTR_CLIENT_VERSION => ".$db->getAttribute(constant("PDO::ATTR_CLIENT
 try{
 //列出所有設定參數
 //$sql="SHOW CHARACTER SET";
+echo "<h3>SHOW ALL</h2>";
 $sql="SHOW ALL";
   
 $stmt=$db->prepare($sql);
