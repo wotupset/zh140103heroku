@@ -6,6 +6,12 @@ require_once('simple_html_dom.php');
 require_once('curl_getinfo.php');
 //
 
+if( substr_count($url, "?res=")>0 ){
+	//ok
+}else{
+	echo "?res=";
+}
+
 if(1){
   $x=curl_FFF($url);
   //echo print_r($x,true);exit;
