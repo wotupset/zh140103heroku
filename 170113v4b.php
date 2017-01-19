@@ -227,8 +227,15 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 				//$tmp=preg_replace('/\.webm$/', 's.jpg', $tmp);
 			}
 			if(1){
-				$FFF='http://web.archive.org/web/2016/'.$v['image'];
-				$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
+				if( preg_match('/\.webm$/',$v['image'])){
+					//$tmp="".$tmp0;
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$v['image_t'].'"/></span>]<b>webm內容</b>';//縮圖
+					//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';//讀取
+					$htmlbody.= '<video controls muted preload="metadata" src="'.$tmp_w2.'">[video]</video><br/>'.$v['image'];
+				}else{
+					$FFF='http://web.archive.org/web/2016/'.$v['image'];
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
+				}
 			}
 			
 			//$tmp="http://assembly.firesize.com/n/g_none/".$tmp0;
