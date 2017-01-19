@@ -238,7 +238,7 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 		//
 		$cc1++;//計算推文數量
 	}//迴圈//
-	$htmlbody=' '.$url."<br/>\n".$board_title2."\n"."[$cc1][$cc2]<br>\n".$htmlbody."<br>\n<br>\n";
+	$htmlbody='<a href="./">HOME</a> '.$url."<br/>\n".$board_title2."\n"."[$cc1][$cc2]<br>\n".$htmlbody."<br>\n<br>\n";
 	//echo print_r($htmlbody,true);exit;//檢查點
 	//$output_path=output_html($htmlbody);//回傳檔案位置
 	//$output_path=$output_path."?".date('ymd-His',$time);//輸出的檔案名稱;
