@@ -84,7 +84,7 @@ while ($row = $stmt->fetch() ) {
 
 
 
-
+if(0){
 try{
 //插入資料
 //;
@@ -95,11 +95,10 @@ EOT;
 $stmt=$db->prepare($sql);
 $array=array( uniqid('u',1),'不用不用',  $time );
 $stmt->execute($array);
-
-
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
+}
 
 try{
 //插入資料
@@ -124,6 +123,7 @@ $stmt->execute($array);
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
 
 
 try{
