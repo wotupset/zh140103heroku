@@ -20,11 +20,9 @@ $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
 $curlpost=curlpost_html($output_path);
-print_r($curlpost);//檢查點
+//print_r($curlpost);//檢查點
 //var_export($curlpost);
-ob_start();
-var_dump($curlpost);
-$result = ob_get_clean();
+//ob_start();var_dump($curlpost);$result = ob_get_clean();
 //echo $result;//檢查點
 
 
@@ -39,10 +37,9 @@ function curlpost_html($x){
 	$output_path=$x;
 	//
 	if( file_exists( realpath($output_path) ) ){
-	 echo "檔案存在";
-	 echo filesize(realpath($output_path));
+	 //echo "檔案存在".filesize(realpath($output_path));
 	}else{
-	 echo "檔案不存在";
+	 //echo "檔案不存在";
 	}
 if(class_exists('CurlFile')) {
 	//5.6+
@@ -58,7 +55,7 @@ if(class_exists('CurlFile')) {
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	$myvars['md5']= md5($url);
 	$myvars['pass']= 'xopowo';
-	print_r($myvars);//檢查點
+	//print_r($myvars);//檢查點
 	
 	//
 	
