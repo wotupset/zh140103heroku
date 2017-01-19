@@ -30,13 +30,13 @@ function curlpost_html($x){
 	$tmp=$output_path;
 	$upf='@'.realpath($tmp).';filename=this.htm';
 	$md5=md5_file($tmp);
-	//echo $upf;exit;
 	$myvars['upf']= $upf;
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
+	print_r($myvars);
 	//
 	$url='http://zh161005.comli.com/htm/151225-2244put.php';
-	$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
+	//$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
 	$ch = curl_init();//初始化
 	if(!$ch){die('[x]curl初始化失敗');}
 
@@ -46,7 +46,7 @@ function curlpost_html($x){
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);//跟随重定向页面//safe_mode = Off 
 	curl_setopt($ch, CURLOPT_HEADER,         0);//是否顯示header信息
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//curl_exec不直接輸出獲取內容
-	curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
+	//curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
 	
 	$getdata  = curl_exec($ch);//抓取URL並把它傳遞給變數
 	$getinfo  = curl_getinfo($ch);//結果資訊
