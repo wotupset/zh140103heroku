@@ -76,6 +76,11 @@ if(class_exists('CurlFile')) {
 	$FFF.=print_r($getinfo,true);
 	$FFF.=print_r($geterror,true);
 	//echo '<pre>'.$FFF.'</pre>';
+	if($geterror>0){
+		echo "error";
+	}else{
+		//ok
+	}
 	//
 	$x=$FFF;
 	return $x;
