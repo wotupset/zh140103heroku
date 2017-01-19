@@ -11,7 +11,7 @@ echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
 
 require_once('170113v4b.php');
-if($auth!="國"){exit;}
+if( $auth != "國" ){exit;}
 
 try{
 $dbopts=parse_url(getenv('DATABASE_URL'));
