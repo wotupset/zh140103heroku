@@ -30,7 +30,7 @@ function curlpost_html($x){
 	$tmp=$output_path;
 	$upf='@'.realpath($tmp).';filename=this.htm';
 	$md5=md5_file($tmp);
-	//echo $upl;
+	echo $upf;exit;
 	$myvars['upf']= $upf;
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
