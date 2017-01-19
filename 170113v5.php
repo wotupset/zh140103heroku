@@ -20,7 +20,11 @@ $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
 $curlpost=curlpost_html($output_path);
-print_r($curlpost);//檢查點
+//print_r($curlpost);//檢查點
+ob_start();
+var_dump($curlpost);
+$result = ob_get_clean();
+echo $result;//檢查點
 
 
 function curlpost_html($x){
@@ -71,10 +75,10 @@ if(class_exists('CurlFile')) {
 	$geterror = curl_errno($ch);
 	curl_close($ch);
 	//
-	$FFF='';
-	$FFF.=print_r($getdata,true);
-	$FFF.=print_r($getinfo,true);
-	$FFF.=print_r($geterror,true);
+	//$FFF='';
+	//$FFF.=print_r($getdata,true);
+	//$FFF.=print_r($getinfo,true);
+	//$FFF.=print_r($geterror,true);
 	//echo '<pre>'.$FFF.'</pre>';
 	if($geterror>0){
 		echo "error";
@@ -82,7 +86,8 @@ if(class_exists('CurlFile')) {
 		//ok
 	}
 	//
-	$x=$FFF;
+	//$x=$FFF;
+	$x=array($getdata,$getinfo,$geterror);
 	return $x;
 }
 
