@@ -27,6 +27,11 @@ var_dump($curlpost);
 $result = ob_get_clean();
 //echo $result;//檢查點
 
+
+echo $htmlbody;
+
+exit;//
+
 function curlpost_html($x){
 	//$output_path=$GLOBALS['output_path'];
 	$output_path=$x;
