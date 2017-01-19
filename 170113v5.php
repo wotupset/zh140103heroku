@@ -1,7 +1,7 @@
 <?php
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
 $phpself=$FFF['basename'];
-$phpself2=$phpself['filename'];
+$phpself2=$FFF['filename'];
 /*
 Array
 (
