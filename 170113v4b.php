@@ -45,7 +45,7 @@ $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
 
 $cc=0;
 foreach( $html->find('blockquote') as $k => $v){$cc++;}
-if($cc==0){$htmlbody='[x]blockquote';exit;}
+if($cc==0){die('[x]blockquote');}
 
 
 
