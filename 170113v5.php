@@ -33,6 +33,8 @@ echo $htmlbody;
 exit;//
 
 function curlpost_html($x){
+	$url=$GLOBALS['url'];
+	//
 	//$output_path=$GLOBALS['output_path'];
 	$output_path=$x;
 	//
