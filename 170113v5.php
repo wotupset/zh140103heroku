@@ -45,8 +45,10 @@ if(class_exists('CurlFile')) {
 	//$md5=md5_file($tmp);
 	//$myvars['upfile']= '@'.realpath($output_path);
 	//$myvars=array('file' => '@' . realpath('example.txt'));
+	$myvars['md5']= md5($url);
 	$myvars['pass']= 'xopowo';
-	//print_r($myvars);//檢查點
+	print_r($myvars);//檢查點
+	
 	//
 	$url='http://zh161005.comli.com/htm/151225-2244put.php';
 	//$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
