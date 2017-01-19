@@ -96,12 +96,64 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 		}
 	}
 	if(!$cc){die('沒有找到blockquote');}
+	//echo print_r($chat_array,true);exit;//檢查點
+
+
+
+
+
+	//首篇另外處理
+	$html = $html->find('form',1)->outertext;
+	$html = str_get_html($html);//重新轉字串解析//有BUG?
+	//$first_post=$html;
+	//
+	$chat_array[0]['org_text'] = $html->outertext;//原始內容
+	//
+	if(preg_match('/archive/',$url_p1['host'],$match)){ //檔案區
+		foreach($html->find('span.Ctitle') as $k2 => $v2){
+			$chat_array[0]['title'] =$v2->plaintext;
+			$v2->outertext="";
+		}
+		foreach($html->find('span.Cname') as $k2 => $v2){
+			$chat_array[0]['name'] =$v2->plaintext;
+			$v2->outertext="";
+		}
+	}else{
+		foreach($html->find('font') as $k2 => $v2){
+			if($k2==0){//標題
+				$chat_array[0]['title'] =$v2->plaintext;
+				$v2->outertext="";
+			}
+			if($k2==1){//名稱
+				$chat_array[0]['name'] =$v2->plaintext;
+				$v2->outertext="";
+			}
+		}
+	}
+	//內容
+	foreach($html->find('blockquote') as $k2 => $v2){
+		$chat_array[0]['text']  =$v2->innertext;//內文
+		$v2->outertext="";
+	}
+	//圖片
+	foreach($html->find('a') as $k2 => $v2){
+		foreach($v2->find('img') as $k3 => $v3){
+			$chat_array[0]['image']  =$v3->parent->href;//
+			$chat_array[0]['image_t'] =$v3->src;
+		}
+		$v2->outertext="";
+	}
+	//
+	$chat_array[0]['zzz_text'] = $html->outertext;//剩餘的內容//非檢查點//下方有用到
+	//
+	//preg_match("/\[[0-9]{2}\/[0-9]{2}\/[0-9]{2}.*ID.*No\.[0-9]+ /U",$chat_array[0]['zzz_text'],$chat_array[0]['time']);
+	preg_match("/[0-9]{2}\/[0-9]{2}\/[0-9]{2}.*ID.*No\.[0-9]+/",$chat_array[0]['zzz_text'],$chat_array[0]['time']);
+	$chat_array[0]['time'] = implode("",$chat_array[0]['time']);
+	//
+	ksort($chat_array);//排序
+	$chat_ct=count($chat_array);//計數
 	echo print_r($chat_array,true);exit;//檢查點
-
-
-
-
-
+	//
 
 //
 $auth="國";
