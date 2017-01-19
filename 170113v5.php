@@ -21,11 +21,11 @@ $output_path=output_html($htmlbody);//回傳檔案位置
 //
 $curlpost=curlpost_html($output_path);
 //print_r($curlpost);//檢查點
+var_export($curlpost);
 ob_start();
 var_dump($curlpost);
 $result = ob_get_clean();
-echo $result;//檢查點
-
+//echo $result;//檢查點
 
 function curlpost_html($x){
 	//$output_path=$GLOBALS['output_path'];
