@@ -103,7 +103,7 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c02', '不用不用');
 //$stmt->bindParam(':c03', $time);
 //$stmt->execute();
-$array=array( uniqid('u'),'不用不用',  $time );
+$array=array( uniqid('u',1),'不用不用',  $time );
 $stmt->execute($array);
 
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
