@@ -152,9 +152,81 @@ if($cc==0){$htmlbody='[x]blockquote';exit;}
 	//
 	ksort($chat_array);//排序
 	$chat_ct=count($chat_array);//計數
-	echo print_r($chat_array,true);exit;//檢查點
+	//echo print_r($chat_array,true);exit;//檢查點
 	//
 
+
+
+//
+//
+	//用迴圈叫出資料
+	$cc=0;
+	foreach($chat_array as $k => $v){//迴圈
+		$cc++;
+		$htmlbody.= '<div id="block'.$cc.'">'."\n";
+		//名稱
+		$v['name']=strip_tags($v['name']);
+		$htmlbody.= '<span class="name">'.$v['name'].'</span>'."\n";
+		$htmlbody.= '<span class="title">'.$v['title'].'</span>'."\n";
+		//名稱 ID時間
+		$v['time']=preg_replace('/\]/', '', $v['time']);
+		$v['time']=strip_tags($v['time']);
+		$htmlbody.= '<span class="idno">'.$v['time'].'</span>'."\n";
+		//內文
+		$v['text']=strip_tags($v['text'],"<br><font>");//留下換行標籤
+		$htmlbody.= '<span class="text"><blockquote>'.$v['text'].'</blockquote></span>'."\n";
+		if( $v['image'] ){//回應中有圖 // 網址字串
+			$cc2++;//計算圖片數量
+			//
+			//$htmlbody.= '[<span class="image"><a href="'.$v['image'].'" target="_blank"><img class="zoom" src="'.$v['image'].'"/></a></span>]'."<br/>\n";
+			//$tmp='http://zh150609.xp3.biz/mysql_blob.php?cdn!'.$v['image'];
+			//$tmp0="http://web.archive.org/web/2016/".$v['image'];
+			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
+			//$tmp="http://demo.cloudimg.io/cdn/n/n/".$v['image'];
+			//$tmp="http://demo.cloudimg.io/cdn/n/n/"."http://web.archive.org/web/2016/".$v['image'];
+			//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
+			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
+			//$tmp='http://crossorigin.me/http://zh150614.athost.biz/img_hot_url.php?door='.$tmp;
+			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
+			if(0){
+				//
+				//
+				$tmp_r=$v['image'];//原圖
+				$tmp_t=$v['image_t'];//縮圖
+				$tmp_w2='https://web.archive.org/web/2016/'.$v['image'];
+				if( preg_match('/\.webm$/',$v['image'])){
+					//$tmp="".$tmp0;
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_t.'"/></span>]';//縮圖
+					$htmlbody.='<b>webm內容</b>';
+					//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';//讀取
+					$htmlbody.= '[<span class="image"><video controls preload="metadata">您<source src="'.$tmp_w2.'" type="video/webm"></video></span>]';
+				}else{
+					//$tmp="http://demo.cloudimg.io/cdn/n/n/".$tmp0;
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';
+				}
+				//$tmp="".$tmp0;
+				//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
+				//$tmp=preg_replace('/\.webm$/', 's.jpg', $tmp);
+			}
+			if(1){
+				$htmlbody.= '[<span class="image"><img class="zoom" src="'.$v['image'].'"/></span>]';
+			}
+			
+			//$tmp="http://assembly.firesize.com/n/g_none/".$tmp0;
+			$htmlbody.= "<br/>\n";
+		}
+		$htmlbody.= '</div>'."\n";
+		//
+		$cc1++;//計算推文數量
+	}//迴圈//
+	$htmlbody=' '.$url."<br/>\n".$board_title2."\n"."[$cc1][$cc2]<br>\n".$htmlbody."<br>\n<br>\n";
+	echo print_r($htmlbody,true);exit;//檢查點
+	//$output_path=output_html($htmlbody);//回傳檔案位置
+	//$output_path=$output_path."?".date('ymd-His',$time);//輸出的檔案名稱;
+	//$curlpost=curlpost_html($output_path);
+}
+//有輸入url/
+//////
 //
 $auth="國";
 
