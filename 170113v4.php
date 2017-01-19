@@ -32,14 +32,31 @@ foreach( $db->query("show TimeZone") as $k => $v ){
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
+
 try{
+  
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
+try{
+if(1){
+//移除table
+$sql=<<<EOT
+DROP TABLE IF EXISTS nya123
+EOT;
+//IF NOT EXISTS
+$stmt = $db->prepare($sql);
+$stmt->execute();
+
+}
 //建立table
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS nya123
 (
     c01 varchar(100) NOT NULL,
-    c03 text NOT NULL,
-    c04 integer NOT NULL,
+    c02 text NOT NULL,
+    c03 integer NOT NULL,
     ID  SERIAL PRIMARY KEY,
     timestamp timestamp default current_timestamp
 )
@@ -63,6 +80,51 @@ $stmt->execute();
 while ($row = $stmt->fetch() ) {
   echo $row['tablename']."\n";
 }
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
+
+try{
+//插入資料
+//;
+$sql=<<<EOT
+INSERT INTO nya123 (c01,c02,c03)
+VALUES ( :c01 , :c02 , $time );
+EOT;
+$stmt = $db->prepare($sql);
+$stmt->execute(array(':c01' => uniqid('u',1), ':c02' => '不用不用'));
+  
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
+
+
+
+try{
+//列出資料 (全部)
+$sql=<<<EOT
+select * from nya123 
+ORDER BY timestamp DESC
+EOT;
+// LIMIT 10
+$stmt = $db->prepare($sql);
+$stmt->execute();
+echo $rows_max = $stmt->rowCount();//計數
+echo 'ALL='.$rows_max."\n";
+if(1){
+  //
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  $cc++;
+  if($cc>1000){break;}
+  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+}
+  //
+}  
+  
+
+  
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 ?>
