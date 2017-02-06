@@ -330,6 +330,19 @@ if($kdao_only){//只使用於綜合網址
 			
 			//$tmp0="http://web.archive.org/web/2016/".$v['image'];
 			//$tmp="http://demo.cloudimg.io/cdn/n/n/".$tmp0;
+			$findme='//';
+			$mystring=$v['image'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image']=$rest;
+			$v['image']='http://'.$rest;
+
+			$findme='//';
+			$mystring=$v['image_t'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image_t']=$rest;
+			$v['image_t']='http://'.$rest;
 			
 			if(1==1){
 				$tmp_w="https://web.archive.org/web/2016/";
