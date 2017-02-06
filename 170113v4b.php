@@ -196,7 +196,20 @@ if($cc==0){die('[x]blockquote');}
 		if( $v['image'] ){//回應中有圖 // 網址字串
 			$cc2++;//計算圖片數量
 			//
+			$findme='//';
+			$mystring=$v['image'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image']=$rest;
+			$v['image']='http://'.$rest;
 
+			$findme='//';
+			$mystring=$v['image_t'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image_t']=$rest;
+			$v['image_t']='http://'.$rest;
+			
 			if(1){
 				if( preg_match('/\.webm$/',$v['image'])){
 					$FFF='http://web.archive.org/web/2017/'.$v['image_t'];
