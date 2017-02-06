@@ -322,7 +322,7 @@ if($kdao_only){//只使用於綜合網址
 		$htmlbody.= '<span class="text"><blockquote>'.$v['text'].'</blockquote></span>'."\n";
 		if( $v['image'] ){//回應中有圖 // 網址字串
 			$cc2++;//計算圖片數量
-			if( preg_match('/\.webm$/',$v['image']) ){$cc3++;}
+			//if( preg_match('/\.webm$/',$v['image']) ){$cc3++;}
 			//$htmlbody.= '[<span class="image"><a href="'.$v['image'].'" target="_blank"><img class="zoom" src="'.$v['image'].'"/></a></span>]'."<br/>\n";
 			//$tmp='http://zh150609.xp3.biz/mysql_blob.php?cdn!'.$v['image'];
 			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
@@ -345,7 +345,7 @@ if($kdao_only){//只使用於綜合網址
 			$v['image_t']='http://'.$rest;
 			
 			if(1==1){
-				$tmp_w="https://web.archive.org/web/2016/";
+				$tmp_w="https://web.archive.org/web/2017/";
 				//
 				if($cc%2){
 					$tmp=$tmp_w;
@@ -363,6 +363,8 @@ if($kdao_only){//只使用於綜合網址
 				$tmp_w2=$tmp_w.$v['image'];
 				//
 				if( preg_match('/\.webm$/',$v['image'])){
+					$cc3++;
+					//
 					//$tmp="".$tmp0;
 					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_t.'"/></span>]';//縮圖
 					$htmlbody.='<b>webm內容</b>';
