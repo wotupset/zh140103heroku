@@ -220,7 +220,7 @@ if($cc==0){die('[x]blockquote');}
 					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">[video]muted</video><br/>'.$FFF;
 				}else{
 					$FFF='http://web.archive.org/web/2017/'.$v['image'];
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';
+					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
 				}
 			}
 			
