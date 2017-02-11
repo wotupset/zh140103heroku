@@ -240,6 +240,6 @@ if($cc==0){die('[x]blockquote');}
 
 //////
 //
-echo $auth="國";
+$auth="國";
 
 ?>
