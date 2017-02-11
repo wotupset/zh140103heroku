@@ -217,7 +217,7 @@ if($cc==0){die('[x]blockquote');}
 					$FFF='http://web.archive.org/web/2017/'.$v['image'];
 					$htmlbody.= '<b>webm內容<img class="zoom" src="'.$FFF.'"/></b>';//縮圖
 					$FFF='http://web.archive.org/web/2017/'.$v['image'];
-					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">[video]muted</video><br/>'.$FFF;
+					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">video</video><br/>'.$FFF;
 				}else{
 					$FFF='http://web.archive.org/web/2017/'.$v['image'];
 					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
