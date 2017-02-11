@@ -15,7 +15,7 @@ Array
 
 //
 require_once('170113v4b.php');
-if( $auth != "國" ){exit;}
+if( $auth != "國" ){die('國?');exit;}
 $output_path=output_html($htmlbody);//回傳檔案位置
 //echo $output_path;
 //
