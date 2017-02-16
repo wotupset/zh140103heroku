@@ -305,7 +305,19 @@ if($kdao_only){//只使用於綜合網址
 			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
 			//$tmp='http://crossorigin.me/http://zh150614.athost.biz/img_hot_url.php?door='.$tmp;
 			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
+			$findme='//';
+			$mystring=$v['image'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image']=$rest;
+			$v['image']='http://'.$rest;
 
+			$findme='//';
+			$mystring=$v['image_t'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image_t']=$rest;
+			$v['image_t']='http://'.$rest;
 
 			if(1==1){
 				$tmp_w="http://web.archive.org/web/2017/";
