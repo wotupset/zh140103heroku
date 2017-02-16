@@ -391,8 +391,14 @@ function curlpost_html($x){
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	//
-	$url='http://zh160213.1000space.tk/htm/151225-2244put.php';
-	$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
+	$url_ary = array();
+	$url_ary[]='http://zh160213.1000space.tk/htm/151225-2244put.php';
+	$url_ary[]='http://zh161005.comli.com/htm/151225-2244put.php';
+	$FFF=array_rand($url_ary,1);
+	$url=$url_ary[$FFF];
+	//
+	//$url='http://zh160213.1000space.tk/htm/151225-2244put.php';
+	//$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
 	$ch = curl_init();//初始化
 	if(!$ch){die('[x]curl初始化失敗');}
 
@@ -402,7 +408,7 @@ function curlpost_html($x){
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);//跟随重定向页面//safe_mode = Off 
 	curl_setopt($ch, CURLOPT_HEADER,         0);//是否顯示header信息
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//curl_exec不直接輸出獲取內容
-	curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
+	//curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
 	
 	$getdata  = curl_exec($ch);//抓取URL並把它傳遞給變數
 	$getinfo  = curl_getinfo($ch);//結果資訊
