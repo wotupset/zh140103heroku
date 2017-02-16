@@ -377,7 +377,13 @@ function curlpost_html($x){
 	$output_path=$x;
 	//
 	$tmp=$output_path;
-	$upf='@'.realpath($tmp).';filename=this.htm';
+	if(class_exists('CurlFile')) {
+		//$upf= new CurlFile($tmp, $type_org, $tmp);//=curl_file_create
+		$upf= new CurlFile($tmp);//=curl_file_create
+	}else{
+		$upf= '@'.realpath($tmp);
+	}
+	//$upf='@'.realpath($tmp).';filename=this.htm';
 	$md5=md5_file($tmp);
 	//echo $upl;
 	$myvars['upfile']= $upf;
