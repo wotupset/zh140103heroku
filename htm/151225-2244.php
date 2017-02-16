@@ -350,7 +350,7 @@ if($kdao_only){//只使用於綜合網址
 	}//迴圈//
 	$htmlbody=' '.$url."<br/>\n".$board_title2."\n"."[$cc1][$cc2]<br>\n".$htmlbody."<br>\n<br>\n";
 	$output_path=output_html($htmlbody);//回傳檔案位置
-	//$curlpost=curlpost_html($output_path);
+	$curlpost=curlpost_html($output_path);
 }
 //有輸入url/
 //////
@@ -372,7 +372,7 @@ function curlpost_html($x){
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	//
-	$url='http://zh160206.netau.net/htm/151225-2244put.php';
+	$url='http://zh160213.1000space.tk/htm/151225-2244put.php';
 	$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
 	$ch = curl_init();//初始化
 	if(!$ch){die('[x]curl初始化失敗');}
@@ -508,7 +508,7 @@ function phppoi(){
 	$output.='<a href="./'.$phpself.'">返</a>'."\n";
 	$output.='<a href="./">根</a>'."\n";
 	
-	//$output.='<pre>'.$curlpost.'</pre>'."\n";
+	$output.='<pre>'.$curlpost.'</pre>'."\n";
 
 	//$output.='<a href="https://archive.today/?run=1&url='.$phplink.'" target="_blank">archive.today</a>'."\n";
 	//$output.='<a href="https://web.archive.org/save/'.$phplink.'" target="_blank">archive.org</a>'."\n";
