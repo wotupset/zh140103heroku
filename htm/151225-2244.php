@@ -391,7 +391,7 @@ function curlpost_html($x){
 	$myvars['pass']= 'xopowo';
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	//
-	$url='http://zh161005.comli.com/htm/151225-2244put.php';
+	$url='http://zh160213.1000space.tk/htm/151225-2244put.php';
 	$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
 	$ch = curl_init();//初始化
 	if(!$ch){die('[x]curl初始化失敗');}
