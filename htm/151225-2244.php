@@ -385,6 +385,7 @@ function curlpost_html($x){
 	}
 	//$upf='@'.realpath($tmp).';filename=this.htm';
 	$md5=md5_file($tmp);
+	$myvars['md5']= $md5;
 	//echo $upl;
 	$myvars['upfile']= $upf;
 	$myvars['pass']= 'xopowo';
