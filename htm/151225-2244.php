@@ -689,10 +689,10 @@ function poi(){
 			$("img").get(t).after($("img").get(t).src);
 			tmp=$("img").get(t);
 			//console.log( tmp );
-			$tmp=$(tmp);//becomes javascript object.
+			\$tmp=$(tmp);//becomes javascript object.
 			//console.log( $tmp );
-			$tmp.css( {'background-color':'#343434'} );
-			$tmp.css( "display", "inline" )
+			\$tmp.css( {'background-color':'#343434'} );
+			\$tmp.css( "display", "inline" )
 			//
 			timedown_x;
 		}else{
