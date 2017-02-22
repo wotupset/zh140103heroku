@@ -625,14 +625,8 @@ function check2(){
 }
 
 function poi(){
-	$("#span_iframe01").click(function(){
-		$("#span_iframe01").html('<iframe id="src_iframe01" src="" width="400" height="300">p</iframe>');
-		$("#src_iframe01").attr("src","https://archive.today/?run=1&url=$phplink");
-	});
-	$("#span_iframe02").click(function(){
-		$("#span_iframe02").html('<iframe id="src_iframe02" src="" width="800" height="600">p</iframe>');
-		$("#src_iframe02").attr("src","https://web.archive.org/save/$phplink");
-	});
+$("img").after('after');
+
 }
 
 </script>
