@@ -634,10 +634,12 @@ alert($("img").length);
 	var t=0;
 	var timedown_x = setInterval(function() {
 		//
-if($("img").get(0)){
-	var FFF=$("img").get(0);
+if($("img").get(t)){
+	var FFF=$("img").get(t);
 	FFF.after(FFF.src);
 }
+		//
+		t=t+1;
 		
 		//
 		if(t<10){
@@ -646,7 +648,6 @@ if($("img").get(0)){
 			clearInterval(timedown_x);
 		}
 		//
-		t=t+1;
 		//
 	}, 911);
 	//
