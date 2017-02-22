@@ -606,6 +606,21 @@ overflow:hidden;
 }
 </STYLE>
 <script>
+//表單有用到
+var click1=1;		
+function check(){		
+	click1=0;		
+	document.getElementById("send").innerHTML="稍後";		
+	document.getElementById("form01").action="$phpself?"+document.getElementById("input_a").value;		
+	document.getElementById("form01").onsubmit();		
+}		
+function check2(){		
+	//document.getElementById("send").disabled=true;		
+	document.getElementById("send").style.background="#ff0000";		
+	document.getElementById("form01").submit();		
+}
+//
+	
 $(document).ready(function() {
 	var time = new Date();
 	poi();
