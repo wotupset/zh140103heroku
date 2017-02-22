@@ -632,6 +632,8 @@ $("img").after('after');
 alert($("img").length);
 	//
 	var t=0;
+	var time_old=0;
+	//
 	var timedown_x = setInterval(function() {
 		//
 if($("img").get(t)){
@@ -640,7 +642,12 @@ if($("img").get(t)){
 }
 		//
 		t=t+1;
-		
+		console.log( 'time_old'+time_old );
+		time_now = new Date().getTime();
+		time_now = Number(time_r);
+		time_now = Math.floor(time_r/1000);
+		time_old = time_now;
+		console.log( 'time_now'+time_now );
 		//
 		if(t<10){
 			timedown_x;
