@@ -639,6 +639,11 @@ alert($("img").length);
 		//
 		t=t+1;
 		console.log( 'time_old'+time_old );
+		if(time_old != time_now){
+			console.log( 'poi' );
+			xopowo(t);
+		}
+		//
 		time_now = new Date().getTime();
 		time_now = Number(time_now);
 		time_now = Math.floor(time_now/1000);
@@ -646,17 +651,13 @@ alert($("img").length);
 		console.log( 'time_now'+time_now );
 		//
 		if(1==1){
-			if(time_old != time_now){
-				console.log( 'poi' );
-				xopowo(t);
-			}
 			timedown_x;
 		}else{
 			clearInterval(timedown_x);
 		}
 		//
 		//
-	}, 499);
+	}, 1000);
 	//
 }
 //
