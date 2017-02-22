@@ -644,8 +644,8 @@ if($("img").get(t)){
 		t=t+1;
 		console.log( 'time_old'+time_old );
 		time_now = new Date().getTime();
-		time_now = Number(time_r);
-		time_now = Math.floor(time_r/1000);
+		time_now = Number(time_now);
+		time_now = Math.floor(time_now/1000);
 		time_old = time_now;
 		console.log( 'time_now'+time_now );
 		//
