@@ -696,11 +696,12 @@ function poi(){
 			//
 			timedown_x;
 		}else{
+			console.log( '但願人長久 千里共嬋娟' );
 			clearInterval(timedown_x);
 		}
 		//
-		t=t+1;
 		console.log( t );
+		t=t+1;
 		//
 		//
 		//
