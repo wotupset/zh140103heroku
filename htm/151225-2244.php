@@ -633,14 +633,21 @@ alert($("img").length);
 	//
 	var t=0;
 	var timedown_x = setInterval(function() {
-		t=t+1;
 		//
+if($("img").get(0)){
+	var FFF=$("img").get(0);
+	FFF.after(FFF.src);
+}
+		
 		//
 		if(t<10){
 			timedown_x;
 		}else{
 			clearInterval(timedown_x);
 		}
+		//
+		t=t+1;
+		//
 	}, 911);
 	//
 }
