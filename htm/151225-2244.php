@@ -667,37 +667,47 @@ function poi_170222(){
 	}, 1000);
 	//
 }
-//
-	function poi(){
-		//
-		$("img").after('after');
-		$("img").css( "display", "none" );
-		//alert($("img").length);
-		//
-		var t=0;
-		var timedown_x = setInterval(function() {
-			//
-			if( $("img").get(t) ){
-				console.log( $("img").get(t) );
-				$("img").get(t).after($("img").get(t).src);
-				$("img").get(t).css( "display", "inline" );
-				//
-				timedown_x;
-			}else{
-				clearInterval(timedown_x);
-			}
-			//
-			t=t+1;
-			//
-		}, 1000);
-	}
-
 	function xopowo(t){
 		if($("img").get(t)){
 			var FFF=$("img").get(t);
 			FFF.after(FFF.src);
 		}
 	}
+//
+function poi(){
+	//
+	$("img").after('after');
+	$("img").css( "display", "none" );
+	//alert($("img").length);
+	//
+	var t=0;
+	var timedown_x = setInterval(function() {
+		//
+		//
+		if( $("img").get(t) ){
+			console.log( $("img").get(t) );
+			$("img").get(t).after($("img").get(t).src);
+			tmp=$("img").get(t);
+			//console.log( tmp );
+			$tmp=$(tmp);//becomes javascript object.
+			//console.log( $tmp );
+			$tmp.css( {'background-color':'#343434'} );
+			$tmp.css( "display", "inline" )
+			//
+			timedown_x;
+		}else{
+			clearInterval(timedown_x);
+		}
+		//
+		t=t+1;
+		console.log( t );
+		//
+		//
+		//
+	}, 1000);
+}
+
+
 //
 	
 
