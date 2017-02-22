@@ -636,10 +636,6 @@ alert($("img").length);
 	//
 	var timedown_x = setInterval(function() {
 		//
-if($("img").get(t)){
-	var FFF=$("img").get(t);
-	FFF.after(FFF.src);
-}
 		//
 		t=t+1;
 		console.log( 'time_old'+time_old );
@@ -649,16 +645,29 @@ if($("img").get(t)){
 		time_old = time_now;
 		console.log( 'time_now'+time_now );
 		//
-		if(t<10){
+		if(1==1){
+			if(time_old != time_now){
+				console.log( 'poi' );
+				xopowo(t);
+			}
 			timedown_x;
 		}else{
 			clearInterval(timedown_x);
 		}
 		//
 		//
-	}, 911);
+	}, 499);
 	//
 }
+//
+	function xopowo(t){
+		if($("img").get(t)){
+			var FFF=$("img").get(t);
+			FFF.after(FFF.src);
+		}
+	}
+//
+	
 
 </script>
 </head>
