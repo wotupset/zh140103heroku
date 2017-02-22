@@ -616,6 +616,7 @@ function poi(){
 $("img").after('after');
 alert($("img").length);
 	//
+	var t=0;
 	var timedown_x = setInterval(function() {
 		t=t+1;
 		//
