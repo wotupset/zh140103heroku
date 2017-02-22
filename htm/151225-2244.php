@@ -628,34 +628,41 @@ $(document).ready(function() {
 
 
 function poi(){
-$("img").after('after');
-alert($("img").length);
+	$("img").after('after');
+	alert($("img").length);
 	//
 	var t=0;
 	var time_old=0;
+	var time_x1=time_x2=0;
+	//
+	time_orig = new Date().getTime();
+	time_orig = Number(time_orig);
+	time_orig = Math.floor(time_orig/1000);
 	//
 	var timedown_x = setInterval(function() {
 		//
 		//
 		t=t+1;
-		console.log( 'time_old'+time_old );
-		if(time_old != time_now){
-			console.log( 'poi' );
-			xopowo(t);
-		}
-		//
+		//console.log( 'time_old'+time_old );
 		time_now = new Date().getTime();
 		time_now = Number(time_now);
 		time_now = Math.floor(time_now/1000);
 		time_old = time_now;
-		console.log( 'time_now'+time_now );
+		//console.log( 'time_now'+time_now );
+		//
+		time_x1 = time_now - time_orig;
 		//
 		if(1==1){
+			if(time_x1 != time_x2){
+				console.log( 'poi' );
+				xopowo(t);
+			}
 			timedown_x;
 		}else{
 			clearInterval(timedown_x);
 		}
 		//
+		time_x2 = time_x1;
 		//
 	}, 1000);
 	//
