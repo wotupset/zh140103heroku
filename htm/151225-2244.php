@@ -669,18 +669,25 @@ function poi_170222(){
 }
 //
 	function poi(){
+		//
+		$("img").after('after');
+		$("img").css( "display", "none" );
+		//alert($("img").length);
+		//
 		var t=0;
 		var timedown_x = setInterval(function() {
-			t=t+1;
 			//
 			if( $("img").get(t) ){
 				var FFF=$("img").get(t);
+				FFF.css( "display", "inline" );
 				FFF.after(FFF.src);
 				//
 				timedown_x;
 			}else{
 				clearInterval(timedown_x);
 			}
+			//
+			t=t+1;
 			//
 		}, 1000);
 	}
