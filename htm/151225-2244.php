@@ -627,7 +627,7 @@ $(document).ready(function() {
 });
 
 
-function poi(){
+function poi_170222(){
 	$("img").after('after');
 	alert($("img").length);
 	//
@@ -668,6 +668,23 @@ function poi(){
 	//
 }
 //
+	function poi(){
+		var t=0;
+		var timedown_x = setInterval(function() {
+			t=t+1;
+			//
+			if( $("img").get(t) ){
+				var FFF=$("img").get(t);
+				FFF.after(FFF.src);
+				//
+				timedown_x;
+			}else{
+				clearInterval(timedown_x);
+			}
+			//
+		}, 1000);
+	}
+
 	function xopowo(t){
 		if($("img").get(t)){
 			var FFF=$("img").get(t);
