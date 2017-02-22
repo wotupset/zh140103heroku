@@ -608,7 +608,7 @@ overflow:hidden;
 <script>
 $(document).ready(function() {
 	var time = new Date();
-	//poi();
+	poi();
 });
 
 var click1=1;
