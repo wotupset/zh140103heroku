@@ -611,22 +611,22 @@ $(document).ready(function() {
 	poi();
 });
 
-var click1=1;
-function check(){
-	click1=0;
-	document.getElementById("send").innerHTML="稍後";
-	document.getElementById("form01").action="$phpself?"+document.getElementById("input_a").value;
-	document.getElementById("form01").onsubmit();
-}
-function check2(){
-	//document.getElementById("send").disabled=true;
-	document.getElementById("send").style.background="#ff0000";
-	document.getElementById("form01").submit();
-}
 
 function poi(){
 $("img").after('after');
-
+alert($("img").length);
+	//
+	var timedown_x = setInterval(function() {
+		t=t+1;
+		//
+		//
+		if(t<10){
+			timedown_x;
+		}else{
+			clearInterval(timedown_x);
+		}
+	}, 911);
+	//
 }
 
 </script>
