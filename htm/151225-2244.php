@@ -678,7 +678,7 @@ function poi_170222(){
 		var timedown_x = setInterval(function() {
 			//
 			if( $("img").get(t) ){
-				//var FFF=$("img").get(t);
+				console.log( $("img").get(t) );
 				$("img").get(t).after(FFF.src);
 				$("img").get(t).css( "display", "inline" );
 				//
