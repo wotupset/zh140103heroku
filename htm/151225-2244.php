@@ -578,6 +578,7 @@ max-width:250px; max-height:250px;
 border:1px solid blue;
 padding-right:5px;
 background-color:#00ffff;
+display:none;
 }
 span.name {
 display: inline-block;
