@@ -705,7 +705,7 @@ function poi(){
 			//console.log( tmp );
 			\$tmp=$(tmp);//becomes javascript object.
 			//console.log( $tmp );
-			\$tmp.attr('src', $tmp.attr('src_x') );
+			\$tmp.attr('src', \$tmp.attr('src_x') );
 			\$tmp.removeAttr("src_x");
 			\$tmp.css( {'background-color':'#343434'} );
 			\$tmp.css( "display", "inline" )
