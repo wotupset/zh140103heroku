@@ -678,8 +678,20 @@ function poi_170222(){
 function poi(){
 	//
 	$("img").after('after');
-	$("img").css( "display", "none" );
+	//$("img").css( "display", "none" );//
 	//alert($("img").length);
+	//$("img").css( "display", "none" );
+	//
+	var images = $('img');
+	var tmp='';
+	$.each(images, function() {
+		tmp=$(this).attr('src');
+		console.log( '但'+tmp);
+		$(this).attr('src_x',tmp);
+		//$(this).attr('src','');
+	    $(this).removeAttr("src");
+	});
+	
 	//
 	var t=0;
 	var timedown_x = setInterval(function() {
@@ -688,10 +700,13 @@ function poi(){
 		if( $("img").get(t) ){
 			console.log( $("img").get(t) );
 			$("img").get(t).after($("img").get(t).src);
+			//
 			tmp=$("img").get(t);
 			//console.log( tmp );
 			\$tmp=$(tmp);//becomes javascript object.
 			//console.log( $tmp );
+			\$tmp.attr('src', $tmp.attr('src_x') );
+			\$tmp.removeAttr("src_x");
 			\$tmp.css( {'background-color':'#343434'} );
 			\$tmp.css( "display", "inline" )
 			//
