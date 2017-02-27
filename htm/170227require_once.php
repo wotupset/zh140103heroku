@@ -202,7 +202,7 @@ if($kdao_only){//只使用於綜合網址
 	//
 	ksort($chat_array);//排序
 	$chat_ct=count($chat_array);//計數
-	echo print_r($chat_array,true);exit;//檢查點
+	//echo print_r($chat_array,true);exit;//檢查點
 	//
 	
 	
