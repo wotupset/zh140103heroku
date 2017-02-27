@@ -228,41 +228,39 @@ if($kdao_only){//只使用於綜合網址
 		if( $v['image'] ){//回應中有圖 // 網址字串
 			$cc2++;//計算圖片數量
 			//
-			//$htmlbody.= '[<span class="image"><a href="'.$v['image'].'" target="_blank"><img class="zoom" src="'.$v['image'].'"/></a></span>]'."<br/>\n";
-			//$tmp='http://zh150609.xp3.biz/mysql_blob.php?cdn!'.$v['image'];
-			//$tmp0="http://web.archive.org/web/2016/".$v['image'];
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
-			//$tmp="http://demo.cloudimg.io/cdn/n/n/".$v['image'];
 
-			//$tmp="http://demo.cloudimg.io/cdn/n/n/"."http://web.archive.org/web/2016/".$v['image'];
-			//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
-			//$tmp='http://crossorigin.me/http://zh150614.athost.biz/img_hot_url.php?door='.$tmp;
-			//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp.'"/></span>]';
+			if(1){
+				$findme='//';
+				$mystring=$v['image'];
+				$pos = strpos($mystring, $findme);
+				$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+				//$v['image']=$rest;
+				$v['image']='http://'.$rest;
 
-
-			if(1==1){
+				$findme='//';
+				$mystring=$v['image_t'];
+				$pos = strpos($mystring, $findme);
+				$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+				//$v['image_t']=$rest;
+				$v['image_t']='http://'.$rest;
 				//
-
-				//
-				$tmp_r=$v['image'];//原圖
-				$tmp_t=$v['image_t'];//縮圖
-				$tmp_w2='https://web.archive.org/web/2016/'.$v['image'];
+				
 				if( preg_match('/\.webm$/',$v['image'])){
-					//$tmp="".$tmp0;
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_t.'"/></span>]';//縮圖
-					$htmlbody.='<b>webm內容</b>';
-					//$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';//讀取
-					$htmlbody.= '[<span class="image"><video controls preload="metadata">您<source src="'.$tmp_w2.'" type="video/webm"></video></span>]';
+					//$FFF='http://web.archive.org/web/2017/'.$v['image_t'];
+					$FFF=''.$v['image_t'];
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';//縮圖
+					$FFF=''.$v['image'];
+					$htmlbody.= '<b>webm內容<img class="zoom" src="'.$FFF.'"/></b>';//縮圖
+					$FFF='http://web.archive.org/web/2017/'.$v['image'];
+					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">video</video><br/>'.$FFF;
 				}else{
-					//$tmp="http://demo.cloudimg.io/cdn/n/n/".$tmp0;
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$tmp_r.'"/></span>]';
+					//$FFF='http://web.archive.org/web/2017/'.$v['image'];
+					$FFF=''.$v['image'];
+					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
 				}
-				//$tmp="".$tmp0;
-				//$htmlbody.= '[<span class="image2"><a href="'.$tmp.'"/>備份?</a></span>]';
-				//$tmp=preg_replace('/\.webm$/', 's.jpg', $tmp);
 			}
 
+			
 			
 			//$tmp="http://assembly.firesize.com/n/g_none/".$tmp0;
 
