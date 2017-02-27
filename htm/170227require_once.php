@@ -1,5 +1,12 @@
 <?php
 
+$htmlbody="";
+$htmlbody2="";
+$img_all='';
+$cc1=0;//回文數
+$cc2=0;//貼圖數
+//echo $query_string;
+
 //
 if($kdao_only){//只使用於綜合網址
 	//取得來源內容
