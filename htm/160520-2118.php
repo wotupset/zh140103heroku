@@ -76,15 +76,10 @@ if(preg_match($pattern, $url, $matches_url)){
 
 //允許的網址格式//
 //
-$htmlbody="";
-$htmlbody2="";
-$img_all='';
-$cc1=0;//回文數
-$cc2=0;//貼圖數
-//echo $query_string;
+
 //////
 
-
+//if($kdao_only){//只使用於綜合網址
 $tmp="./170227require_once.php";
 if(!file_exists($tmp)){die('file_exists');}//file_exists
 require_once($tmp);
