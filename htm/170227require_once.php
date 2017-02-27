@@ -246,16 +246,23 @@ if($kdao_only){//只使用於綜合網址
 				//
 				
 				if( preg_match('/\.webm$/',$v['image'])){
-					//$FFF='http://web.archive.org/web/2017/'.$v['image_t'];
 					$FFF=''.$v['image_t'];
-					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';//縮圖
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
+					$FFF='http://demo.cloudimg.io/cdn/n/n/'.$FFF;
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';//影片縮圖
+					
 					$FFF=''.$v['image'];
-					$htmlbody.= '<b>webm內容<img class="zoom" src="'.$FFF.'"/></b>';//縮圖
-					$FFF='http://web.archive.org/web/2017/'.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
+					$FFF='http://demo.cloudimg.io/cdn/n/n/'.$FFF;
+					$htmlbody.= '<b>webm內容<img class="zoom" src="'.$FFF.'"/></b>';//影片
+					
+					$FFF=''.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
 					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">video</video><br/>'.$FFF;
 				}else{
-					//$FFF='http://web.archive.org/web/2017/'.$v['image'];
 					$FFF=''.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
+					$FFF='http://demo.cloudimg.io/cdn/n/n/'.$FFF;
 					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
 				}
 			}
