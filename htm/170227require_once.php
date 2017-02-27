@@ -158,7 +158,7 @@ if($kdao_only){//只使用於綜合網址
 	//
 	$chat_array[0]['org_text'] = $html->outertext;//原始內容
 	//
-	if(preg_match('/archive/',$url_p1['host'],$match)){ //檔案區
+	if(preg_match('/archive/',$url,$match)){ //檔案區
 		foreach($html->find('span.Ctitle') as $k2 => $v2){
 			$chat_array[0]['title'] =$v2->plaintext;
 			$v2->outertext="";
