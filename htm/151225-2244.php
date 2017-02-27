@@ -54,10 +54,10 @@ Array
 //允許的網址格式
 //$url=$query_string;//從query取得網址
 $kdao_only=0;
-if(preg_match("%dreamhosters\.com/[0-9]{2}/%U",$url))
+
+if(preg_match("%komica\.org/.{1,10}/index\.php\?%",$url,$matches))
 {$kdao_only=1;}
-if(preg_match("%komica\.org/([0-9]{2})/%U",$url,$matches))
-{$kdao_only=1;}
+
 $url_num2=$matches[1];
 //
 //抓首串編號
