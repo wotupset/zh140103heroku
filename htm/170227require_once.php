@@ -228,23 +228,42 @@ if($kdao_only){//只使用於綜合網址
 		if( $v['image'] ){//回應中有圖 // 網址字串
 			$cc2++;//計算圖片數量
 			//
+			$findme='//';
+			$mystring=$v['image'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image']=$rest;
+			$v['image']='http://'.$rest;
 
-			if(1){
-				$findme='//';
-				$mystring=$v['image'];
-				$pos = strpos($mystring, $findme);
-				$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
-				//$v['image']=$rest;
-				$v['image']='http://'.$rest;
-
-				$findme='//';
-				$mystring=$v['image_t'];
-				$pos = strpos($mystring, $findme);
-				$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
-				//$v['image_t']=$rest;
-				$v['image_t']='http://'.$rest;
-				//
+			$findme='//';
+			$mystring=$v['image_t'];
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			//$v['image_t']=$rest;
+			$v['image_t']='http://'.$rest;
+			//
+			//
+			$php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
+			$phpself=$php_info['basename'];
+			if($phpself == '160520-2118.php'){
+				if( preg_match('/\.webm$/',$v['image'])){
+					$FFF=''.$v['image_t'];
+					$htmlbody.= '[<span class="image"><img class="zoom" src="'.$FFF.'"/></span>]';//影片縮圖
+					
+					$FFF=''.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
+					$FFF='http://demo.cloudimg.io/cdn/n/n/'.$FFF;
+					$htmlbody.= '<b>webm內容<img class="zoom" src="'.$FFF.'"/></b>';//影片
+					
+					$FFF=''.$v['image'];
+					$FFF='http://web.archive.org/web/2017/'.$FFF;
+					$htmlbody.='<video controls preload="metadata"><source src="'.$FFF.'" type="video/webm">video</video><br/>'.$FFF;
+				}else{
+					$FFF=''.$v['image'];
+					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
+				}
 				
+			}else{
 				if( preg_match('/\.webm$/',$v['image'])){
 					$FFF=''.$v['image_t'];
 					$FFF='http://web.archive.org/web/2017/'.$FFF;
@@ -266,8 +285,7 @@ if($kdao_only){//只使用於綜合網址
 					$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
 				}
 			}
-
-			
+		
 			
 			//$tmp="http://assembly.firesize.com/n/g_none/".$tmp0;
 
