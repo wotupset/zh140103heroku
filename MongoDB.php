@@ -17,7 +17,7 @@ if(class_exists($FFF)){
 	$FFF=$FFF.'存在';
 }else{
 	$FFF=$FFF.'不存在';
-	die('[x]');
+	echo $FFF;
 }
 echo $FFF;
 echo "\n";
