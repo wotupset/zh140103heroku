@@ -17,7 +17,7 @@ if(class_exists($FFF)){
 	$FFF=$FFF.'存在';
 }else{
 	$FFF=$FFF.'不存在';
-	echo $FFF;
+	die($FFF);
 }
 echo $FFF;
 echo "\n";
@@ -25,45 +25,21 @@ echo "\n";
 
 
 
-echo '';
+echo 'mongo版本=';
 echo MongoClient::VERSION;
 echo "\n";
 
 
 
-define('DB_HOST',getenv('OPENSHIFT_MONGODB_DB_HOST'));
-define('DB_PORT',getenv('OPENSHIFT_MONGODB_DB_PORT')); 
-define('DB_USER',getenv('OPENSHIFT_MONGODB_DB_USERNAME'));
-define('DB_PASS',getenv('OPENSHIFT_MONGODB_DB_PASSWORD'));
-define('DB_URL' ,getenv('OPENSHIFT_MONGODB_DB_URL'));
+//define('DB_HOST',getenv('OPENSHIFT_MONGODB_DB_HOST'));
+//define('DB_PORT',getenv('OPENSHIFT_MONGODB_DB_PORT')); 
+//define('DB_USER',getenv('OPENSHIFT_MONGODB_DB_USERNAME'));
+//define('DB_PASS',getenv('OPENSHIFT_MONGODB_DB_PASSWORD'));
+//define('DB_URL' ,getenv('OPENSHIFT_MONGODB_DB_URL'));
 
 //
-ob_start();//
+//ob_start();//
 
-echo '01=';
-echo DB_URL;
-echo "\n";
-
-echo '02=';
-try{
-	echo $FFF=getenv('OPENSHIFT_MONGO_DB_URL');
-} catch (Exception $e) {
-	//echo 'Caught exception: ',  $e->getMessage(), "\n";
-	print_r($e);
-}
-echo "\n";
-
-echo '03=';
-try{
-	echo $FFF=$_ENV["OPENSHIFT_MONGODB_DB_URL"];
-} catch (Exception $e) {
-	//echo 'Caught exception: ',  $e->getMessage(), "\n";
-	print_r($e);
-}
-echo "\n";
-//
-$buffer = ob_get_clean();
-//echo '10='.$buffer;
 
 
 //The MongoDB connection URL (e.g. mongodb://<username>:<password>@<hostname>:<port>/)
@@ -71,54 +47,118 @@ $buffer = ob_get_clean();
 //echo $FFF;
 //$manager = new MongoDB\Driver\Manager("$FFF");
 //$m = new MongoClient($FFF); // 连接默认主机和端口为：mongodb://localhost:27017
-$FFF=DB_URL;
-$manager = new MongoClient($FFF); // 连接默认主机和端口为：mongodb://localhost:27017
+
+//$FFF=DB_URL;
+//$FFF=getenv('OPENSHIFT_MONGO_DB_URL');
+
+$FFF=$_ENV["OPENSHIFT_MONGODB_DB_URL"];
+//echo '01='.$FFF;echo "\n";//
+
+try{
+	//$FFF=getenv('OPENSHIFT_MONGO_DB_URL');
+	$manager = new MongoClient($FFF); // 连接默认主机和端口为：mongodb://localhost:27017
+}catch(Exception $e){
+	//echo 'Caught exception: ', $e->getMessage(), "\n";
+	print_r($e);
+}
 var_dump($manager);
 
-$FFF='資料庫連接';
+$FFF='MongoClient呼叫';
 if($manager->connected ){
-	$FFF='成功';
+	$FFF=$FFF.'成功';
 }else{
-	$FFF='失敗';
+	$FFF=$FFF.'失敗';
 	die($FFF);
 }
 echo $FFF;
 echo "\n";
 
-
-$db = $manager->test; // 获取名称为 "test" 的数据库
-$collection = $db->createCollection("runoob");
-echo "集合创建成功";
+// get the database named "test"
+// 获取名称为 "test" 的数据库
+$db = $manager->test; 
+var_dump($db);
+$FFF='database呼叫';
+if( count((array)$db) >0 ){
+	$FFF=$FFF.'成功';
+}else{
+	$FFF=$FFF.'失敗';
+	die($FFF);
+}
+echo $FFF;
 echo "\n";
 
-//exit;
-$collection = $db->runoob; // 选择集合
+// Get the poi123 collection
+//$collection = $db->createCollection("runoob");
+$collection = $db->poi123;
+var_dump($collection);
+$FFF='collection呼叫';
+if( count((array)$collection) >0 ){
+	$FFF=$FFF.'成功';
+}else{
+	$FFF=$FFF.'失敗';
+	die($FFF);
+}
+echo $FFF;
+echo "\n";
+
+//簡化的寫法1
+//$collection = $manager->selectCollection("test", "poi123");
+//簡化的寫法2
+//$collection = $manager->selectDB("test")->selectCollection("poi123");
+
+
+//$collection = $db->runoob; // 选择集合
 $document = array( 
 	"title" => "中文MongoDB", 
 	"description" => "中文database", 
 	"likes" => '100',
 	"url" => "中文http://www.runoob.com/mongodb/",
 );
-$collection->insert($document);
-echo "数据插入成功";
+var_dump($document);//array
+
+$options = array(
+    "w" => 1,
+    "j" => true,
+);
+$stmt=$collection->insert($document,$options);
+var_dump($stmt);//array
+var_dump($document);//array//有改變 多了mongoid
+var_dump($collection);//object//回傳的只是參數
+
+$FFF='数据插入';
+if($stmt['ok'] ){
+	$FFF=$FFF.'成功';
+}else{
+	$FFF=$FFF.'失敗';
+	die($FFF);
+}
+echo $FFF;
 echo "\n";
 
+
+
+//exit;
+//
 $cursor = $collection->find();
+var_dump($cursor);//object//沒東西
+$count=$cursor->count();
+echo '數量='.$count;
+echo "\n";
+
+//echo '</pre>';
 // 迭代显示文档标题
-echo $count=$cursor->count();
-
-echo "\n";
-echo "\n";
-
-echo '</pre>';
 
 $cc=0;
-foreach ($cursor as $document) {
+foreach ($cursor as $k=>$v) {
 	$cc++;
-	if($cc>10){break;}
+	if($cc < $count-5){continue;}//break;//顯示最新5個
 	//
 	echo '#'.$cc.'#';
-	echo '<pre>'.print_r($document,true).'</pre>'."\n";
+	echo "\n";
+	echo '#'.print_r($k,1).'#';
+	echo "\n";
+	echo '#'.print_r($v,1).'#';
+	echo "\n";
 }
 
 ?>
