@@ -98,7 +98,7 @@ foreach($html->find('div.post') as $k => $v){
 		//$chat_array[$k]['image0'] =$v2->parent->outertext;
 		$FFF=$v2->parent->outertext;
 		$chat_array[$k]['image0']=$FFF;
-		foreach($FFF->find('a.file-thumb') as $k3 => $v3){
+		foreach($FFF->find('.file-thumb') as $k3 => $v3){
 			$chat_array[$k]['image']=$v3->href;
 		}
 		//
