@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 $query_string=$_SERVER['QUERY_STRING'];
 $url=$query_string;
 //
@@ -94,11 +95,34 @@ foreach($html->find('div.post') as $k => $v){
 		$chat_array[$k]['quote'] =$v2->innertext;
 		$v2->outertext="";
 	}
-	foreach($v->find('img.img') as $k2 => $v2){
-		//$chat_array[$k]['image0'] =$v2->parent->outertext;
-		$FFF=$v2->parent->outertext;
-		$chat_array[$k]['image0']=$FFF;
 
+	foreach($v->find('a.file-thumb') as $k2 => $v2){
+		//$chat_array[$k]['image0'][]=$v2->outertext;
+		//$chat_array[$k]['image']
+		$FFF=$v2->href;
+		
+		$mystring=$FFF;
+		$findme='//';
+		$pos = strpos($mystring, $findme);
+		$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+		$FFF='http://'.$rest;
+		
+		$chat_array[$k]['image']=$FFF;
+		
+
+		foreach($v2->find('img') as $k3 => $v3){
+			//$chat_array[$k]['image1'][]=$v3->outertext;
+			$FFF=$v3->src;
+			
+			$mystring=$FFF;
+			$findme='//';
+			$pos = strpos($mystring, $findme);
+			$rest = substr($mystring, $pos+strlen($findme));    // 返回 "f"
+			$FFF='http://'.$rest;
+			
+			$chat_array[$k]['image_t']=$FFF;
+
+		}
 		//
 		$v2->outertext="";
 	}
@@ -113,4 +137,3 @@ echo print_r($chat_array,true);exit;//檢查點
 
 exit;
 ?>
-
