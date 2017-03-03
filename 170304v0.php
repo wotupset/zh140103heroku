@@ -95,7 +95,15 @@ foreach($html->find('div.post') as $k => $v){
 		$v2->outertext="";
 	}
 	foreach($v->find('img.img') as $k2 => $v2){
-		$chat_array[$k]['image'] =$v2->parent->outertext;
+		//$chat_array[$k]['image'] =$v2->parent->outertext;
+		$FFF=$v2->parent->outertext;
+		foreach($v2->find('a') as $k3 => $v3){
+			$chat_array[$k]['image']=$v3->href;
+		}
+		foreach($v2->find('img') as $k3 => $v3){
+			$chat_array[$k]['image_t']=$v3->src;
+		}
+		//
 		$v2->outertext="";
 	}
 
