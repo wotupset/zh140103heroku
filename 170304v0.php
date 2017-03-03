@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 $query_string=$_SERVER['QUERY_STRING'];
 $url=$query_string;
 //
@@ -28,7 +29,34 @@ if(1){
 $html = str_get_html($content) or die('沒有收到資料');//simple_html_dom自訂函式
 $chat_array='';
 $chat_array = $html->outertext;
-echo print_r($chat_array,true);exit;//檢查點
+//echo print_r($chat_array,true);exit;//檢查點
+//
 
+$url_num='0000';
+$pattern="%\?res=([0-9]+)%";
+if(preg_match($pattern, $url, $matches_url)){
+	//echo $matches_url[1];
+	$url_num=$matches_url[1];
+}
+echo $url_num;
+$board_title = $html->find('title',0)->innertext;//版面標題
+echo $board_title;
+
+date_default_timezone_set("Asia/Taipei");//時區設定
+$time=sprintf('%s',time());//%u=零或正整數//%s=字串
+$ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
+$board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
+echo $board_title2;
+
+
+$cc=0;
+foreach( $html->find('div.quote') as $k => $v){$cc++;}
+if($cc>0){
+	echo $cc;
+}else{
+	die('[x]blockquote');
+}
+
+exit;
 ?>
 
