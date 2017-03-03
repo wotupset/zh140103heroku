@@ -39,20 +39,24 @@ if(preg_match($pattern, $url, $matches_url)){
 	$url_num=$matches_url[1];
 }
 echo $url_num;
+echo "\n";
 $board_title = $html->find('title',0)->innertext;//版面標題
 echo $board_title;
+echo "\n";
 
 date_default_timezone_set("Asia/Taipei");//時區設定
 $time=sprintf('%s',time());//%u=零或正整數//%s=字串
 $ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
 $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
 echo $board_title2;
+echo "\n";
 
 
 $cc=0;
 foreach( $html->find('div.quote') as $k => $v){$cc++;}
 if($cc>0){
 	echo $cc;
+	echo "\n";
 }else{
 	die('[x]blockquote');
 }
