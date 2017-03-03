@@ -95,7 +95,7 @@ foreach($html->find('div.post') as $k => $v){
 		$v2->outertext="";
 	}
 	foreach($v->find('img.img') as $k2 => $v2){
-		$chat_array[$k]['image'] =$v2->outertext;
+		$chat_array[$k]['image'] =$v2->parent->outertext;
 		$v2->outertext="";
 	}
 
