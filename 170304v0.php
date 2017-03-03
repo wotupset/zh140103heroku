@@ -85,7 +85,10 @@ foreach($html->find('div.quote') as $k => $v){
 		$v2->outertext="";
 	}
 	//
-
+	foreach($vv->find('div.quote') as $k2 => $v2){
+		$chat_array[$k]['quote'] =$v2->innertext;
+		$v2->outertext="";
+	}
 
 }
 	
