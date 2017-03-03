@@ -67,7 +67,26 @@ $cc=0;
 foreach($html->find('div.quote') as $k => $v){
 	$vv=$v->parent;
 	$chat_array[$k]['org_text']=$vv->outertext;
-	
+	//
+	foreach($vv->find('span.name') as $k2 => $v2){
+		$chat_array[$k]['name'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($vv->find('span.now') as $k2 => $v2){
+		$chat_array[$k]['now'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($vv->find('span.id') as $k2 => $v2){
+		$chat_array[$k]['id'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($vv->find('span.qlink') as $k2 => $v2){
+		$chat_array[$k]['qlink'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	//
+
+
 }
 	
 echo print_r($chat_array,true);exit;//檢查點
