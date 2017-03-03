@@ -60,6 +60,18 @@ if($cc>0){
 }else{
 	die('[x]blockquote');
 }
+////////////
+//批次找留言
+$chat_array=array();
+$cc=0;
+foreach($html->find('div.quote') as $k => $v){
+	$vv=$v->parent;
+	$chat_array[$k]['org_text']=$vv->outertext;
+	
+}
+	
+echo print_r($chat_array,true);exit;//檢查點
+////////////
 
 exit;
 ?>
