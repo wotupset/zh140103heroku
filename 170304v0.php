@@ -72,6 +72,11 @@ foreach($html->find('div.post') as $k => $v){
 		$chat_array[$k]['name'] =$v2->plaintext;
 		$v2->outertext="";
 	}
+	foreach($v->find('span.title') as $k2 => $v2){
+		$chat_array[$k]['title'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+
 	foreach($v->find('span.now') as $k2 => $v2){
 		$chat_array[$k]['now'] =$v2->plaintext;
 		$v2->outertext="";
@@ -89,6 +94,11 @@ foreach($html->find('div.post') as $k => $v){
 		$chat_array[$k]['quote'] =$v2->innertext;
 		$v2->outertext="";
 	}
+	foreach($v->find('img.img') as $k2 => $v2){
+		$chat_array[$k]['image'] =$v2->innertext;
+		$v2->outertext="";
+	}
+
 	//
 	$chat_array[$k]['zzz_text']=$v->outertext;
 
