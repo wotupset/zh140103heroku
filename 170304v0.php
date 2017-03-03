@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+//header('Content-Type: application/json; charset=utf-8');
 error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 $query_string=$_SERVER['QUERY_STRING'];
 $url=$query_string;
@@ -39,25 +39,22 @@ if(preg_match($pattern, $url, $matches_url)){
 	//echo $matches_url[1];
 	$url_num=$matches_url[1];
 }
-echo $url_num;
-echo "\n";
+//echo $url_num;echo "\n";
 $board_title = $html->find('title',0)->innertext;//版面標題
-echo $board_title;
-echo "\n";
+//echo $board_title;echo "\n";
+
 
 date_default_timezone_set("Asia/Taipei");//時區設定
 $time=sprintf('%s',time());//%u=零或正整數//%s=字串
 $ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
 $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
-echo $board_title2;
-echo "\n";
+//echo $board_title2;echo "\n";
 
 
 $cc=0;
 foreach( $html->find('div.quote') as $k => $v){$cc++;}
 if($cc>0){
-	echo $cc;
-	echo "\n";
+	//echo $cc;echo "\n";
 }else{
 	die('[x]blockquote');
 }
@@ -92,7 +89,10 @@ foreach($html->find('div.post') as $k => $v){
 	}
 	//
 	foreach($v->find('div.quote') as $k2 => $v2){
-		$chat_array[$k]['quote']=$v2->outertext;
+		$FFF=$v2->outertext;
+		$FFF=strip_tags($FFF,"<br><span>");//留下換行標籤
+		$chat_array[$k]['quote']=$FFF;
+		//
 		$v2->outertext="";
 	}
 
@@ -120,11 +120,117 @@ foreach($html->find('div.post') as $k => $v){
 
 }
 	
-echo print_r($chat_array,true);exit;//檢查點
+//echo print_r($chat_array,true);exit;//檢查點
 ////////////
 
+//用迴圈叫出資料
+$cc=$cc2=0;$htmlbody='';
+foreach($chat_array as $k => $v){//迴圈
+	$cc++;
+	//
+	$htmlbody.= '<div id="block'.$cc.'">'."\n";
+	$htmlbody.= '<div id="box1">'."\n";
+	$htmlbody.= '<span class="name">'.$v['name'].'</span> ';
+	$htmlbody.= '<span class="title">'.$v['title'].'</span> ';
+	$htmlbody.= '<span class="idno">'.$v['now'].$v['qlink'].'</span> ';
+	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
+	$htmlbody.= '</div>'."\n";
+	$htmlbody.= '<div id="box2">'."\n";
+	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
+	if(count($v['image'])){
+		$cc2++;//計算圖片數量
+		//
+		$FFF=''.$v['image'];
+		$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
+	}
+
+	$htmlbody.= '</div>'."\n";
 
 
+
+	$htmlbody.= '</div>'."\n";
+}
+
+
+//echo print_r($htmlbody,true);exit;//檢查點
+
+$chat_array[0]=$htmlbody;
+$chat_array[1]="國";
+$chat_array[2]=$url_num;
+$chat_array[3]=$board_title;
+$chat_array[4]=$board_title2;
+
+
+echo poi($chat_array);
 
 exit;
+
+function poi($x){
+	$htmlbody    =$x[0];
+	$board_title2=$x[4];
+//
+$FFF=<<<EOT
+<html>
+<head>
+<title>$board_title2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<STYLE>
+img.zoom {
+height:auto; width:auto;
+min-width:20px; min-height:20px;
+max-width:250px; max-height:250px;
+border:1px solid blue;
+padding-right:5px;
+background-color:#00ffff;
+}
+span.image {
+width:250px; 
+height:250px;
+border:1px solid #000;
+display: inline-block;
+}
+
+span.name {
+display: inline-block;
+white-space:nowrap;
+font-weight: bold;
+color: #117743;
+min-width:10px;
+max-width:100px;
+overflow:hidden;
+}
+span.title {
+display: inline-block;
+white-space:nowrap;
+font-weight: bold;
+color: #CC1105;
+min-width:10px;
+max-width:100px;
+overflow:hidden;
+}
+span.idno {
+display: inline-block;
+white-space:nowrap;
+min-width:10px;
+max-width:500px;
+overflow:hidden;
+}
+</STYLE>
+<head>
+
+<body bgcolor="#FFFFEE" text="#800000" link="#0000EE" vlink="#0000EE">
+$htmlbody
+</body>
+
+<html>
+
+EOT;
+	
+	//
+	$x=$FFF;
+	return $x;
+}
+
+	
+
 ?>
