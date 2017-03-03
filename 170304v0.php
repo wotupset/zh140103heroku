@@ -64,31 +64,33 @@ if($cc>0){
 //批次找留言
 $chat_array=array();
 $cc=0;
-foreach($html->find('div.quote') as $k => $v){
-	$vv=$v->parent;
-	$chat_array[$k]['org_text']=$vv->outertext;
+foreach($html->find('div.post') as $k => $v){
+	//$vv=$v->parent;
+	$chat_array[$k]['org_text']=$v->outertext;
 	//
-	foreach($vv->find('span.name') as $k2 => $v2){
+	foreach($v->find('span.name') as $k2 => $v2){
 		$chat_array[$k]['name'] =$v2->plaintext;
 		$v2->outertext="";
 	}
-	foreach($vv->find('span.now') as $k2 => $v2){
+	foreach($v->find('span.now') as $k2 => $v2){
 		$chat_array[$k]['now'] =$v2->plaintext;
 		$v2->outertext="";
 	}
-	foreach($vv->find('span.id') as $k2 => $v2){
+	foreach($v->find('span.id') as $k2 => $v2){
 		$chat_array[$k]['id'] =$v2->plaintext;
 		$v2->outertext="";
 	}
-	foreach($vv->find('span.qlink') as $k2 => $v2){
+	foreach($v->find('span.qlink') as $k2 => $v2){
 		$chat_array[$k]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
 	}
 	//
-	foreach($vv->find('div.quote') as $k2 => $v2){
+	foreach($v->find('div.quote') as $k2 => $v2){
 		$chat_array[$k]['quote'] =$v2->innertext;
 		$v2->outertext="";
 	}
+	//
+	$chat_array[$k]['zzz_text']=$v->outertext;
 
 }
 	
