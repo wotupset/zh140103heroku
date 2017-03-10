@@ -101,7 +101,7 @@ function curlpost_html($x){
 	//$myvars=array('file' => '@' . realpath('example.txt'));
 	//
 	$url_ary = array();
-	$url_ary[]='http://zh160213.1000space.tk/htm/151225-2244put.php';
+	$url_ary[]='http://cqcq.fastsito.com/htm/151225-2244put.php';
 	$url_ary[]='http://zh161005.comli.com/htm/151225-2244put.php';
 	$FFF=array_rand($url_ary,1);
 	$url=$url_ary[$FFF];
