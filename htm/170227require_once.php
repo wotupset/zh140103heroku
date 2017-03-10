@@ -298,7 +298,7 @@ if($kdao_only){//只使用於綜合網址
 	$htmlbody=' '.$url."<br/>\n".$board_title2."\n"."[$cc1][$cc2]<br>\n".$htmlbody."<br>\n<br>\n";
 	$output_path=output_html($htmlbody);//回傳檔案位置
 	//$output_path=$output_path."?".date('ymd-His',$time);//輸出的檔案名稱;
-	//$curlpost=curlpost_html($output_path);
+	$curlpost=curlpost_html($output_path);
 }
 //有輸入url/
 //
