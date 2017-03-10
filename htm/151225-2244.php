@@ -125,9 +125,9 @@ function curlpost_html($x){
 	curl_close($ch);
 	//
 	$FFF='';
-	$FFF.=print_r($getdata,true);
-	$FFF.=print_r($getinfo,true);
-	$FFF.=print_r($geterror,true);
+	$FFF.='getdata='.print_r($getdata,true)."\n";
+	$FFF.='getinfo='.print_r($getinfo,true)."\n";
+	$FFF.='geterror='.print_r($geterror,true)."\n";
 	//echo '<pre>'.$FFF.'</pre>';
 	//
 	$x=$FFF;
