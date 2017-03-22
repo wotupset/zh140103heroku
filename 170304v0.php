@@ -120,7 +120,7 @@ foreach($html->find('div.post') as $k => $v){
 
 }
 	
-echo print_r($chat_array,true);exit;//檢查點
+//echo print_r($chat_array,true);exit;//檢查點
 ////////////
 
 //用迴圈叫出資料
