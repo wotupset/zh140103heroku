@@ -131,7 +131,9 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<div id="block'.$cc.'">'."\n";
 	$htmlbody.= '<div id="box1">'."\n";
 	$htmlbody.= '<span class="name">'.$v['name'].'</span> ';
-	$htmlbody.= '<span class="title">'.$v['title'].'</span> ';
+	if(count($v['title'])){
+		$htmlbody.= '<span class="title">'.$v['title'].'</span> ';
+	}
 	$htmlbody.= '<span class="idno">'.$v['now'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
 	$htmlbody.= '</div>'."\n";
@@ -164,7 +166,7 @@ $chat_array[4]=$board_title2;
 echo poi($chat_array);
 
 exit;
-
+////////////////
 function poi($x){
 	$htmlbody    =$x[0];
 	$board_title2=$x[4];
