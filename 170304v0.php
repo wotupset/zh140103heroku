@@ -162,8 +162,14 @@ $chat_array[2]=$url_num;
 $chat_array[3]=$board_title;
 $chat_array[4]=$board_title2;
 
+//////////
+$FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
+$phpself=$FFF['basename'];
+$phpself2=$FFF['filename'];
 
-echo poi($chat_array);
+echo $FFF= poi($chat_array);
+file_put_contents($phpself2.'.htm',$FFF);
+
 
 exit;
 ////////////////
