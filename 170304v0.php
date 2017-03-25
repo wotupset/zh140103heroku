@@ -164,12 +164,34 @@ $chat_array[4]=$board_title2;
 
 //////////
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
-$phpself=$FFF['basename'];
-$phpself2=$FFF['filename'];
+$phpself  = $FFF['basename'];
+$phpself2 = $FFF['filename'];
 
-echo $FFF= poi($chat_array);
-file_put_contents($phpself2.'.htm',$FFF);
+$output_filename  = $phpself2.'.htm';
+$output_content   = poi($chat_array);
+file_put_contents($output_filename,$output_content);
 
+$FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
+$FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
+$output_fileurl=$FFF.$output_filename;
+
+header('Content-Type: text/html; charset=utf-8');
+$FFF.=''.$output_fileurl."<br/>\n";;
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">'.$FFF.'</a>'."<br/>\n";
+$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">'.$FFF.'</a>'."<br/>\n";
+
+$FFF=<<<EOT
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<body>
+$FFF
+</body>	
+</html>
+EOT;
+
+echo $FFF;
 
 exit;
 ////////////////
