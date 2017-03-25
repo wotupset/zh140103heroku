@@ -177,8 +177,8 @@ $output_fileurl=$FFF.$output_filename;
 
 header('Content-Type: text/html; charset=utf-8');
 $FFF.=''.$output_fileurl."<br/>\n";;
-$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">'.$FFF.'</a>'."<br/>\n";
-$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">'.$FFF.'</a>'."<br/>\n";
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
+$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">archive.is</a>'."<br/>\n";
 
 $FFF=<<<EOT
 <html>
