@@ -24,7 +24,7 @@ if( substr_count($url, "?res=")>0 ){
 }else{
 	//echo "?res=";
 $FFF=<<<EOT
-<form id='form01' enctype="multipart/form-data" action='170304v0.php' method="post" onsubmit="">
+<form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
 <input type="text" name="inputurl" size="20" value="">
 <input type="submit" name="sendbtn" value="送出">
 </form>
@@ -32,6 +32,8 @@ EOT;
 	echo html_body($FFF);
 	exit;
 }
+
+//exit;
 
 if(1){
   $x=curl_FFF($url);
@@ -218,7 +220,7 @@ $x
 </html>
 EOT;
 	//	
-	retrun $x;
+	return $x;
 }
 function poi($x){
 	$htmlbody    =$x[0];
