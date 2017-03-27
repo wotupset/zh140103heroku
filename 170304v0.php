@@ -1,17 +1,36 @@
 <?php
+
+extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
 //header('Content-Type: application/json; charset=utf-8');
 error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
-$query_string=$_SERVER['QUERY_STRING'];
-$url=$query_string;
+//$query_string=$_SERVER['QUERY_STRING'];
+//$url=$query_string;
+$FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
+$phpself  = $FFF['basename'];
+$phpself2 = $FFF['filename'];
+
 //
 require_once('simple_html_dom.php');
 require_once('curl_getinfo.php');
 //
+if(isset($_POST['inputurl'])){
+	$url=$_POST['inputurl'];
+}else{
+	$url=$_SERVER['QUERY_STRING'];
+}
 
 if( substr_count($url, "?res=")>0 ){
 	//ok
 }else{
-	echo "?res=";exit;
+	//echo "?res=";
+$FFF=<<<EOT
+<form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
+<input type="text" name="inputurl" size="20" value="">
+<input type="submit" name="sendbtn" value="送出">
+</form>
+EOT;
+	echo html_body($FFF);
+	exit;
 }
 
 if(1){
@@ -175,27 +194,32 @@ $FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
 $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
+///
 header('Content-Type: text/html; charset=utf-8');
 $FFF='';
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";;
 $FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">archive.is</a>'."<br/>\n";
+echo html_body($FFF);
 
-$FFF=<<<EOT
+exit;
+////////////////
+
+function html_body($x){
+	//
+$x=<<<EOT
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <body>
-$FFF
+$x
 </body>	
 </html>
 EOT;
-
-echo $FFF;
-
-exit;
-////////////////
+	//	
+	retrun $x;
+}
 function poi($x){
 	$htmlbody    =$x[0];
 	$board_title2=$x[4];
