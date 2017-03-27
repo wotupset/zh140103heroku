@@ -19,16 +19,19 @@ if(isset($_POST['inputurl'])){
 	$url=$_SERVER['QUERY_STRING'];
 }
 
-if( substr_count($url, "?res=")>0 ){
-	//ok
-}else{
-	//echo "?res=";
-$FFF=<<<EOT
+//
+$html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
 <input type="text" name="inputurl" size="20" value="">
 <input type="submit" name="sendbtn" value="送出">
 </form>
 EOT;
+//
+if( substr_count($url, "?res=")>0 ){
+	//ok
+}else{
+	//echo "?res=";
+	$FFF=$html_inputbox;
 	echo html_body($FFF);
 	exit;
 }
@@ -198,8 +201,9 @@ $output_fileurl=$FFF.$output_filename;
 
 ///
 header('Content-Type: text/html; charset=utf-8');
-$FFF='';
-$FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";;
+$FFF=''.$html_inputbox;
+$FFF.=$url."<br/>\n";
+$FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
 $FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">archive.is</a>'."<br/>\n";
 echo html_body($FFF);
