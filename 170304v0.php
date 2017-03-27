@@ -204,7 +204,7 @@ header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
 $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
-$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$url.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$url.'">archive.is</a>'."<br/>\n";
 echo html_body($FFF);
 
