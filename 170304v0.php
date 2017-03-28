@@ -178,6 +178,8 @@ foreach($chat_array as $k => $v){//迴圈
 }
 
 
+$htmlbody=$board_title2.$url.$htmlbody;//加上網址
+
 //echo print_r($htmlbody,true);exit;//檢查點
 
 $chat_array[0]=$htmlbody;
@@ -199,13 +201,14 @@ $FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
 $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
+$hash_url=hash('crc32',$url);
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
 $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
-$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
-$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.hash('crc32',$url).'">archive.is</a>'."<br/>\n";
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$hash_url.'">archive.org</a>'."<br/>\n";
+$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$hash_url.'">archive.is</a>'."<br/>\n";
 echo html_body($FFF);
 
 exit;
