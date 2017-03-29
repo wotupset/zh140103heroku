@@ -8,7 +8,8 @@ error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
 $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
-
+date_default_timezone_set("Asia/Taipei");//時區設定
+$time = (string)time();
 //
 require_once('simple_html_dom.php');
 require_once('curl_getinfo.php');
@@ -202,6 +203,8 @@ $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
 $hash_url=hash('crc32',$url);
+$ymdhis=date('ymd',$time);//輸出的檔案名稱
+$hash_url=$ymdhis.$hash_url;
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
