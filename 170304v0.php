@@ -154,11 +154,10 @@ foreach($chat_array as $k => $v){//迴圈
 	//
 	$htmlbody.= '<div id="block'.$cc.'">'."\n";
 	$htmlbody.= '<div id="box1">'."\n";
-	$htmlbody.= '<span class="name">'.$v['name'].'</span> ';
-	if(count($v['title'])){
-		$htmlbody.= '<span class="title">'.$v['title'].'</span> ';
-	}
-	$htmlbody.= '<span class="idno">'.$v['now'].$v['qlink'].'</span> ';
+	$htmlbody.= '<span class="sort_num">#'.$cc.'</span> ';
+	if(count($v['name'])){$htmlbody.= '<span class="name">'.$v['name'].'</span> ';}
+	if(count($v['title'])){$htmlbody.= '<span class="title">'.$v['title'].'</span> ';}
+	$htmlbody.= '<span class="idno">'.$cc.$v['now'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
 	$htmlbody.= '</div>'."\n";
 	$htmlbody.= '<div id="box2">'."\n";
@@ -167,7 +166,14 @@ foreach($chat_array as $k => $v){//迴圈
 		$cc2++;//計算圖片數量
 		//
 		$FFF=''.$v['image'];
-		$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>圖';
+		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
+		if( preg_match('/\.webm$/',$v['image'])){
+		$htmlbody.='<video controls><source src="2017" type="video/webm">video</video>'."\n";
+		$htmlbody.='<img src="'.$v['image_t'].'">';
+		
+		
+		}
+			
 	}
 
 	$htmlbody.= '</div>'."\n";
@@ -240,6 +246,8 @@ $FFF=<<<EOT
 <head>
 <title>$board_title2</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <STYLE>
 img.zoom {
 height:auto; width:auto;
@@ -248,12 +256,14 @@ max-width:250px; max-height:250px;
 border:1px solid blue;
 padding-right:5px;
 background-color:#00ffff;
+
 }
 span.image {
 width:250px; 
 height:250px;
 border:1px solid #000;
 display: inline-block;
+vertical-align:text-bottom;
 }
 
 span.name {
@@ -282,6 +292,36 @@ max-width:500px;
 overflow:hidden;
 }
 </STYLE>
+
+<script>
+$(document).ready(function() {
+	//全域變數//global
+	time = new Date();
+	//
+	poi();
+});
+function poi(){
+
+var \$videos = $('video');
+var i = 0; 
+
+for(var video of \$videos) {
+i=i+1;
+video.id = 'video-'+i;
+video.src= 'video-'+i;
+//$(video).parent().find('img').css( "background-color", "red" );
+tmp=$(video).parent().find('img');
+\$tmp=$(tmp);
+//\$tmp.css( "background-color", "red" );
+\$tmp.attr( 'id', 'img2-'+i );
+console.log( \$tmp.attr( 'src' ) );
+video.src=\$tmp.attr( 'src' );
+//var tmp=$(video).parent().find('img').src;
+//alert(tmp);
+}
+	
+}
+</script>
 <head>
 
 <body bgcolor="#FFFFEE" text="#800000" link="#0000EE" vlink="#0000EE">
