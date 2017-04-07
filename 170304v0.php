@@ -85,7 +85,7 @@ if($cc>0){
 ////////////
 //批次找留言
 $chat_array=array();
-$cc=0;
+$cc=0;$qlink_newest='';
 foreach($html->find('div.post') as $k => $v){
 	//$vv=$v->parent;
 	$chat_array[$k]['org_text']=$v->outertext;
@@ -110,6 +110,8 @@ foreach($html->find('div.post') as $k => $v){
 	foreach($v->find('span.qlink') as $k2 => $v2){
 		$chat_array[$k]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
+		//
+		$qlink_newest=$chat_array[$k]['qlink'];
 	}
 	//
 	foreach($v->find('div.quote') as $k2 => $v2){
@@ -148,7 +150,7 @@ foreach($html->find('div.post') as $k => $v){
 ////////////
 
 //用迴圈叫出資料
-$cc=$cc2=0;$htmlbody='';
+$cc=$cc2=$cc3=0;$htmlbody='';
 foreach($chat_array as $k => $v){//迴圈
 	$cc++;
 	//
@@ -156,7 +158,7 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<div id="box1">'."\n";
 	$htmlbody.= '<span class="sort_num">#'.$cc.'</span> ';
 	if(count($v['name'])){$htmlbody.= '<span class="name">'.$v['name'].'</span> ';}
-	if(count($v['title'])){$htmlbody.= '<span class="title">'.$v['title'].'</span> ';}
+	if(count($v['title'])){$htmlbody.= '<span class="title" title="'.$v['title'].'">'.$v['title'].'</span> ';}
 	$htmlbody.= '<span class="idno">'.$cc.$v['now'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
 	$htmlbody.= '</div>'."\n";
@@ -168,7 +170,8 @@ foreach($chat_array as $k => $v){//迴圈
 		$FFF=''.$v['image'];
 		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 		if( preg_match('/\.webm$/',$v['image'])){
-		$htmlbody.='<video controls><source src="2017" type="video/webm">video</video>'."\n";
+		$cc3++;
+		$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
 		$htmlbody.='<img src="'.$v['image_t'].'">';
 		
 		
@@ -183,16 +186,19 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '</div>'."\n";
 }
 
-
 $htmlbody=$board_title2.$url.$htmlbody;//加上網址
+$webm_count=$cc3;
+$reply_count=$cc;
+//$qlink_newest
 
 //echo print_r($htmlbody,true);exit;//檢查點
 
 $chat_array[0]=$htmlbody;
 $chat_array[1]="國";
-$chat_array[2]=$url_num;
+$chat_array[2]=$qlink_newest;
 $chat_array[3]=$board_title;
 $chat_array[4]=$board_title2;
+$chat_array[5]=$webm_count;
 
 //////////
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
@@ -217,12 +223,16 @@ $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
 $FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$hash_url.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$hash_url.'">archive.is</a>'."<br/>\n";
+$FFF.='webm='.floor($webm_count)."<br/>\n";
+$FFF.='reply_count='.$reply_count."<br/>\n";
+$FFF.='qlink_newest='.$qlink_newest."<br/>\n";
 echo html_body($FFF);
 
 exit;
 ////////////////
 
 function html_body($x){
+	//$webm_count  =$x[5];
 	//
 $x=<<<EOT
 <html>
@@ -256,8 +266,15 @@ max-width:250px; max-height:250px;
 border:1px solid blue;
 padding-right:5px;
 background-color:#00ffff;
-
 }
+video.vv {
+height:auto; width:auto;
+min-width:20px; min-height:20px;
+max-width:500px; max-height:500px;
+position:relative;
+left:-100;
+}
+
 span.image {
 width:250px; 
 height:250px;
@@ -265,7 +282,6 @@ border:1px solid #000;
 display: inline-block;
 vertical-align:text-bottom;
 }
-
 span.name {
 display: inline-block;
 white-space:nowrap;
@@ -310,13 +326,27 @@ i=i+1;
 video.id = 'video-'+i;
 video.src= 'video-'+i;
 //$(video).parent().find('img').css( "background-color", "red" );
-tmp=$(video).parent().find('img');
-\$tmp=$(tmp);
-//\$tmp.css( "background-color", "red" );
-\$tmp.attr( 'id', 'img2-'+i );
-console.log( \$tmp.attr( 'src' ) );
-video.src=\$tmp.attr( 'src' );
+tmp=$(video).parent().find('img')[0];
+//$(tmp).css( "background-color", "red" );
+//$(tmp).after('pp1');
+$(tmp).attr( 'id', 'img2-'+i );
+//console.log( $(tmp).attr( 'src' ) );
+video.src=$(tmp).attr( 'src' );
 //var tmp=$(video).parent().find('img').src;
+
+//$(video).next("img").after('pp');
+
+tmp2=$(video).next("img");
+//$(tmp2).after('pp2');
+//console.log( $(tmp2).attr('src') );
+//console.log( tmp2.attr('src') );
+
+$(video).attr( 'poster', $(tmp2).attr('src') );
+//$(tmp2).detach();
+$(tmp2).remove();
+
+//$(tmp).after( $(tmp2) );
+//$(tmp).after( '<br>' );
 //alert(tmp);
 }
 	
