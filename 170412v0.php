@@ -34,4 +34,7 @@ $x
 </body>	
 </html>
 EOT;
+	//	
+	return $x;
+}
 ?>
