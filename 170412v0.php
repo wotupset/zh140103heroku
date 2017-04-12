@@ -6,13 +6,26 @@ $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
 date_default_timezone_set("Asia/Taipei");//時區設定
 $time = (string)time();
-header('Content-Type: application/json; charset=utf-8');
+//header('Content-Type: application/json; charset=utf-8');
+//
+$url=$_POST['inputurl'];
+$url=str_replace("https://","http://",$url,$i);
 
+//
+if( substr_count($url, "http")>0 ){
+	//ok
+}else{
+	//echo "?res=";
+	//$FFF=$html_inputbox;
+	$FFF='';
+	echo html_body($FFF);
+	exit;
+}
 //
 require_once('curl_getinfo.php');
 
 //
-$url = 'http://pbs.twimg.com/media/C9N0yqxUQAE8AsK.jpg';
+//$url = 'http://pbs.twimg.com/media/C9N0yqxUQAE8AsK.jpg';
 
 
 $header_data = get_headers($url);
@@ -48,10 +61,16 @@ file_put_contents($output_filename,$output_content);
 
 
 
-exit;
+
 ////
 $FFF='';
+$FFF.='<pre>'.$url.'</pre>';
 $FFF.='<pre>'.print_r($header_data,true).'</pre>';
+$html_showimage=<<<EOT
+<img src="170412v0b.php">
+EOT;
+$FFF.='<div>'.$html_showimage.'</div>';
+
 header('Content-Type: text/html; charset=utf-8');
 echo html_body($FFF);
 exit;
