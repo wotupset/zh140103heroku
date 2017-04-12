@@ -18,11 +18,11 @@ $url = 'http://pbs.twimg.com/media/C9N0yqxUQAE8AsK.jpg';
 $header_data = get_headers($url);
 //print_r(strpos($header_data[0],'200'));
 //var_dump(strpos($header_data[0],'200'));
-//if(strpos($header_data[0],'200')===false){echo html_body('網址不存在');exit;}
-if(strpos($header_data[0],'200')>0){
-	//echo html_body('ok');exit;
-}else{
+//if(strpos($header_data[0],'200')>0){}
+if(strpos($header_data[0],'200')===false){
 	echo html_body('網址不存在');exit;
+}else{
+	//echo html_body('ok');exit;
 }
 
 
