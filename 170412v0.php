@@ -17,6 +17,7 @@ $header_data = get_headers($url);
 ////
 $FFF='';
 $FFF.='<pre>'.print_r($header_data,true).'</pre>';
+header('Content-Type: text/html; charset=utf-8');
 html_body($FFF);
 exit;
 ////////////////function
