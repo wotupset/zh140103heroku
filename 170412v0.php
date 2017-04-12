@@ -6,31 +6,75 @@ $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
 date_default_timezone_set("Asia/Taipei");//時區設定
 $time = (string)time();
+header('Content-Type: application/json; charset=utf-8');
+
 //
 require_once('curl_getinfo.php');
 
 //
-$url = 'https://pbs.twimg.com/media/C9N49FPVwAAz6xm.jpg:orig';
-$header_data = get_headers($url);
-	
+$url = 'http://pbs.twimg.com/media/C9N0yqxUQAE8AsK.jpg';
 
+
+$header_data = get_headers($url);
+//print_r(strpos($header_data[0],'200'));
+//var_dump(strpos($header_data[0],'200'));
+//if(strpos($header_data[0],'200')===false){echo html_body('網址不存在');exit;}
+if(strpos($header_data[0],'200')>0){
+	//echo html_body('ok');exit;
+}else{
+	echo html_body('網址不存在');exit;
+}
+
+
+//$url='https://web.archive.org/web/2017/'.$url;
+if(1){
+  $x=curl_FFF($url);
+  //echo print_r($x,true);exit;
+  $getdata =$x_0 =$x[0];//資料
+  $getinfo =$x_1 =$x[1];//訊息
+  $geterror=$x_2 =$x[2];//錯誤
+  //simple_html_dom
+  //if(!$getdata){echo print_r($getinfo,true);exit;}
+  //echo print_r($getinfo,true);//檢查點
+  $content=$getdata;
+}
+
+
+$output_filename  = $phpself2.'.tmp';
+$output_content   = $content;
+file_put_contents($output_filename,$output_content);
+
+
+
+
+
+exit;
 ////
 $FFF='';
 $FFF.='<pre>'.print_r($header_data,true).'</pre>';
 header('Content-Type: text/html; charset=utf-8');
-html_body($FFF);
+echo html_body($FFF);
 exit;
 ////////////////function
 
 function html_body($x){
 	//$webm_count  =$x[5];
 	//
+
+$html_inputbox=<<<EOT
+<form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
+<input type="text" name="inputurl" size="20" value="">
+<input type="submit" name="sendbtn" value="送出">
+</form>
+EOT;
+//
 $x=<<<EOT
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <body>
+$html_inputbox
 $x
 </body>	
 </html>
