@@ -256,7 +256,6 @@ $FFF=<<<EOT
 <head>
 <title>$board_title2</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <STYLE>
 img.zoom {
@@ -309,13 +308,26 @@ overflow:hidden;
 }
 </STYLE>
 
+<script src="jquery-3.2.0.min.js"></script>
+
 <script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+	console.log( 'DOMContentLoaded' );
+});
+$( document ).ready(function() {
+	console.log( 'document ready' );
+});
+(function() {
+	console.log( 'function' );
+})();
+
 $(document).ready(function() {
 	//全域變數//global
 	time = new Date();
 	//
 	poi();
 });
+
 function poi(){
 
 var \$videos = $('video');
