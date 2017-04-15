@@ -1,13 +1,13 @@
 <?php
 
-header("content-Type: application/json; charset=utf-8"); //強制
+//header("content-Type: application/json; charset=utf-8"); //強制
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
-echo 'php_timezone='.$tz."\n";
+//echo 'php_timezone='.$tz."\n";
 $time=time();
-echo 'now='.date("Y-m-d H:i:s",$time)."\n";
-echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
+//echo 'now='.date("Y-m-d H:i:s",$time)."\n";
+//echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
 
 //require_once('170113v4b.php');
@@ -33,7 +33,7 @@ $db = new PDO($tmp);
 $db->exec("set timezone TO '$tz';");//+8
   
 foreach( $db->query("show TimeZone") as $k => $v ){
-  echo 'pgsql_timezone='.$v[0]."\n";
+  //echo 'pgsql_timezone='.$v[0]."\n";
 }
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -47,15 +47,7 @@ try{
 $table_name='nya170415';
 
 try{
-//移除table
-if(0){
-$sql=<<<EOT
-DROP TABLE IF EXISTS $table_name
-EOT;
-//IF NOT EXISTS
-$stmt = $db->prepare($sql);
-$stmt->execute();
-}
+
 //建立table
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS $table_name
@@ -91,21 +83,7 @@ while ($row = $stmt->fetch() ) {
 
 
 
-if(0){
-try{
-//插入資料
-//;
-$sql=<<<EOT
-INSERT INTO $table_name (c01,c02,c03)
-VALUES ( ? , ? , ? );
-EOT;
-$stmt=$db->prepare($sql);
-$array=array( uniqid('u',1),'不用不用',  $time );
-$stmt->execute($array);
-  
-}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
-}
 
 try{
 //插入資料
