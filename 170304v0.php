@@ -364,7 +364,7 @@ $(tmp2).remove();
 	
 }
 </script>
-<head>
+</head>
 
 <body bgcolor="#FFFFEE" text="#800000" link="#0000EE" vlink="#0000EE">
 $htmlbody
