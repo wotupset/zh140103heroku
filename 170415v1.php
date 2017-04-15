@@ -133,7 +133,7 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-echo '<h3>ALL='.$rows_max."</h3>\n";
+echo '<h3>log數='.$rows_max."</h3>\n";
 if(1){
   //
 $cc=0;
@@ -141,8 +141,9 @@ while ($row = $stmt->fetch() ) {
   $cc++;
   if($cc>1000){break;}
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
-  echo '<div>'.$row['c02'].'</div>';
-  echo '<div>'.date('Y/m/d H:i:s',$row['c03']).'</div>';
+  echo '<div class="title">'.$row['c01'].'</div>';
+  echo '<div class="text">'.$row['c02'].'</div>';
+  echo '<div class="date">'.date('Y/m/d H:i:s',$row['c03']).'</div>';
 }
   //
 }  
@@ -159,7 +160,9 @@ function html_body($x){
 	//
 $html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
-<input type="text" name="inputurl" size="20" value="">
+<input type="text" name="input_title" size="20" value="">
+<textarea maxlength="" name="input_text" cols="48" rows="4" style="width: 400px; height: 80px;"></textarea>
+
 <input type="submit" name="sendbtn" value="送出">
 </form>
 EOT;
