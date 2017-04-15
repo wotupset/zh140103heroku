@@ -94,7 +94,7 @@ if($cc>0){
 
 
 
-
+if(count($_POST)>0){
 try{
 //插入資料
 //;
@@ -110,8 +110,8 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c03', $array[':c03']);
 //uniqid('u',1)
 $array=array(
-  ':c01' => '標題', 
-  ':c02' => '公雞變飼主',
+  ':c01' => $_POST['input_title'], 
+  ':c02' => $_POST['input_text'],
   ':c03' => $time,
 );
   
@@ -119,6 +119,8 @@ $stmt->execute($array);
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+}
 
 
 
