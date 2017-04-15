@@ -138,7 +138,9 @@ $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   if($cc>1000){break;}
-  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  echo '<div>'.$row['c02'].'</div>';
+  echo '<div>'.date('Y/m/d H:i:s',$row['c03']).'</div>';
 }
   //
 }  
