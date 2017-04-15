@@ -8,7 +8,7 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 $time = (string)time();
 //header('Content-Type: application/json; charset=utf-8');
 //
-print_r($_POST);
+//print_r($_POST);
 $url=$_POST['inputurl'];
 $url=str_replace("https://","http://",$url,$i);
 
