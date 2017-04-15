@@ -160,9 +160,8 @@ function html_body($x){
 	//
 $html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
-<input type="text" name="input_title" size="20" value="">
+<input type="text" name="input_title" size="20" value=""><br/>
 <textarea maxlength="" name="input_text" cols="48" rows="4" style="width: 400px; height: 80px;"></textarea>
-
 <input type="submit" name="sendbtn" value="送出">
 </form>
 EOT;
