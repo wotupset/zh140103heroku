@@ -92,7 +92,7 @@ $x=<<<EOT
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head>
+</head>
 <body>
 $html_inputbox
 $x
