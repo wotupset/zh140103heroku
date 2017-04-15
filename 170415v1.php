@@ -108,8 +108,9 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c01', $array[':c01']);
 //$stmt->bindParam(':c02', $array[':c02']);
 //$stmt->bindParam(':c03', $array[':c03']);
+//uniqid('u',1)
 $array=array(
-  ':c01' => uniqid('u',1), 
+  ':c01' => '標題', 
   ':c02' => '公雞變飼主',
   ':c03' => $time,
 );
@@ -139,12 +140,12 @@ if(1){
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>1000){break;}
+  if($cc>100){break;}
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>'.$row['c01'].'</h3></div>';
   echo '<div class="text">'.$row['c02'].'</div>';
-  echo '<div class="date"><h4>'.date('Y/m/d H:i:s',$row['c03']).'</h4></div>';
+  echo '<div class="date"><h4>'.date('Y/m/d H:i:s',$row['timestamp']).'</h4></div>';
   echo '</div>';
 }
   //
