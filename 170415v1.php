@@ -176,8 +176,8 @@ $x=<<<EOT
 <style>
 div.box {
 border:1px solid blue;
-padding-right:5px;
-background-color:#c0c0c0;
+padding-left:10px;
+background-color:#bdbdbd;
 }
 	
 </style>
