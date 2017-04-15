@@ -76,8 +76,18 @@ EOT;
 //AND schemaname != 'information_schema';
 $stmt = $db->prepare($sql);
 $stmt->execute();
+//
+$cc=0;
 while ($row = $stmt->fetch() ) {
-  echo $row['tablename']."\n";
+  if($row['tablename'] == $table_name ){
+    $cc=$cc+1;
+  }
+}
+if($cc>0){
+  echo '成功';
+}else{
+  echo '失敗';
+  exit;
 }
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
