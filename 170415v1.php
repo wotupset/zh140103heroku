@@ -121,6 +121,8 @@ $stmt->execute($array);
 
 
 
+ob_start();
+
 try{
 //列出資料 (全部)
 $sql=<<<EOT
@@ -145,8 +147,36 @@ while ($row = $stmt->fetch() ) {
   //
 }  
   
-
-  
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+$out = ob_get_clean();
+
+echo html_body($out);
+exit;
+///////////
+function html_body($x){
+	//$webm_count  =$x[5];
+	//
+$html_inputbox=<<<EOT
+<form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
+<input type="text" name="inputurl" size="20" value="">
+<input type="submit" name="sendbtn" value="送出">
+</form>
+EOT;
+//
+$x=<<<EOT
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<body>
+$html_inputbox
+$x
+</body>	
+</html>
+EOT;
+	//	
+	return $x;
+}
 
 ?>
