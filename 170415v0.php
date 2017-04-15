@@ -1,6 +1,8 @@
 <?php
 
 header("content-Type: application/json; charset=utf-8"); //強制
+//die('註解');
+
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
