@@ -20,13 +20,15 @@ $dbhost = $dbopts["host"];
 $dbuser = $dbopts["user"];
 $dbpass = $dbopts["pass"];
 $dbname = ltrim($dbopts["path"],'/');
-  
-$db = new PDO('pgsql:'.
-              'dbname='.$dbname.';'.
-              'host='.$dbhost.';'.
-              'user='.$dbuser.';'.
-              'password='.$dbpass.';'
-              );
+//pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
+$tmp='';
+$tmp.='pgsql:';
+$tmp.='dbname='   .$dbname.';';
+$tmp.='host='     .$dbhost.';';
+$tmp.='user='     .$dbuser.';';
+$tmp.='password=' .$dbpass.';';
+
+$db = new PDO($tmp);
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//+8
   
@@ -43,16 +45,16 @@ try{
 
 
 
+
 try{
-if(0){
 //移除table
+if(0){
 $sql=<<<EOT
 DROP TABLE IF EXISTS nya123
 EOT;
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 $stmt->execute();
-
 }
 //建立table
 $sql=<<<EOT
@@ -68,6 +70,7 @@ EOT;
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 $stmt->execute();
+
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
