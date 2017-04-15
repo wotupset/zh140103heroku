@@ -84,7 +84,7 @@ while ($row = $stmt->fetch() ) {
   }
 }
 if($cc>0){
-  echo '成功';
+  //echo '成功';
 }else{
   echo '失敗';
   exit;
@@ -131,7 +131,7 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-echo 'ALL='.$rows_max."\n";
+echo '<h3>ALL='.$rows_max."</h3>\n";
 if(1){
   //
 $cc=0;
