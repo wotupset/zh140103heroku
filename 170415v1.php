@@ -140,10 +140,12 @@ $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   if($cc>1000){break;}
-  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
+  echo '<div class="box">';
   echo '<div class="title">'.$row['c01'].'</div>';
   echo '<div class="text">'.$row['c02'].'</div>';
   echo '<div class="date">'.date('Y/m/d H:i:s',$row['c03']).'</div>';
+  echo '</div>';
 }
   //
 }  
@@ -170,7 +172,15 @@ $x=<<<EOT
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head>
+<style>
+div.box {
+border:1px solid blue;
+padding-right:5px;
+background-color:#c0c0c0;
+}
+	
+</style>
+</head>
 <body>
 $html_inputbox
 $x
