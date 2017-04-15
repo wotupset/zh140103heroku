@@ -44,13 +44,13 @@ try{
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
-
+$table_name='nya170415';
 
 try{
 //移除table
 if(0){
 $sql=<<<EOT
-DROP TABLE IF EXISTS nya123
+DROP TABLE IF EXISTS $table_name
 EOT;
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
@@ -58,7 +58,7 @@ $stmt->execute();
 }
 //建立table
 $sql=<<<EOT
-CREATE TABLE IF NOT EXISTS nya123
+CREATE TABLE IF NOT EXISTS $table_name
 (
     c01 varchar(100) NOT NULL,
     c02 text NOT NULL,
@@ -96,7 +96,7 @@ try{
 //插入資料
 //;
 $sql=<<<EOT
-INSERT INTO nya123 (c01,c02,c03)
+INSERT INTO $table_name (c01,c02,c03)
 VALUES ( ? , ? , ? );
 EOT;
 $stmt=$db->prepare($sql);
@@ -111,7 +111,7 @@ try{
 //插入資料
 //;
 $sql=<<<EOT
-INSERT INTO nya123 (c01,c02,c03)
+INSERT INTO $table_name (c01,c02,c03)
 VALUES ( :c01 , :c02 , :c03 );
 EOT;
 $stmt=$db->prepare($sql);
@@ -122,7 +122,7 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c03', $array[':c03']);
 $array=array(
   ':c01' => uniqid('u',1), 
-  ':c02' => '有害氣體不會傷害環境和人員',
+  ':c02' => '公雞變飼主',
   ':c03' => $time,
 );
   
@@ -136,7 +136,7 @@ $stmt->execute($array);
 try{
 //列出資料 (全部)
 $sql=<<<EOT
-select * from nya123 
+select * from $table_name 
 ORDER BY timestamp DESC
 EOT;
 // LIMIT 10
