@@ -169,8 +169,7 @@ try{
 $sql=<<<EOT
 SELECT *
 FROM information_schema.columns
-WHERE table_schema = 'public'
-  AND table_name   = 'nya170415'
+WHERE table_name   = 'nya170415'
 EOT;
 // LIMIT 10
 $stmt = $db->prepare($sql);
