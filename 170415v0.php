@@ -38,9 +38,16 @@ $db->exec("set timezone TO '$tz';");//+8
 foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
-
+if(!$db){die('連線失敗');}
+if(pg_connection_busy($db)){die('connection_busy');}
+  
 $stat = pg_connection_status($db);
-print_r($stat);
+print_r('1='.$stat);
+$stat = pg_result_status($db);
+print_r('2='.$stat);
+$stat = pg_get_result($db);
+print_r('3='.$stat);
+
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
