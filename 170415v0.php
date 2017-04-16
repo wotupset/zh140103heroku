@@ -186,7 +186,12 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-echo 'ALL='.$rows_max."\n";
+echo 'rows_max='.$rows_max."\n";
+$columns_max = $stmt->columnCount();//計數
+echo 'columns_max='.$columns_max."\n";
+$meta = $stmt->getColumnMeta(0);
+echo '$meta='.$$meta."\n";
+
 if(1){
   $cc=0;
   while ($row = $stmt->fetch() ) {
