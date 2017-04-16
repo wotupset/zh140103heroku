@@ -57,6 +57,7 @@ EOT;
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
 $stmt->execute();
+echo 'del table';
 }
 //建立table
 $sql=<<<EOT
