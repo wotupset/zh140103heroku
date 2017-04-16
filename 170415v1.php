@@ -8,7 +8,7 @@ $tz=date_default_timezone_get();
 $time=time();
 //echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 //echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
-print_r($_POST);
+//print_r($_POST);
 
 //require_once('170113v4b.php');
 //if( $auth != "國" ){exit;}
