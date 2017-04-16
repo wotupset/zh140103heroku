@@ -50,7 +50,7 @@ $table_name='nya170415';
 
 try{
 //移除table
-if(0){
+if(1){
 $sql=<<<EOT
 DROP TABLE IF EXISTS $table_name
 EOT;
@@ -63,7 +63,7 @@ $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS $table_name
 (
     c01 varchar(100) NOT NULL,
-    c02 text NOT NULL,
+    c02 text UNIQUE NOT NULL,
     c03 integer NOT NULL,
     ID  SERIAL PRIMARY KEY,
     timestamp timestamp default current_timestamp
