@@ -106,7 +106,7 @@ $stmt=$db->prepare($sql);
 $array=array(
   ':c01' => $title, 
   ':c02' => $text,
-  ':c03' => $time,
+  ':c03' => base64_encode($time) ,
 );
   
 $stmt->execute($array);
@@ -141,7 +141,7 @@ while ($row = $stmt->fetch() ) {
   echo '<div class="box">';
   echo '<div class="title"><h3>#'.$row['id'].'#'.$row['c01'].'</h3></div>';
   echo '<div class="text">'.$row['c02'].'</div>';
-  echo '<div class="text">'.$row['c03'].'</div>';
+  echo '<div class="text">'.$row['c03'].base64_decode($row['c03']).'</div>';
   echo '<div class="date"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
   echo '</div>';
 }
