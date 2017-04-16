@@ -190,7 +190,7 @@ echo 'rows_max='.$rows_max."\n";
 $columns_max = $stmt->columnCount();//計數
 echo 'columns_max='.$columns_max."\n";
 $meta = $stmt->getColumnMeta(0);
-echo '$meta='.$meta."\n";
+echo '$meta='.print_r($meta)."\n";
 
 if(1){
   $cc=0;
