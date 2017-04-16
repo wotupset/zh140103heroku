@@ -136,14 +136,7 @@ $array=array(
   
 $stmt->execute($array);
 
-$stat = pg_connection_status($db);
-print_r('1='.$stat);
-$stat = pg_result_status($db);
-print_r('2='.$stat);
-$stat = pg_get_result($db);
-print_r('3='.$stat);
-$stat = pg_result_status($stmt);
-print_r('4='.$stat);
+
 
   
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
