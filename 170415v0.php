@@ -50,7 +50,7 @@ $table_name='nya170415';
 
 try{
 //移除table
-if(1){
+if(0){
 $sql=<<<EOT
 DROP TABLE IF EXISTS $table_name
 EOT;
