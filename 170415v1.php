@@ -46,24 +46,9 @@ try{
 
 $table_name='nya170415';
 
-try{
-
+//刪除table
 //建立table
-$sql=<<<EOT
-CREATE TABLE IF NOT EXISTS $table_name
-(
-    c01 varchar(100) NOT NULL,
-    c02 text NOT NULL,
-    c03 integer NOT NULL,
-    ID  SERIAL PRIMARY KEY,
-    timestamp timestamp default current_timestamp
-)
-EOT;
-//IF NOT EXISTS
-$stmt = $db->prepare($sql);
-$stmt->execute();
-
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+//在170415v0.php中
 
 
 try{
