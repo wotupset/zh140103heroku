@@ -169,6 +169,8 @@ try{
 $sql=<<<EOT
 SELECT *
 FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND table_name   = 'nya170415'
 EOT;
 // LIMIT 10
 $stmt = $db->prepare($sql);
@@ -176,16 +178,12 @@ $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 echo 'ALL='.$rows_max."\n";
 if(1){
-  //
-$cc=0;
-while ($row = $stmt->fetch() ) {
-  print_r($row);
-}
-  //
+  $cc=0;
+  while ($row = $stmt->fetch() ) {
+    print_r($row);
+  }
 }  
-  
 
-  
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 ?>
