@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS $table_name
 (
     c01 varchar(100) NOT NULL,
     c02 text UNIQUE NOT NULL,
-    c03 bytea NOT NULL,
+    c03 text NOT NULL,
     ID  SERIAL PRIMARY KEY,
     timestamp timestamp default current_timestamp
 )
@@ -126,7 +126,7 @@ $stmt=$db->prepare($sql);
 $array=array(
   ':c01' => uniqid('u',1), 
   ':c02' => '公雞變飼主',
-  ':c03' => $time,
+  ':c03' => base64_encode($time) ,
 );
   
 $stmt->execute($array);
