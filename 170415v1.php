@@ -104,8 +104,8 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c03', $array[':c03']);
 //uniqid('u',1)
 $array=array(
-  ':c01' => , 
-  ':c02' => ,
+  ':c01' => $title, 
+  ':c02' => $text,
   ':c03' => $time,
 );
   
