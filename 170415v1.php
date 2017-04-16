@@ -80,6 +80,15 @@ if($cc>0){
 
 
 if(count($_POST)>0){
+$title =$_POST['input_title'];
+$title =strip_tags($title);
+
+$text  =$_POST['input_text'];
+//$text  =preg_replace("/\r\n/","\n",$text);
+//$text  =preg_replace("/\n/","<br/>\n",$text);
+$text  =nl2br($text);
+$text  =strip_tags($text,'<br>');
+
 try{
 //插入資料
 //;
@@ -95,8 +104,8 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c03', $array[':c03']);
 //uniqid('u',1)
 $array=array(
-  ':c01' => $_POST['input_title'], 
-  ':c02' => $_POST['input_text'],
+  ':c01' => , 
+  ':c02' => ,
   ':c03' => $time,
 );
   
