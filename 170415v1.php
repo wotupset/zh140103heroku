@@ -5,7 +5,9 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
 //echo 'php_timezone='.$tz."\n";
-$time=time();
+$time  =time();
+$time2 =array_sum( explode( ' ' , microtime() ) );
+
 //echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 //echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 //print_r($_POST);
@@ -106,7 +108,7 @@ $stmt=$db->prepare($sql);
 $array=array(
   ':c01' => $title, 
   ':c02' => $text,
-  ':c03' => base64_encode($time) ,
+  ':c03' => base64_encode($time2) ,
 );
   
 $stmt->execute($array);
