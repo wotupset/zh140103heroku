@@ -84,6 +84,7 @@ $stmt->execute();
 
 try{
 //列出全部table
+echo '列出全部table';
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname != 'pg_catalog' 
@@ -96,6 +97,34 @@ while ($row = $stmt->fetch() ) {
   echo $row['tablename']."\n";
 }
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+try{
+//列出column名稱與格式
+echo '列出column名稱與格式';
+$sql=<<<EOT
+SELECT *
+FROM information_schema.columns
+WHERE table_name   = 'nya170415'
+EOT;
+// LIMIT 10
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$rows_max = $stmt->rowCount();//計數
+echo 'rows_max='.$rows_max."\n";
+$columns_max = $stmt->columnCount();//計數
+echo 'columns_max='.$columns_max."\n";
+
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  //print_r($row);
+  echo $cc."\t";
+  echo $row['column_name']."\t";
+  echo $row['data_type']."\t";
+  echo "\n";
+}
+
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
 
 
 
@@ -182,34 +211,5 @@ while ($row = $stmt->fetch() ) {
 
 ////
 
-try{
-//列出資料 (全部)
-$sql=<<<EOT
-SELECT *
-FROM information_schema.columns
-WHERE table_name   = 'nya170415'
-EOT;
-// LIMIT 10
-$stmt = $db->prepare($sql);
-$stmt->execute();
-$rows_max = $stmt->rowCount();//計數
-echo 'rows_max='.$rows_max."\n";
-$columns_max = $stmt->columnCount();//計數
-echo 'columns_max='.$columns_max."\n";
-
-
-
-if(1){
-  $cc=0;
-  while ($row = $stmt->fetch() ) {
-    //print_r($row);
-    echo $row['column_name']."\t";
-    echo $row['data_type']."\t";
-    echo "\n";
-    
-  }
-}  
-
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 ?>
