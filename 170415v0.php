@@ -43,9 +43,11 @@ foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
 foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
-  print_r($v);
+  //print_r($v);
   //echo 'pgsql_time='.$v[0]."\n";
 }
+$result=$db->query("SELECT CURRENT_DATE");
+print_r($result);
 
 
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
