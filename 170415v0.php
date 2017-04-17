@@ -35,13 +35,19 @@ $tmp.='user='     .$dbuser.';';
 $tmp.='password=' .$dbpass.';';
 
 $db = new PDO($tmp);
+if(!$db){die('連線失敗');}
+
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//+8
-  
 foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
-if(!$db){die('連線失敗');}
+foreach( $db->query("SELECT now()::date") as $k => $v ){
+  print_r($v);
+  //echo 'pgsql_timezone='.$v[0]."\n";
+}
+
+
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
   
