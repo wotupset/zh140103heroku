@@ -113,9 +113,10 @@ $array=array(
   
 $stmt->execute($array);
 
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-print_r($result);
-echo "\n";
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+  echo print_r($row, 1);
+  echo "\n";
+}
 	
 	
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
