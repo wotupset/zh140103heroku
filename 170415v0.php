@@ -46,7 +46,7 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   //print_r($v);
   //echo 'pgsql_time='.$v[0]."\n";
 }
-$stmt=$db->query("SELECT CURRENT_DATE");
+$stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,LOCALTIMESTAMP");
 print_r($stmt);
 while ($row = $stmt->fetch() ) {
 print_r($row);
