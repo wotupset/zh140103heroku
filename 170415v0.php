@@ -37,6 +37,13 @@ $tmp.='password=' .$dbpass.';';
 $db = new PDO($tmp);
 if(!$db){die('連線失敗');}
 
+$stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
+print_r($stmt);
+//while ($row = $stmt->fetch() ){}
+$row = $stmt->fetch();
+print_r($row);
+
+
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//+8
 foreach( $db->query("show TimeZone") as $k => $v ){
