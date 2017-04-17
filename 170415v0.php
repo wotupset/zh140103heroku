@@ -202,7 +202,7 @@ echo 'columns_max='.$columns_max."\n";
 if(1){
   $cc=0;
   while ($row = $stmt->fetch() ) {
-    //print_r($row);
+    print_r($row);
     echo $row['column_name']."\t";
     echo $row['data_type']."\t";
     echo "\n";
