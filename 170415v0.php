@@ -179,6 +179,9 @@ $stmt->execute($array);
 
 try{
 //列出資料 (全部)
+echo '列出資料';
+echo "\n";
+
 $sql=<<<EOT
 select * from $table_name 
 ORDER BY timestamp DESC
