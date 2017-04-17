@@ -46,9 +46,11 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   //print_r($v);
   //echo 'pgsql_time='.$v[0]."\n";
 }
-$result=$db->query("SELECT CURRENT_DATE");
-print_r($result);
-
+$stmt=$db->query("SELECT CURRENT_DATE");
+print_r($stmt);
+while ($row = $stmt->fetch() ) {
+print_r($row);
+}
 
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
