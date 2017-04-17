@@ -196,12 +196,7 @@ $rows_max = $stmt->rowCount();//計數
 echo 'rows_max='.$rows_max."\n";
 $columns_max = $stmt->columnCount();//計數
 echo 'columns_max='.$columns_max."\n";
-$meta = $stmt->getColumnMeta(0);
-echo '$meta='.print_r($meta)."\n";
-$meta = $stmt->getColumnMeta(1);
-echo '$meta='.print_r($meta)."\n";
-$meta = $stmt->getColumnMeta(2);
-echo '$meta='.print_r($meta)."\n";
+
 
 
 if(1){
