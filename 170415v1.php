@@ -88,8 +88,9 @@ $title =strip_tags($title);
 $text  =$_POST['input_text'];
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
-$text  =nl2br($text);
-$text  =strip_tags($text,'<br>');
+//$text  =nl2br($text);
+//$text  =strip_tags($text,'<br>');
+$text  =strip_tags($text);
 
 try{
 //插入資料
@@ -147,8 +148,8 @@ while ($row = $stmt->fetch() ) {
   if($cc>100){break;}
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
-  echo '<div class="title"><h3>#'.$row['id'].'#'.$row['c01'].'</h3></div>';
-  echo '<div class="text">'.$row['c02'].'</div>';
+  echo '<div class="title"><h3>#'.$row['id'].'# '.$row['c01'].'</h3></div>';
+  echo '<div class="text">'.nl2br($row['c02']).'</div>';
   echo '<pre>'.$row['c03'].base64_decode($row['c03']).'</pre>';
   echo '<div class="date"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
   echo '</div>';
