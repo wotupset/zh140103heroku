@@ -17,6 +17,9 @@ echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 //if( $auth != "國" ){exit;}
 
 try{
+echo '建立資料庫連線';
+echo "\n";
+
 $dbopts=parse_url(getenv('DATABASE_URL'));
 //print_r($dbopts);
 $dbhost = $dbopts["host"];
@@ -65,6 +68,9 @@ $stmt->execute();
 echo 'del table';
 }
 //建立table
+echo '建立table';
+echo "\n";
+
 $sql=<<<EOT
 CREATE TABLE IF NOT EXISTS $table_name
 (
@@ -85,6 +91,8 @@ $stmt->execute();
 try{
 //列出全部table
 echo '列出全部table';
+echo "\n";
+
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname != 'pg_catalog' 
@@ -101,6 +109,8 @@ while ($row = $stmt->fetch() ) {
 try{
 //列出column名稱與格式
 echo '列出column名稱與格式';
+echo "\n";
+
 $sql=<<<EOT
 SELECT *
 FROM information_schema.columns
