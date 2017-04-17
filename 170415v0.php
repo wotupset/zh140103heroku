@@ -38,7 +38,7 @@ $db = new PDO($tmp);
 if(!$db){die('連線失敗');}
 
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
-print_r($stmt);
+//print_r($stmt);
 //while ($row = $stmt->fetch() ){}
 $row = $stmt->fetch();
 print_r($row);
@@ -54,7 +54,7 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   //echo 'pgsql_time='.$v[0]."\n";
 }
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
-print_r($stmt);
+//print_r($stmt);
 //while ($row = $stmt->fetch() ){}
 $row = $stmt->fetch();
 print_r($row);
