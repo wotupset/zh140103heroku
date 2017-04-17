@@ -137,6 +137,9 @@ $array=array(
 $stmt->execute($array);
 
 
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+    print_r($row);
+}
 
   
 }catch(Exception $e){
