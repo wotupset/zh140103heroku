@@ -36,6 +36,8 @@ $tmp.='password=' .$dbpass.';';
 
 $db = new PDO($tmp);
 if(!$db){die('連線失敗');}
+echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+echo "\n";
 
 
 //$db->exec("SET TIME ZONE '$tz';");//+8
@@ -56,8 +58,6 @@ echo 'pgsql_timestamp='.$row['timestamp'];
 echo "\n";
 
 
-echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
-echo "\n";
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
