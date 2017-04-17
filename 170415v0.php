@@ -139,9 +139,7 @@ $array=array(
   
 $stmt->execute($array);
   
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-print_r($result);
-echo "\n";
+
 
 
 
@@ -164,6 +162,8 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 echo 'ALL='.$rows_max."\n";
+
+
 if(1){
   //
 $cc=0;
