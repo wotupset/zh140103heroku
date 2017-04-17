@@ -133,7 +133,7 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c03', $array[':c03']);
 $array=array(
   ':c01' => uniqid('u',1), 
-  ':c02' => '公雞變飼主',
+  ':c02' => '肏肏肏肏肏肏肏肏',
   ':c03' => base64_encode($time2) ,
 );
   
