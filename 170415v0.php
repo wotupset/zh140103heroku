@@ -42,9 +42,9 @@ $db->exec("set timezone TO '$tz';");//+8
 foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
-foreach( $db->query("SELECT now()::date") as $k => $v ){
+foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
   print_r($v);
-  //echo 'pgsql_timezone='.$v[0]."\n";
+  //echo 'pgsql_time='.$v[0]."\n";
 }
 
 
