@@ -136,13 +136,13 @@ $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 echo '<h3>log數='.$rows_max."</h3>\n";
 
-$datalist = $stmt->fetchAll();
+//$datalist = $stmt->fetchAll();
 
 if(1){
   //
 $cc=0;
-foreach($datalist as $row){
-//while ($row = $stmt->fetch() ) {
+//foreach($datalist as $row){
+while ($row = $stmt->fetch() ) {
   $cc++;
   if($cc>100){break;}
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
