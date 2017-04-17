@@ -138,7 +138,10 @@ $array=array(
 );
   
 $stmt->execute($array);
-
+  
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+print_r($result);
+echo "\n";
 
 
 
