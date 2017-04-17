@@ -39,7 +39,8 @@ foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
 if(!$db){die('連線失敗');}
-print_r($db->getAttribute(PDO::ATTR_CONNECTION_STATUS));
+echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS));
+echo "\n";
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
