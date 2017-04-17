@@ -114,6 +114,7 @@ $stmt->execute();
 $cc=0;
 while ($row = $stmt->fetch() ) {
   //print_r($row);
+  $cc++;
   echo $cc."\t";
   echo $row['column_name']."\t";
   echo $row['data_type']."\t";
