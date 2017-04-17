@@ -113,7 +113,11 @@ $array=array(
   
 $stmt->execute($array);
 
-  
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+print_r($result);
+echo "\n";
+	
+	
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 }
