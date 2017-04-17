@@ -113,8 +113,7 @@ $array=array(
   
 $stmt->execute($array);
 
-$result = $stmt->fetchAll();
-echo 'fetchAll='.print_r($result,1);
+
 	
 	
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
@@ -136,6 +135,10 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 echo '<h3>log數='.$rows_max."</h3>\n";
+
+$result = $stmt->fetchAll();
+echo 'fetchAll='.print_r($result,1);
+
 if(1){
   //
 $cc=0;
