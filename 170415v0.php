@@ -48,9 +48,10 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
 }
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
 print_r($stmt);
-while ($row = $stmt->fetch() ) {
+//while ($row = $stmt->fetch() ){}
+$row = $stmt->fetch();
 print_r($row);
-}
+
 
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
