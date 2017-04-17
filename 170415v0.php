@@ -117,6 +117,9 @@ $stmt->execute($array);
 
 try{
 //插入資料
+echo '插入資料';
+echo "\n";
+
 //;
 $sql=<<<EOT
 INSERT INTO $table_name (c01,c02,c03)
@@ -137,9 +140,7 @@ $array=array(
 $stmt->execute($array);
 
 
-while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    print_r($row);
-}
+
 
   
 }catch(Exception $e){
