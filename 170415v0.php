@@ -37,15 +37,9 @@ $tmp.='password=' .$dbpass.';';
 $db = new PDO($tmp);
 if(!$db){die('連線失敗');}
 
-$stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
-//print_r($stmt);
-//while ($row = $stmt->fetch() ){}
-$row = $stmt->fetch();
-print_r($row);
-
 
 //$db->exec("SET TIME ZONE '$tz';");//+8
-$db->exec("set timezone TO '$tz';");//+8
+$db->exec("set timezone TO '$tz';");//修改成+8時區
 foreach( $db->query("show TimeZone") as $k => $v ){
   echo 'pgsql_timezone='.$v[0]."\n";
 }
@@ -56,8 +50,9 @@ foreach( $db->query("SELECT now()::date, now()::time") as $k => $v ){
 $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMESTAMP");
 //print_r($stmt);
 //while ($row = $stmt->fetch() ){}
-$row = $stmt->fetch();
-print_r($row);
+$row = $stmt->fetch();//取回第一筆資料
+//print_r($row);
+echo $row['timestamp'];
 
 
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
