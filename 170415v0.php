@@ -52,7 +52,7 @@ $stmt=$db->query("SELECT CURRENT_DATE,CURRENT_TIME,CURRENT_TIMESTAMP,LOCALTIMEST
 //while ($row = $stmt->fetch() ){}
 $row = $stmt->fetch();//取回第一筆資料
 //print_r($row);
-echo $row['timestamp'];
+echo 'pgsql_timestamp='.$row['timestamp'];
 
 
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
