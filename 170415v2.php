@@ -152,7 +152,6 @@ background-color:#bdbdbd;
 </style>
 </head>
 <body>
-$html_inputbox
 $x
 </body>	
 </html>
