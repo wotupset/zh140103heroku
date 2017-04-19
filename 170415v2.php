@@ -98,7 +98,7 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-echo '<h3>log數='.$rows_max."</h3>\n";
+//echo '<h3>log數='.$rows_max."</h3>\n";
 
 //$datalist = $stmt->fetchAll();
 
