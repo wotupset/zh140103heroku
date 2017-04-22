@@ -15,12 +15,12 @@ if($info_array[2] >0){
 	die('!image');
 }
 
-$filename=base64_encode($time).'.'.$ext;
+
 
 //$ext = pathinfo($filename);//, PATHINFO_EXTENSION
 //print_r($ext);
 $type= mime_content_type($filename);
-echo $type;exit;
+//echo 'type='.$type;exit;
 if(strpos($type,'image')===false){
 	//失敗
 	echo 'exit';exit;
@@ -28,7 +28,8 @@ if(strpos($type,'image')===false){
 	//成功
 	//header('Content-Type: application/json; charset=utf-8');
 	header('Content-Type:'.$type);
-	header('Content-Disposition: filename="'.$filename.'"');//
+	$FFF=base64_encode($time).'.'.$ext;
+	header('Content-Disposition: filename="'.$FFF.'"');//
 	$FFF= file_get_contents($filename);
 	//echo strlen($FFF);
 	echo $FFF;
