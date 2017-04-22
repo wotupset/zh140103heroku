@@ -20,7 +20,7 @@ $filename=base64_encode($time).'.'.$ext;
 //$ext = pathinfo($filename);//, PATHINFO_EXTENSION
 //print_r($ext);
 $type= mime_content_type($filename);
-//echo $type;exit;
+echo $type;exit;
 if(strpos($type,'image')===false){
 	//失敗
 	echo 'exit';exit;
