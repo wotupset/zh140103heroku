@@ -15,7 +15,7 @@ if($info_array[2] >0){
 	die('!image');
 }
 
-$filename=base64($time).'.'.$ext;
+$filename=base64_encode($time).'.'.$ext;
 
 //$ext = pathinfo($filename);//, PATHINFO_EXTENSION
 //print_r($ext);
