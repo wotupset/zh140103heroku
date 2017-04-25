@@ -64,12 +64,20 @@ file_put_contents($output_filename,$output_content);
 
 
 ////
+//$tmp='';
+//$url='https://pbs.twimg.com/media/C-M06dQVYAAIaW9.jpg:orig';
+//echo base64_encode($url);echo "\n";
+//echo md5($url);echo "\n";
+//echo $hash_url=hash('crc32',$url);
+$hash_url=md5($url);
+
+$html_showimage=<<<EOT
+<img src="170412v0b.php?$hash_url">
+EOT;
+
 $FFF='';
 $FFF.='<pre>'.$url.'</pre>';
 $FFF.='<pre>'.print_r($header_data,true).'</pre>';
-$html_showimage=<<<EOT
-<img src="170412v0b.php">
-EOT;
 $FFF.='<div>'.$html_showimage.'</div>';
 
 header('Content-Type: text/html; charset=utf-8');
