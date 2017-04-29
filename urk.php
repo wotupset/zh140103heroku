@@ -131,7 +131,7 @@ $echo_body.=html_js();
 	break;
 }
 //
-if($query_string){
+if(0){//$query_string
 	$FFF='';
 	$FFF=explode("!",$query_string);
 	switch($FFF[0]){
