@@ -170,7 +170,7 @@ foreach($html->find('div.threadpost') as $k => $v){
 				$FFF='';
 				$FFF.=$v3->plaintext;
 				//$FFF.=$v3->datetime;
-				$chat_array[$cc]['time'] =$FFF;
+				$chat_array[0]['time'] =$FFF;
 			}
 		$v2->outertext="";
 	}
@@ -181,23 +181,11 @@ foreach($html->find('div.threadpost') as $k => $v){
 		//$qlink_newest=$chat_array[$k]['qlink'];
 	}
 	foreach($v->find('div.img_container') as $k2 => $v2){
-		
-	}
-
-	foreach($v->find('a[href*=moe]') as $k2 => $v2){
-		//$chat_array[$k]['image0'][]=$v2->outertext;
-		//$chat_array[$k]['image']
-		$FFF=$v2->href;
-		//$FFF='http:'.$FFF;
-		$chat_array[0]['image']=$FFF;
-		
-
-		foreach($v2->find('img.img') as $k3 => $v3){
-			//$chat_array[$k]['image1'][]=$v3->outertext;
-			$FFF=$v3->src;
-			//$FFF='http:'.$FFF;
-			$chat_array[0]['image_t']=$FFF;
-
+		foreach($v->find('a[href*=moe]') as $k3 => $v3){
+			$chat_array[0]['image']=$v3->href;
+			foreach($v2->find('img.img') as $k4 => $v4){
+				$chat_array[0]['image_t']=$v4->src;
+			}
 		}
 		//
 		$v2->outertext="";
@@ -219,7 +207,7 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<div id="block'.$cc.'">'."\n";
 	$htmlbody.= '<div id="box1">'."\n";
 	$htmlbody.= '<span class="sort_num">#'.$cc.'</span> ';
-	$htmlbody.= '<span class="idno">'.$v['nameidtime'].$v['qlink'].'</span> ';
+	$htmlbody.= '<span class="idno">'.$v['title'].$v['name'].$v['time'].$v['trip_id'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
 	$htmlbody.= '</div>'."\n";
 	$htmlbody.= '<div id="box2">'."\n";
