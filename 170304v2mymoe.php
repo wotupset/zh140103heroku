@@ -125,25 +125,17 @@ foreach($html->find('div.reply') as $k => $v){
 		//
 		$qlink_newest=$chat_array[$cc]['qlink'];
 	}
-
-	foreach($v->find('a[href*=moe]') as $k2 => $v2){
-		//$chat_array[$k]['image0'][]=$v2->outertext;
-		//$chat_array[$k]['image']
-		$FFF=$v2->href;
-		$FFF='http:'.$FFF;
-		$chat_array[$cc]['image']=$FFF;
-		
-
-		foreach($v2->find('img.img') as $k3 => $v3){
-			//$chat_array[$k]['image1'][]=$v3->outertext;
-			$FFF=$v3->src;
-			$FFF='http:'.$FFF;
-			$chat_array[$cc]['image_t']=$FFF;
-
+	foreach($v->find('div.img_container') as $k2 => $v2){
+		foreach($v->find('a[href*=moe]') as $k3 => $v3){
+			$chat_array[$cc]['image']=$v3->href;
+			foreach($v2->find('img.img') as $k4 => $v4){
+				$chat_array[$cc]['image_t']=$v4->src;
+			}
 		}
 		//
 		$v2->outertext="";
 	}
+
 	//
 	$chat_array[$cc]['zzz_text']=$v->outertext;
 	$v->outertext="";
@@ -173,25 +165,37 @@ foreach($html->find('div.threadpost') as $k => $v){
 		$chat_array[0]['trip_id'] =$v2->plaintext;
 		$v2->outertext="";
 	}
+	foreach($v->find('span.now') as $k2 => $v2){
+			foreach($v->find('time') as $k3 => $v3){
+				$FFF='';
+				$FFF.=$v3->plaintext;
+				//$FFF.=$v3->datetime;
+				$chat_array[$cc]['time'] =$FFF;
+			}
+		$v2->outertext="";
+	}
 	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
 		$chat_array[0]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
 		//
 		//$qlink_newest=$chat_array[$k]['qlink'];
 	}
+	foreach($v->find('div.img_container') as $k2 => $v2){
+		
+	}
 
 	foreach($v->find('a[href*=moe]') as $k2 => $v2){
 		//$chat_array[$k]['image0'][]=$v2->outertext;
 		//$chat_array[$k]['image']
 		$FFF=$v2->href;
-		$FFF='http:'.$FFF;
+		//$FFF='http:'.$FFF;
 		$chat_array[0]['image']=$FFF;
 		
 
 		foreach($v2->find('img.img') as $k3 => $v3){
 			//$chat_array[$k]['image1'][]=$v3->outertext;
 			$FFF=$v3->src;
-			$FFF='http:'.$FFF;
+			//$FFF='http:'.$FFF;
 			$chat_array[0]['image_t']=$FFF;
 
 		}
