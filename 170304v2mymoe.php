@@ -196,7 +196,7 @@ foreach($html->find('div.threadpost') as $k => $v){
 
 //array_unshift($chat_array, $chat_array2);//
 ksort($chat_array);
-echo print_r($chat_array,true);exit;//檢查點
+//echo print_r($chat_array,true);exit;//檢查點
 ////////////
 
 //用迴圈叫出資料
@@ -215,7 +215,8 @@ foreach($chat_array as $k => $v){//迴圈
 	if(count($v['image'])){
 		$cc2++;//計算圖片數量
 		//
-		$FFF='https://demo.cloudimg.io/cdn/0/0/'.$v['image'];
+		//$FFF='https://demo.cloudimg.io/cdn/0/0/'.$v['image'];
+		$FFF=''.$v['image'];
 		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 	}
 
