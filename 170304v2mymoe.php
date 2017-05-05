@@ -113,8 +113,8 @@ foreach($html->find('div.reply') as $k => $v){
 	foreach($v->find('span.now') as $k2 => $v2){
 			foreach($v->find('time') as $k3 => $v3){
 				$FFF='';
-				$FFF.=$v2->plaintext;
-				$FFF.=$v2->datetime;
+				$FFF.=$v3->plaintext;
+				$FFF.=$v3->datetime;
 				$chat_array[$cc]['time'] =$FFF;
 			}
 		$v2->outertext="";
