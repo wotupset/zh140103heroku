@@ -102,6 +102,20 @@ foreach($html->find('div.reply') as $k => $v){
 		$chat_array[$cc]['title'] =$v2->plaintext;
 		$v2->outertext="";
 	}
+	foreach($v->find('span.name') as $k2 => $v2){
+		$chat_array[$cc]['name'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($v->find('span.trip_id') as $k2 => $v2){
+		$chat_array[$cc]['trip_id'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($v->find('span.now') as $k2 => $v2){
+			foreach($v->find('time') as $k3 => $v3){
+				$chat_array[$cc]['time'] =$v2->datetime;
+			}
+		$v2->outertext="";
+	}
 	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
 		$chat_array[$cc]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
@@ -144,11 +158,18 @@ foreach($html->find('div.threadpost') as $k => $v){
 		$v2->outertext="";
 	}
 
-	foreach($v->find('title') as $k2 => $v2){
+	foreach($v->find('span.title') as $k2 => $v2){
 		$chat_array[0]['title'] =$v2->plaintext;
 		$v2->outertext="";
 	}
-
+	foreach($v->find('span.name') as $k2 => $v2){
+		$chat_array[0]['name'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($v->find('span.trip_id') as $k2 => $v2){
+		$chat_array[0]['trip_id'] =$v2->plaintext;
+		$v2->outertext="";
+	}
 	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
 		$chat_array[0]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
