@@ -114,12 +114,12 @@ foreach($html->find('div.reply') as $k => $v){
 			foreach($v->find('time') as $k3 => $v3){
 				$FFF='';
 				$FFF.=$v3->plaintext;
-				$FFF.=$v3->datetime;
+				//$FFF.=$v3->datetime;
 				$chat_array[$cc]['time'] =$FFF;
 			}
 		$v2->outertext="";
 	}
-	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
+	foreach($v->find('a.qlink[href^=javascript:quote]') as $k2 => $v2){
 		$chat_array[$cc]['qlink'] =$v2->plaintext;
 		$v2->outertext="";
 		//
