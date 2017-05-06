@@ -225,7 +225,10 @@ if(1){
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>1000){break;}
+  if($cc>10){
+    echo 'break'."\n";
+    break;
+  }
   echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
   echo pg_unescape_bytea($row['c03'])."\n";
 }
