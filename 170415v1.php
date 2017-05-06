@@ -130,7 +130,6 @@ try{
 $sql=<<<EOT
 select * from $table_name 
 ORDER BY timestamp DESC
-LIMIT 100
 EOT;
 // LIMIT 10
 $stmt = $db->prepare($sql);
