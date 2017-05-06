@@ -150,8 +150,8 @@ while ($row = $stmt->fetch() ) {
   echo '<div class="box">';
   echo '<div class="title"><h3>#'.$row['id'].'# '.$row['c01'].'</h3></div>';
   echo '<div class="text">'.nl2br($row['c02']).'</div>';
-  echo '<pre>'.$row['c03'].base64_decode($row['c03']).'</pre>';
-  echo '<div class="date"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
+  //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
+  echo '<div class="date" title="'.base64_decode($row['c03']).'"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
   echo '</div>';
 }
   //
