@@ -97,7 +97,7 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-//echo '<h3>log數='.$rows_max."</h3>\n";
+echo '<h3>log數='.$rows_max."</h3>\n";
 if($page > floor($rows_max) ){
   $page=floor($rows_max);//floor//ceil
 }
@@ -110,9 +110,10 @@ $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   if( ($page)*10 >= $cc || $cc > ($page+1)*10 ){
-	  echo '#'.$cc.'continue'."<br/>\n";
-	  continue;
-	  //break;
+    //echo '#'.$cc.'continue'."<br/>\n";
+    echo '<h3>#cc='.$cc."</h3>\n";
+    continue;
+    //break;
   }
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
