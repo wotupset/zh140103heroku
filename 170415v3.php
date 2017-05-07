@@ -83,6 +83,7 @@ if($cc>0){
 
 $page=0;
 $page=(int)$query_string;
+echo $page;
 
 ob_start();
 
@@ -106,7 +107,7 @@ $cc=0;
 //foreach($datalist as $row){
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if( ($page)*10 > $cc && $cc > ($page+1)*10 ){
+  if( ($page)*10 > $cc || $cc > ($page+1)*10 ){
 	  echo '#'.$cc.'continue'."<br/>\n";
 	  continue;
   }
