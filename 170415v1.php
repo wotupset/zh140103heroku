@@ -145,7 +145,7 @@ $cc=0;
 //foreach($datalist as $row){
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>100){
+  if($cc>10){
 	  echo 'break';
 	  break;
   }
