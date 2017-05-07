@@ -101,11 +101,12 @@ echo '<h3>log數='.$rows_max."</h3>\n";
 if($page > floor($rows_max/10) ){
   $page=floor($rows_max/10);//floor//ceil
 }
+echo $page;
+
 for($x=0;$x<$page;$x++){
-  echo '<h3>#page='.$page."</h3>\n";
+  echo '<h3>#x='.$x."</h3>\n";
   
 }
-//echo $page;
 //$datalist = $stmt->fetchAll();
 
 if(1){
