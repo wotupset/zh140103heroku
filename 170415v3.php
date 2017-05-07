@@ -103,7 +103,7 @@ if($page > floor($rows_max/10) ){
 }
 echo $page;
 
-for($x=0;$x< floor($rows_max/10 ;$x++){
+for($x=0;$x< floor($rows_max/10) ;$x++){
   echo '<h3>#x='.$x."</h3>\n";
   
 }
