@@ -101,9 +101,9 @@ echo '<h3>log數='.$rows_max."</h3>\n";
 if($page > floor($rows_max/10) ){
   $page=floor($rows_max/10);//floor//ceil
 }
-echo $page;
+//echo $page;
 
-for($x=0;$x< ceil($rows_max/10) ;$x++){
+for($x=0;$x <= floor($rows_max/10) ;$x++){
   echo '<a href="170415v3.php?'.$x.'">#['.$x.']</a>'."\n";
 }
 echo '<br/>';
