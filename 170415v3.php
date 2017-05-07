@@ -98,8 +98,8 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 //echo '<h3>log數='.$rows_max."</h3>\n";
-if($page > ceil($rows_max) ){
-  $page=ceil($rows_max);//floor
+if($page > floor($rows_max) ){
+  $page=floor($rows_max);//floor//ceil
 }
 //$datalist = $stmt->fetchAll();
 
