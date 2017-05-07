@@ -83,7 +83,7 @@ if($cc>0){
 
 $page=0;
 $page=(int)$query_string;
-echo $page;
+//echo $page;
 
 ob_start();
 
@@ -101,7 +101,11 @@ echo '<h3>log數='.$rows_max."</h3>\n";
 if($page > floor($rows_max/10) ){
   $page=floor($rows_max/10);//floor//ceil
 }
-echo $page;
+for($x=0;$x<$page;$x++){
+  echo '<h3>#page='.$page."</h3>\n";
+  
+}
+//echo $page;
 //$datalist = $stmt->fetchAll();
 
 if(1){
@@ -112,7 +116,7 @@ while ($row = $stmt->fetch() ) {
   $cc++;
   if( ($page)*10 >= $cc || $cc > ($page+1)*10 ){
     //echo '#'.$cc.'continue'."<br/>\n";
-    echo '<h3>#cc='.$cc."</h3>\n";
+    //echo '<h3>#cc='.$cc."</h3>\n";
     continue;
     //break;
   }
