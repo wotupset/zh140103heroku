@@ -106,7 +106,10 @@ $cc=0;
 //foreach($datalist as $row){
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if( ($page)*10 > $cc && $cc > ($page+1)*10 ){break;}
+  if( ($page)*10 > $cc && $cc > ($page+1)*10 ){
+	  echo '#'.$cc.'continue'."<br/>\n";
+	  continue;
+  }
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
