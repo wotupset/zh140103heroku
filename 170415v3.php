@@ -103,10 +103,11 @@ if($page > floor($rows_max/10) ){
 }
 echo $page;
 
-for($x=0;$x< floor($rows_max/10) ;$x++){
-  echo '<h3>#x='.$x."</h3>\n";
-  
+for($x=0;$x< ceil($rows_max/10) ;$x++){
+  echo '<a href="170415v3.php?'.$x.'">#['.$x.']</a>'."\n";
 }
+echo '<br/>';
+
 //$datalist = $stmt->fetchAll();
 
 if(1){
