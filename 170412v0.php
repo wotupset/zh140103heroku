@@ -53,21 +53,50 @@ if(1){
   //echo print_r($getinfo,true);//檢查點
   $content=$getdata;
 }
-
-
+//輸出成檔案
 $output_filename  = $phpself2.'.tmp';
 $output_content   = $content;
 file_put_contents($output_filename,$output_content);
 
+//檢查是不是圖片
+$FFF='';$status='';
+if(function_exists("finfo_open")){
+	$finfo = finfo_open(FILEINFO_MIME);
+	$FFF=finfo_file($finfo, $output_filename);
+	finfo_close($finfo);
+	$status='[o]finfo_open';
+}else{
+	$status='[x]finfo_open';
+}
+//print_r($FFF);
+//echo $FFF;echo "\n";
+//echo $status;echo "\n";
+
+///
 
 $FFF_header =$header_data[0];
-$FFF_url    =$url.'<br>'.$getinfo['url'];
+foreach( $header_data as $k => $v ){
+	$FFF=explode(":",$v);
+	//print_r($FFF);
+	//print_r(preg_match('/^Content-Type$/',$FFF[0],$matches));
+	if (preg_match('/^Content-Type$/',$FFF[0],$matches)) {
+		$FFF_header.='<br/>'.$v;
+	}
+}
+
+
+////
+
 $FFF_size   =$getinfo['size_download'];
 foreach( $header_data as $k => $v ){
-	if (stripos($v, 'Content-Length') !== false) {
+	$FFF=explode(":",$v);
+	//print_r($FFF);
+	if (stripos($FFF[0], 'Content-Length') !== false) {
 		$FFF_size.='<br>'.$v;
 	}
 }
+$FFF_url    =$url.'<br>'.$getinfo['url'];
+
 
 ////
 $FFF='';
