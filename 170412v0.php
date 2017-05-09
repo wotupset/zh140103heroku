@@ -18,7 +18,7 @@ if( substr_count($url, "http")>0 ){
 }else{
 	//echo "?res=";
 	//$FFF=$html_inputbox;
-	$FFF='';
+	$FFF='??';
 	echo html_body($FFF);
 	exit;
 }
@@ -35,6 +35,7 @@ $header_data = get_headers($url);
 //if(strpos($header_data[0],'200')>0){}
 if(strpos($header_data[0],'200')===false){
 	//echo html_body('網址不存在');exit;
+	//echo 'get_headers='.$header_data[0];
 }else{
 	//echo html_body('ok');exit;
 }
@@ -59,25 +60,24 @@ $output_content   = $content;
 file_put_contents($output_filename,$output_content);
 
 
-
-
-
+$FFF_header =$header_data[0];
+$FFF_url    =$url.'<br>'.$getinfo['url'];
+$FFF_size   =$getinfo['size_download'];
+foreach( $header_data as $k => $v ){
+	if (stripos($v, 'Content-Length') !== false) {
+		$FFF_size.='<br>'.$v;
+	}
+}
 
 ////
-//$tmp='';
-//$url='https://pbs.twimg.com/media/C-M06dQVYAAIaW9.jpg:orig';
-//echo base64_encode($url);echo "\n";
-//echo md5($url);echo "\n";
-//echo $hash_url=hash('crc32',$url);
-$hash_url=md5($url);
-
-$html_showimage=<<<EOT
-<img src="170412v0b.php?$hash_url">
-EOT;
-
 $FFF='';
-$FFF.='<pre>'.$url.'</pre>';
+$FFF.='<pre>'.$FFF_header.'</pre>';
+$FFF.='<pre>'.$FFF_url.'</pre>';
+$FFF.='<pre>'.$FFF_size.'</pre>';
 $FFF.='<pre>'.print_r($header_data,true).'</pre>';
+$html_showimage=<<<EOT
+<img src="170412v0b.php?$time">
+EOT;
 $FFF.='<div>'.$html_showimage.'</div>';
 
 header('Content-Type: text/html; charset=utf-8');
