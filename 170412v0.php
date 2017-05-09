@@ -34,7 +34,7 @@ $header_data = get_headers($url);
 //var_dump(strpos($header_data[0],'200'));
 //if(strpos($header_data[0],'200')>0){}
 if(strpos($header_data[0],'200')===false){
-	echo html_body('網址不存在');exit;
+	//echo html_body('網址不存在');exit;
 }else{
 	//echo html_body('ok');exit;
 }
