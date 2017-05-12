@@ -19,6 +19,9 @@ if(isset($_POST['inputurl'])){
 }else{
 	$url=$_SERVER['QUERY_STRING'];
 }
+//修飾
+$FFF=explode('#',$url);
+$url=$FFF[0];
 
 //
 $html_inputbox=<<<EOT
@@ -151,6 +154,7 @@ foreach($html->find('div.post') as $k => $v){
 
 //用迴圈叫出資料
 $cc=$cc2=$cc3=0;$htmlbody='';
+$array_imgurl=array();
 foreach($chat_array as $k => $v){//迴圈
 	$cc++;
 	//
@@ -159,13 +163,14 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<span class="sort_num">#'.$cc.'</span> ';
 	if(count($v['name'])){$htmlbody.= '<span class="name">'.$v['name'].'</span> ';}
 	if(count($v['title'])){$htmlbody.= '<span class="title" title="'.$v['title'].'">'.$v['title'].'</span> ';}
-	$htmlbody.= '<span class="idno">'.$cc.$v['now'].$v['qlink'].'</span> ';
+	$htmlbody.= '<span class="idno">'.$v['now'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
 	$htmlbody.= '</div>'."\n";
 	$htmlbody.= '<div id="box2">'."\n";
 	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
 	if(count($v['image'])){
 		$cc2++;//計算圖片數量
+		$array_imgurl[$cc2]=$v['image'];
 		//
 		$FFF=''.$v['image'];
 		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
@@ -173,22 +178,21 @@ foreach($chat_array as $k => $v){//迴圈
 		$cc3++;
 		$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
 		$htmlbody.='<img src="'.$v['image_t'].'">';
-		
-		
 		}
 			
 	}
 
 	$htmlbody.= '</div>'."\n";
-
-
-
 	$htmlbody.= '</div>'."\n";
 }
+//print_r($array_imgurl);
+$json_imgurl=json_encode($array_imgurl);
+//print_r($json_imgurl);
 
 $htmlbody=$board_title2.$url.$htmlbody;//加上網址
-$webm_count=$cc3;
 $reply_count=$cc;
+$image_count=$cc2;
+$webm_count=$cc3;
 //$qlink_newest
 
 //echo print_r($htmlbody,true);exit;//檢查點
@@ -214,8 +218,9 @@ $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
 $hash_url=hash('crc32',$url);
+//$hash_url=hash('md5',$url);
 $ymdhis=date('ymd',$time);//輸出的檔案名稱
-$hash_url=$ymdhis.$hash_url;
+$hash_url=$hash_url;
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
@@ -223,9 +228,52 @@ $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
 $FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$hash_url.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$hash_url.'">archive.is</a>'."<br/>\n";
-$FFF.='webm='.floor($webm_count)."<br/>\n";
 $FFF.='reply_count='.$reply_count."<br/>\n";
+$FFF.='image_count='.$image_count."<br/>\n";
+$FFF.='webm_count='.floor($webm_count)."<br/>\n";
 $FFF.='qlink_newest='.$qlink_newest."<br/>\n";
+$FFF.='<div id="ppp"></div>'."\n";
+
+$FFF.=<<<EOT
+<script>
+var tmp='$json_imgurl';
+var ary=JSON.parse(tmp);;
+console.log(ary);
+console.log(ary[1]);
+</script>
+EOT;
+
+$FFF.=<<<EOT
+<script>
+console.log( '測試1');
+document.addEventListener("DOMContentLoaded", function(event) { 
+	console.log( '測試2');
+	poi();
+});
+function poi(){
+	console.log( '測試2-1');
+	var cc=0;
+	var timeinterval = setInterval(function(){
+		cc=cc+1;
+		//
+		if(typeof ary[cc] !== 'undefined'){
+			var fragment = document.createDocumentFragment();//创建一个文档片段
+			var item = document.getElementById('ppp');
+			var newitem = document.createElement('IMG');
+			var newtext = document.createTextNode('#'+cc);
+			newitem.src=ary[cc];
+			newitem.style='height: 100px;';
+			fragment.appendChild(newitem);
+			fragment.appendChild(newtext);
+			item.appendChild(fragment);
+		}else{
+			clearInterval(timeinterval);//沒有陣列項目就結束
+		}
+		
+	},2000);
+}
+</script>
+EOT;
 echo html_body($FFF);
 
 exit;
