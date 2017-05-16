@@ -253,6 +253,13 @@ function poi(){
 			fragment.appendChild(newtext);
 			item.appendChild(fragment);
 		}else{
+			var fragment = document.createDocumentFragment();//创建一个文档片段
+			var item = document.getElementById('ppp');
+			var newtext = document.createTextNode('#結束');
+			fragment.appendChild(newtext);
+			item.appendChild(fragment);
+			item.style="background-color:#bdbdbd;border-RIGHT:#f00 10px solid;";
+			//
 			clearInterval(timeinterval);//沒有陣列項目就結束
 		}
 		
