@@ -248,7 +248,7 @@ $FFF.=<<<EOT
 console.log( '測試1');
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( '測試2');
-	poi();
+	//poi();
 });
 function poi(){
 	console.log( '測試2-1');
