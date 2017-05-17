@@ -272,7 +272,7 @@ function poi(){
 			var newtext = document.createTextNode('#結束');
 			fragment.appendChild(newtext);
 			item.appendChild(fragment);
-			item.style="background-color:#bdbdbd;border-RIGHT:#f00 10px solid;";
+			item.style="background-color:#bdbdbd;border-TOP:#f00 10px solid;";
 			//
 			clearInterval(timeinterval);//沒有陣列項目就結束
 		}
