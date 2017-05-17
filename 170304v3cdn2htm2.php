@@ -163,11 +163,16 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= $v['quote']."\n";
 	
 	if(count($v['image'])){
-		$cc2++;//計算圖片數量
-		$array_imgurl[$cc2]='http://web.archive.org/save/'.$v['image'];//js
-		//
-		$FFF='http://web.archive.org/web/20170101020202/'.$v['image'];
-		$htmlbody.= '<br/>圖'.$cc2.'<br/><img src="'.$FFF.'">'."\n";
+			$array_imgurl[$cc2]='http://web.archive.org/save/'.$v['image'];//js
+			$FFF='http://web.archive.org/web/20170101020202/'.$v['image'];
+			if( preg_match('/\.webm$/',$v['image'])){
+				$cc3++;//計算webm數量
+				$htmlbody.= '<h5>影'.$cc3.'<br/>'.$FFF.'</h5>'."\n";
+			}else{
+				$cc2++;//計算圖片數量
+				//
+				$htmlbody.= '<h5>圖'.$cc2.'<br/><img src="'.$FFF.'"></h5>'."\n";
+			}
 	}
 
 }
@@ -199,7 +204,9 @@ $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
 
 $output_filename  = $phpself2.'.htm';
-$output_content   = poi($chat_array);
+//$output_content   = poi($chat_array);
+$output_content   = html_body(htmlentities($htmlbody));//html_entity_decode
+
 file_put_contents($output_filename,$output_content);
 
 $FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
@@ -243,7 +250,6 @@ function poi(){
 	console.log( '測試2-1');
 	var cc=0;
 	var timeinterval = setInterval(function(){
-		cc=cc+1;
 		//
 		if(typeof ary[cc] !== 'undefined'){
 			var fragment = document.createDocumentFragment();//创建一个文档片段
@@ -265,7 +271,8 @@ function poi(){
 			//
 			clearInterval(timeinterval);//沒有陣列項目就結束
 		}
-		
+		//
+		cc=cc+1;
 	},1000);
 }
 </script>
