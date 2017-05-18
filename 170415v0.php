@@ -39,9 +39,9 @@ if(!$db){die('連線失敗');}
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
 
-
+echo 'version_php:'.phpversion()."\n";
 foreach( $db->query("select version();") as $k => $v ){
-  echo 'pgsql version='.$v[0]."\n";
+  echo 'version_pgsql='.$v[0]."\n";
 }
   
 //$db->exec("SET TIME ZONE '$tz';");//+8
