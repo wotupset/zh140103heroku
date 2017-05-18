@@ -40,6 +40,12 @@ echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
 
 
+foreach( $db->query("select version();") as $k => $v ){
+  echo 'pgsql version='.$v[0]."\n";
+}
+echo "\n";
+
+  
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//修改成+8時區
 foreach( $db->query("show TimeZone") as $k => $v ){
@@ -225,7 +231,7 @@ if(1){
 $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>10){
+  if($cc>5){
     echo 'break'."\n";
     break;
   }
