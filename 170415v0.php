@@ -43,8 +43,6 @@ echo "\n";
 foreach( $db->query("select version();") as $k => $v ){
   echo 'pgsql version='.$v[0]."\n";
 }
-echo "\n";
-
   
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//修改成+8時區
