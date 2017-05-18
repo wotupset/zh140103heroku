@@ -45,7 +45,7 @@ $params = array(':username' => 'admin');
 $db->query($myQuery)->execute($params);
 */
 
-echo 'version_php:'.phpversion()."\n";
+echo 'version_php='.phpversion()."\n";
 foreach( $db->query("select version();") as $k => $v ){
   echo 'version_pgsql='.$v[0]."\n";
 }
