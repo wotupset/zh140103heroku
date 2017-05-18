@@ -130,9 +130,13 @@ while ($row = $stmt->fetch() ) {
   $cc++;
   echo $cc."\t";
   echo $row['tablename']."\t";
-  echo $db->query('select pg_size_pretty(pg_tablespace_size("'.$row['tablename'].'"));')."\n";
 }
 //
+echo $FFF='select pg_size_pretty(pg_tablespace_size("'.$table_name.'"));'."\n";
+foreach( $db->query($FFF) as $k => $v ){
+  echo 'version_pgsql='.$v[0]."\n";
+}
+
 //
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
