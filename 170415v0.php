@@ -39,6 +39,12 @@ if(!$db){die('連線失敗');}
 echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
 echo "\n";
 
+/*
+$myQuery = 'SELECT * FROM users WHERE username = :username';
+$params = array(':username' => 'admin');
+$db->query($myQuery)->execute($params);
+*/
+
 echo 'version_php:'.phpversion()."\n";
 foreach( $db->query("select version();") as $k => $v ){
   echo 'version_pgsql='.$v[0]."\n";
