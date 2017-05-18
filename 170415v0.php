@@ -125,9 +125,15 @@ EOT;
 //AND schemaname != 'information_schema';
 $stmt = $db->prepare($sql);
 $stmt->execute();
+$cc=0;
 while ($row = $stmt->fetch() ) {
-  echo $row['tablename']."\n";
+  $cc++;
+  echo $cc."\t";
+  echo $row['tablename']."\t";
+  echo $db->query('select pg_size_pretty(pg_tablespace_size("'.$row['tablename'].'"));')."\n";
 }
+//
+//
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 try{
