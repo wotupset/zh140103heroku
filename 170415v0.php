@@ -130,11 +130,14 @@ while ($row = $stmt->fetch() ) {
   $cc++;
   echo $cc."\t";
   echo $row['tablename']."\t";
+  echo "\n";
 }
 //
-echo $FFF='select pg_size_pretty(pg_tablespace_size("'.$table_name.'"));'."\n";
+$FFF='select pg_size_pretty(pg_tablespace_size("'.$table_name.'"));'."\n";
+echo $FFF;
+$db->exec($FFF);
 foreach( $db->query($FFF) as $k => $v ){
-  echo 'version_pgsql='.$v[0]."\n";
+  echo 'pg_tablespace_size='.$v[0]."\n";
 }
 
 //
