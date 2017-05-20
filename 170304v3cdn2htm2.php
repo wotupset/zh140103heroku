@@ -164,15 +164,15 @@ foreach($chat_array as $k => $v){//迴圈
 	
 	if(count($v['image'])){
 			//
+				$FFF='http://web.archive.org/web/20170101020202/'.$v['image'].'';
 			if( preg_match('/\.webm$/',$v['image'])){
 				$cc3++;//計算webm數量
-				$FFF='http://web.archive.org/web/20170101020202/'.$v['image'].'';
+				//$FFF='http://web.archive.org/web/20170101020202/'.$v['image'].'';
 				$htmlbody.= '<h5><a href="'.$FFF.'">影'.$cc3.'<img src="https://abs.twimg.com/emoji/v2/72x72/1f50a.png"></a></h5>'."\n";
-				//$array_imgurl[$cc3]='http://web.archive.org/save/'.$v['image'];//js
 			}else{
 				$cc2++;//計算圖片數量
 				//
-				$FFF=''.$v['image'].'';
+				//$FFF='http://web.archive.org/web/20170101020202/'.$v['image'].'';
 				$htmlbody.= '<h5>圖'.$cc2.'<br/><img src="'.$FFF.'"></h5>'."\n";
 			}
 			//
