@@ -223,6 +223,7 @@ $output_fileurl=$FFF.$output_filename;
 //$hash_url=hash('crc32',$url);
 //$hash_url=hash('md5',$url);
 //$ymdhis=date('ymd',$time);//輸出的檔案名稱
+//$hash_url='?'.$hash_url;//取消
 $hash_url='';//取消
 ///
 header('Content-Type: text/html; charset=utf-8');
