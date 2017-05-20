@@ -19,9 +19,6 @@ if(isset($_POST['inputurl'])){
 }else{
 	$url=$_SERVER['QUERY_STRING'];
 }
-//修飾
-$FFF=explode('#',$url);
-$url=$FFF[0];
 
 //
 $html_inputbox=<<<EOT
@@ -30,7 +27,7 @@ $html_inputbox=<<<EOT
 <input type="submit" name="sendbtn" value="送出">
 </form>
 EOT;
-//
+//http://2cat.or.tl/~tedc21thc/new/pixmicat.php?res=2334868
 if( substr_count($url, "?res=")>0 ){
 	//ok
 }else{
@@ -60,22 +57,22 @@ $chat_array='';
 $chat_array = $html->outertext;
 //echo print_r($chat_array,true);exit;//檢查點
 //
-
 $url_num='0000';
 $pattern="%\?res=([0-9]+)%";
 if(preg_match($pattern, $url, $matches_url)){
 	//echo $matches_url[1];
 	$url_num=$matches_url[1];
 }
-//echo $url_num;echo "\n";
-$board_title = $html->find('title',0)->innertext;//版面標題
+
+$board_title = $html->find('h1',0)->innertext;//版面標題
 //echo $board_title;echo "\n";
 
 
-
 $ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
-$board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
+$board_title2='於'.$ymdhis.'擷取';
 //echo $board_title2;echo "\n";
+
+
 
 
 $cc=0;
@@ -87,115 +84,140 @@ if($cc>0){
 }
 ////////////
 //批次找留言
-$chat_array=array();
+$chat_array=$chat_array2=array();
 $cc=0;$qlink_newest='';
-foreach($html->find('div.post') as $k => $v){
-	//$vv=$v->parent;
-	$chat_array[$k]['org_text']=$v->outertext;
-	//
-	foreach($v->find('span.name') as $k2 => $v2){
-		$chat_array[$k]['name'] =$v2->plaintext;
-		$v2->outertext="";
-	}
-	foreach($v->find('span.title') as $k2 => $v2){
-		$chat_array[$k]['title'] =$v2->plaintext;
-		$v2->outertext="";
-	}
-
-	foreach($v->find('span.now') as $k2 => $v2){
-		$chat_array[$k]['now'] =$v2->plaintext;
-		$v2->outertext="";
-	}
-	foreach($v->find('span.id') as $k2 => $v2){
-		$chat_array[$k]['id'] =$v2->plaintext;
-		$v2->outertext="";
-	}
-	foreach($v->find('span.qlink') as $k2 => $v2){
-		$chat_array[$k]['qlink'] =$v2->plaintext;
-		$v2->outertext="";
-		//
-		$qlink_newest=$chat_array[$k]['qlink'];
-	}
+foreach($html->find('div.reply') as $k => $v){
+	$cc=$k+1;
+	$chat_array[$cc]['org_text']=$v->outertext;
 	//
 	foreach($v->find('div.quote') as $k2 => $v2){
 		$FFF=$v2->outertext;
-		$FFF=strip_tags($FFF,"<br>");//留下換行標籤
-		$chat_array[$k]['quote']=$FFF;
+		$FFF=strip_tags($FFF,"<br><span>");//留下換行標籤
+		$chat_array[$cc]['quote']=$FFF;
 		//
 		$v2->outertext="";
 	}
 
-	foreach($v->find('a.file-thumb') as $k2 => $v2){
+	foreach($v->find('label') as $k2 => $v2){
+		$chat_array[$cc]['nameidtime'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
+		$chat_array[$cc]['qlink'] =$v2->plaintext;
+		$v2->outertext="";
+		//
+		$qlink_newest=$chat_array[$cc]['qlink'];
+	}
+
+	foreach($v->find('a[href*=tedc21thc]') as $k2 => $v2){
 		//$chat_array[$k]['image0'][]=$v2->outertext;
 		//$chat_array[$k]['image']
 		$FFF=$v2->href;
 		$FFF='http:'.$FFF;
-		$chat_array[$k]['image']=$FFF;
+		$chat_array[$cc]['image']=$FFF;
 		
 
-		foreach($v2->find('img') as $k3 => $v3){
+		foreach($v2->find('img.img') as $k3 => $v3){
 			//$chat_array[$k]['image1'][]=$v3->outertext;
 			$FFF=$v3->src;
 			$FFF='http:'.$FFF;
-			$chat_array[$k]['image_t']=$FFF;
+			$chat_array[$cc]['image_t']=$FFF;
 
 		}
 		//
 		$v2->outertext="";
 	}
-
 	//
-	$chat_array[$k]['zzz_text']=$v->outertext;
-
+	$chat_array[$cc]['zzz_text']=$v->outertext;
+	$v->outertext="";
 }
-	
+
+//首篇另外處理
+foreach($html->find('div.threadpost') as $k => $v){
+	$chat_array[0]['org_text']=$v->outertext;
+	//
+	foreach($v->find('div.quote') as $k2 => $v2){
+		$FFF=$v2->outertext;
+		$FFF=strip_tags($FFF,"<br><span>");//留下換行標籤
+		$chat_array[0]['quote']=$FFF;
+		//
+		$v2->outertext="";
+	}
+
+	foreach($v->find('label') as $k2 => $v2){
+		$chat_array[0]['nameidtime'] =$v2->plaintext;
+		$v2->outertext="";
+	}
+
+	foreach($v->find('a.qlink[href^=javascript]') as $k2 => $v2){
+		$chat_array[0]['qlink'] =$v2->plaintext;
+		$v2->outertext="";
+		//
+		//$qlink_newest=$chat_array[$k]['qlink'];
+	}
+
+	foreach($v->find('a[rel=_blank]') as $k2 => $v2){
+		//$chat_array[$k]['image0'][]=$v2->outertext;
+		//$chat_array[$k]['image']
+		$FFF=$v2->href;
+		$FFF='http:'.$FFF;
+		$chat_array[0]['image']=$FFF;
+		
+
+		foreach($v2->find('img.img') as $k3 => $v3){
+			//$chat_array[$k]['image1'][]=$v3->outertext;
+			$FFF=$v3->src;
+			$FFF='http:'.$FFF;
+			$chat_array[0]['image_t']=$FFF;
+
+		}
+		//
+		$v2->outertext="";
+	}
+	//
+	$chat_array[0]['zzz_text']=$v->outertext;
+}
+
+//array_unshift($chat_array, $chat_array2);//
+ksort($chat_array);
 //echo print_r($chat_array,true);exit;//檢查點
 ////////////
 
 //用迴圈叫出資料
 $cc=$cc2=$cc3=0;$htmlbody='';
-$array_imgurl=array();
 foreach($chat_array as $k => $v){//迴圈
 	$cc++;
 	//
-	$htmlbody.= '<h3>#'.$cc.$v['name'].$v['title'].$v['now'].$v['qlink'].'</h3>'."\n";
-	//$post_content = str_replace('<br />',"\r\n",$v['quote'] );
-	$htmlbody.= $v['quote']."\n";
-	
+	$htmlbody.= '<div id="block'.$cc.'">'."\n";
+	$htmlbody.= '<div id="box1">'."\n";
+	$htmlbody.= '<span class="sort_num">#'.$cc.'</span> ';
+	$htmlbody.= '<span class="idno">'.$v['nameidtime'].$v['qlink'].'</span> ';
+	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
+	$htmlbody.= '</div>'."\n";
+	$htmlbody.= '<div id="box2">'."\n";
+	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
 	if(count($v['image'])){
-			//
-			if( preg_match('/\.webm$/',$v['image'])){
-				$cc3++;//計算webm數量
-				$FFF='http://web.archive.org/web/20170101020202/'.$v['image'].'';
-				$htmlbody.= '<h5><a href="'.$FFF.'">影'.$cc3.'<img src="https://abs.twimg.com/emoji/v2/72x72/1f50a.png"></a></h5>'."\n";
-				//$array_imgurl[$cc3]='http://web.archive.org/save/'.$v['image'];//js
-			}else{
-				$cc2++;//計算圖片數量
-				//
-				$FFF=''.$v['image'].'';
-				$htmlbody.= '<h5>圖'.$cc2.'<br/><img src="'.$FFF.'"></h5>'."\n";
-			}
-			//
-			$FFF=$cc2+$cc3;
-			$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
+		$cc2++;//計算圖片數量
+		//
+		$FFF='https://demo.cloudimg.io/cdn/0/0/'.$v['image'];
+		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 	}
 
-}
-//print_r($array_imgurl);
-$json_imgurl=json_encode($array_imgurl);
-//print_r($json_imgurl);
+	$htmlbody.= '</div>'."\n";
 
-$hash_url=hash('crc32',$url);
-$FFF=substr($hash_url, 0, 6);
-$htmlbody='<div style="border-LEFT:#'.$FFF.' 10px solid;">'.$htmlbody.'</div>';
-$htmlbody=$board_title2.$url.$htmlbody."\n";//加上網址
-$reply_count=$cc;
-$image_count=$cc2;
+
+
+	$htmlbody.= '</div>'."\n";
+}
+
+$htmlbody=$board_title2.$url.$htmlbody;//加上網址
 $webm_count=$cc3;
+$reply_count=$cc;
 //$qlink_newest
 
 //echo print_r($htmlbody,true);exit;//檢查點
 
+$chat_array=array();
 $chat_array[0]=$htmlbody;
 $chat_array[1]="國";
 $chat_array[2]=$qlink_newest;
@@ -203,85 +225,34 @@ $chat_array[3]=$board_title;
 $chat_array[4]=$board_title2;
 $chat_array[5]=$webm_count;
 
+//echo print_r($chat_array,true);exit;//檢查點
+
 //////////
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
 $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
 
 $output_filename  = $phpself2.'.htm';
-//$output_content   = poi($chat_array);
-$output_content   = html_body(htmlentities($htmlbody));//html_entity_decode
-
+$output_content   = poi($chat_array);
 file_put_contents($output_filename,$output_content);
 
 $FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
 $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
-//$hash_url=hash('crc32',$url);
-//$hash_url=hash('md5',$url);
-//$ymdhis=date('ymd',$time);//輸出的檔案名稱
-//$hash_url=$hash_url;
+$hash_url=hash('crc32',$url);
+$ymdhis=date('ymd',$time);//輸出的檔案名稱
+$hash_url=$hash_url;
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
 $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
-//$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$hash_url.'">archive.org</a>'."<br/>\n";
-//$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$hash_url.'">archive.is</a>'."<br/>\n";
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'?'.$hash_url.'">archive.org</a>'."<br/>\n";
+$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'?'.$hash_url.'">archive.is</a>'."<br/>\n";
+$FFF.='webm='.floor($webm_count)."<br/>\n";
 $FFF.='reply_count='.$reply_count."<br/>\n";
-$FFF.='image_count='.$image_count."<br/>\n";
-$FFF.='webm_count='.floor($webm_count)."<br/>\n";
 $FFF.='qlink_newest='.$qlink_newest."<br/>\n";
-$FFF.='<div id="ppp"></div>'."\n";
-
-$FFF.=<<<EOT
-<script>
-var tmp='$json_imgurl';
-var ary=JSON.parse(tmp);;
-console.log(ary);
-console.log(ary[1]);
-</script>
-EOT;
-
-$FFF.=<<<EOT
-<script>
-console.log( '測試1');
-document.addEventListener("DOMContentLoaded", function(event) { 
-	console.log( '測試2');
-	poi();
-});
-function poi(){
-	console.log( '測試2-1');
-	var cc=0;
-	var timeinterval = setInterval(function(){
-		cc=cc+1;
-		//
-		if(typeof ary[cc] !== 'undefined'){
-			var fragment = document.createDocumentFragment();//创建一个文档片段
-			var item = document.getElementById('ppp');
-			var newitem = document.createElement('IMG');
-			var newtext = document.createTextNode('#'+cc);
-			newitem.src=ary[cc];
-			newitem.style='height: 100px;';
-			fragment.appendChild(newitem);
-			fragment.appendChild(newtext);
-			item.appendChild(fragment);
-		}else{
-			var fragment = document.createDocumentFragment();//创建一个文档片段
-			var item = document.getElementById('ppp');
-			var newtext = document.createTextNode('#結束');
-			fragment.appendChild(newtext);
-			item.appendChild(fragment);
-			item.style="background-color:#bdbdbd;border-TOP:#f00 10px solid;";
-			//
-			clearInterval(timeinterval);//沒有陣列項目就結束
-		}
-		//
-	},1000);
-}
-</script>
-EOT;
 echo html_body($FFF);
 
 exit;

@@ -175,9 +175,11 @@ foreach($chat_array as $k => $v){//迴圈
 		$FFF=''.$v['image'];
 		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 		if( preg_match('/\.webm$/',$v['image'])){
-		$cc3++;
-		$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
-		$htmlbody.='<img src="'.$v['image_t'].'">';
+			$cc3++;
+			$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
+			$htmlbody.='<img src="'.$v['image_t'].'">';
+		}else{
+			
 		}
 			
 	}
@@ -225,13 +227,14 @@ $output_fileurl=$FFF.$output_filename;
 //$ymdhis=date('ymd',$time);//輸出的檔案名稱
 //$hash_url='?'.$hash_url;//取消
 $hash_url='';//取消
+
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
 $FFF.=$url."<br/>\n";
 $FFF.='<a href="'.$output_fileurl.'">'.$output_fileurl.'</a>'."<br/>\n";
-$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.$hash_url.'">archive.org</a>'."<br/>\n";
-$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.$hash_url.'">archive.is</a>'."<br/>\n";
+$FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
+$FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'">archive.is</a>'."<br/>\n";
 $FFF.='reply_count='.$reply_count."<br/>\n";
 $FFF.='image_count='.$image_count."<br/>\n";
 $FFF.='webm_count='.floor($webm_count)."<br/>\n";
@@ -252,7 +255,7 @@ $FFF.=<<<EOT
 console.log( '測試1');
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( '測試2');
-	//poi();
+	poi();
 });
 function poi(){
 	console.log( '測試2-1');
