@@ -233,6 +233,7 @@ $FFF.='reply_count='.$reply_count."<br/>\n";
 $FFF.='image_count='.$image_count."<br/>\n";
 $FFF.='webm_count='.floor($webm_count)."<br/>\n";
 $FFF.='qlink_newest='.$qlink_newest."<br/>\n";
+$FFF.='<div id="poi"></div>'."\n";
 $FFF.='<div id="ppp"></div>'."\n";
 
 $FFF.=<<<EOT
@@ -250,8 +251,40 @@ console.log( '測試1');
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( '測試2');
 	poi();
+	ppp();
 });
 function poi(){
+	console.log( '測試2-2');
+	time_orig = new Date().getTime();
+	cc=0;
+	var time_countdown = setInterval(function(){
+		cc=cc+1;
+		//
+		var item = document.getElementById('poi');
+		time_now = new Date().getTime();
+		tmp=(time_now-time_orig);
+		tmp=Math.floor(tmp/1000);
+		var tmp1=tmp2=tmp3=tmp4=0;
+		tmp1=tmp+0;
+		if(tmp1>60){
+			tmp2=Math.floor(tmp1/60);//分
+			tmp1=tmp1%60;//秒
+		}
+		if(tmp2>60){
+			tmp3=Math.floor(tmp2/60);//時
+			tmp2=tmp2%60;//分
+		}
+		if(tmp3>60){
+			tmp4=Math.floor(tmp3/24);//天
+			tmp3=tmp3%24;//時
+		}
+
+		item.innerHTML='#'+tmp4+'天'+tmp3+'時'+tmp2+'分'+tmp1+'秒'+'#'+cc;
+	},1000);
+	//clearInterval(time_countdown);//沒有陣列項目就結束
+
+}
+function ppp(){
 	console.log( '測試2-1');
 	var cc=0;
 	var timeinterval = setInterval(function(){
