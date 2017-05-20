@@ -189,6 +189,9 @@ foreach($chat_array as $k => $v){//迴圈
 $json_imgurl=json_encode($array_imgurl);
 //print_r($json_imgurl);
 
+$hash_url=hash('crc32',$url);
+$FFF=substr($hash_url, 0, 6);
+$htmlbody='<div style="border-LEFT:#'.$FFF.' 10px solid;">'.$htmlbody.'</div>';
 $htmlbody=$board_title2.$url.$htmlbody;//加上網址
 $reply_count=$cc;
 $image_count=$cc2;
@@ -217,10 +220,10 @@ $FFF="http://".$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"];
 $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 $output_fileurl=$FFF.$output_filename;
 
-$hash_url=hash('crc32',$url);
+//$hash_url=hash('crc32',$url);
 //$hash_url=hash('md5',$url);
-$ymdhis=date('ymd',$time);//輸出的檔案名稱
-$hash_url=$hash_url;
+//$ymdhis=date('ymd',$time);//輸出的檔案名稱
+$hash_url='';//取消
 ///
 header('Content-Type: text/html; charset=utf-8');
 $FFF=''.$html_inputbox;
