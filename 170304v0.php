@@ -129,14 +129,14 @@ foreach($html->find('div.post') as $k => $v){
 		//$chat_array[$k]['image0'][]=$v2->outertext;
 		//$chat_array[$k]['image']
 		$FFF=$v2->href;
-		$FFF='http:'.$FFF;
+		$FFF=''.$FFF;
 		$chat_array[$k]['image']=$FFF;
 		
 
 		foreach($v2->find('img') as $k3 => $v3){
 			//$chat_array[$k]['image1'][]=$v3->outertext;
 			$FFF=$v3->src;
-			$FFF='http:'.$FFF;
+			$FFF=''.$FFF;
 			$chat_array[$k]['image_t']=$FFF;
 
 		}
