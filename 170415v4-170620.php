@@ -7,6 +7,9 @@ $tz=date_default_timezone_get();
 //echo 'php_timezone='.$tz."\n";
 $time  =time();
 $time2 =array_sum( explode( ' ' , microtime() ) );
+$php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
+//$php_dir=$php_info['dirname'];//
+$phpself=$php_info['basename'];
 //extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
 $query_string=$_SERVER['QUERY_STRING'];
 $page=$_GET['page'];
@@ -146,7 +149,7 @@ if($page > floor($rows_max/10) ){
 //echo $page;
 $pagelist='';
 for($x=0;$x <= floor($rows_max/10) ;$x++){
-  $pagelist= '<a href="170415v3.php?page='.$x.'">#['.$x.']</a>'."\n";
+  $pagelist= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
 }
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
