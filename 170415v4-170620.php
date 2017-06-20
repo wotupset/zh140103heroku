@@ -13,7 +13,7 @@ $phpself=$php_info['basename'];
 //extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
 $query_string=$_SERVER['QUERY_STRING'];
 $page=$_GET['page'];
-echo $page;
+//echo $page;
 
 //echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 //echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
