@@ -20,7 +20,7 @@ try{
 //連結
 $dbhost = 'mysql2.gear.host';
 $dbuser = 'a1a1';
-$dbpass = 'Aw6J5I2H?v?7';
+$dbpass = 'a1a1';
 $dbname = 'a1a1';
 
 
