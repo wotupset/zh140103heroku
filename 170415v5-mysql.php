@@ -18,10 +18,10 @@ $page=$_GET['page'];
 
 try{
 //連結
-$dbhost = 'mysql2.gear.host';
-$dbuser = 'a1a1';
-$dbpass = 'a1a1';
-$dbname = 'a1a1';
+$dbhost = '';
+$dbuser = '';
+$dbpass = '';
+$dbname = '';
 
 
 $db_config['dsn'] = "mysql:host=$dbhost;dbname=$dbname;";//charset=utf8
