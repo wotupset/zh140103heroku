@@ -150,7 +150,7 @@ if($page > floor($rows_max/10) ){
 //echo $page;
 $pagelist='';
 //$pagelist.='<code style="font-size:1.5em;display: block;font-weight: bold;">';
-$pagelist.='<div style="font-size:1.5em;font-weight: bold;font-family: monospace;">';
+$pagelist.='<div style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
 for($x=0;$x*10 < $rows_max ;$x++){
   $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
