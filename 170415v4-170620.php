@@ -143,20 +143,22 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
-echo '<h3>log數='.$rows_max."</h3>\n";
-if($page > floor($rows_max/10) ){
-  $page=floor($rows_max/10);//floor//ceil
+//echo '<h3>log數='.$rows_max."</h3>\n";
+$pagelog=10;
+if($page > floor($rows_max/$pagelog) ){
+  $page=floor($rows_max/$pagelog);//floor//ceil
 }
 //echo $page;
 $pagelist='';
 //$pagelist.='<code style="font-size:1.5em;display: block;font-weight: bold;">';
-$pagelist.='<div style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
-for($x=0;$x*10 < $rows_max ;$x++){
+$pagelist.='<span style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
+for($x=0;$x*$pagelog < $rows_max ;$x++){
   $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
-$pagelist.='</div>';
+$pagelist.='</span>';
+//$pagelist.='('.$rows_max.')';
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
 
@@ -167,7 +169,7 @@ $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   //if($cc>10){echo 'break';break;}
-  if( ($page)*10 >= $cc || $cc > ($page+1)*10 ){
+  if( ($page)*$pagelog >= $cc || $cc > ($page+1)*$pagelog ){
     //echo '#'.$cc.'continue'."<br/>\n";
     //echo '<h3>#cc='.$cc."</h3>\n";
     continue;
