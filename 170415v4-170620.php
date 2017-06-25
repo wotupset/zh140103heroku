@@ -134,6 +134,8 @@ ob_start();
 
 try{
 //列出資料 (全部)
+$page =$_GET['page'];
+//
 $sql=<<<EOT
 select * from $table_name 
 ORDER BY timestamp DESC
@@ -148,8 +150,8 @@ if($page > floor($rows_max/10) ){
 }
 //echo $page;
 $pagelist='';
-for($page=0;$page*10 < $rows_max ;$page++){
-  $pagelist.= '<a href="'.$phpself.'?page='.$page.'">#['.$page.']</a>'."\n";
+for($x=0;$x*10 < $rows_max ;$x++){
+  $pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
 }
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
