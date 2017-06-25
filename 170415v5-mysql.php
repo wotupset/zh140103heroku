@@ -12,8 +12,6 @@ $php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
 $phpself=$php_info['basename'];
 //extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
 $query_string=$_SERVER['QUERY_STRING'];
-$page=$_GET['page'];
-//echo $page;
 
 
 try{
@@ -182,6 +180,9 @@ ob_start();
 
 try{
 //列出資料 (全部)
+$page=$_GET['page'];
+//echo $page;
+//
 $sql=<<<EOT
 select * from $table_name 
 ORDER BY timestamp DESC
@@ -199,7 +200,7 @@ if($page > floor($rows_max/10) ){
 }
 //echo $page;
 $pagelist='';
-for($x=0;$x <= floor($rows_max/10) ;$x++){
+for($x=0;$x*10 < $rows_max ;$x++){
   $pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
 }
 echo $pagelist;
