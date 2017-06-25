@@ -210,8 +210,8 @@ for($x=0;$x*$pagelog < $rows_max ;$x++){
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
+$pagelist.='('.$rows_max.')';
 $pagelist.='</span>';
-//$pagelist.='('.$rows_max.')';
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
 
@@ -262,6 +262,7 @@ exit;
 ///////////
 function html_body($x){
 	//$webm_count  =$x[5];
+$phpself=$GLOBALS['phpself'];
 	//
 $html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
