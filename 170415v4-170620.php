@@ -152,7 +152,7 @@ $pagelist='';
 $pagelist.='<code style="font-size:1.5em;display: block;font-weight: bold;">';
 for($x=0;$x*10 < $rows_max ;$x++){
   $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
-  if($pagelist==$x){$pagelist.='*';}else{$pagelist.='#';}
+  if($page==$x){$pagelist.='*';}else{$pagelist.='#';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
 $pagelist.='</code>';
