@@ -148,8 +148,8 @@ if($page > floor($rows_max/10) ){
 }
 //echo $page;
 $pagelist='';
-for($x=0;$x <= floor($rows_max/10) ;$x++){
-  $pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
+for($page=0;$page*10 < $rows_max ;$page++){
+  $pagelist.= '<a href="'.$phpself.'?page='.$page.'">#['.$page.']</a>'."\n";
 }
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
