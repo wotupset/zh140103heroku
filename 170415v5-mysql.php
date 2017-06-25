@@ -194,20 +194,24 @@ $stmt->execute();
 
 
 $rows_max = $stmt->rowCount();//計數
-echo '<h3>log數='.$rows_max."</h3>\n";
-if($page > floor($rows_max/10) ){
-  $page=floor($rows_max/10);//floor//ceil
+//echo '<h3>log數='.$rows_max."</h3>\n";
+$pagelog=10;
+if($page > floor($rows_max/$pagelog) ){
+  $page=floor($rows_max/$pagelog);//floor//ceil
 }
 //echo $page;
 $pagelist='';
-$pagelist.='<code style="font-size:1.5em;display: block;font-weight: bold;">';
-for($x=0;$x*10 < $rows_max ;$x++){
+$pagelist.='<span style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
+//$pagelist.='<h3 style="font-family: monospace;">';
+//$pagelist.='<code>';
+for($x=0;$x*$pagelog < $rows_max ;$x++){
   //$pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
   $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
-$pagelist.='</code>';
+$pagelist.='</span>';
+//$pagelist.='('.$rows_max.')';
 echo $pagelist;
 //$datalist = $stmt->fetchAll();
 
@@ -218,7 +222,7 @@ $cc=0;
 while ($row = $stmt->fetch() ) {
   $cc++;
   //if($cc>10){echo 'break';break;}
-  if( ($page)*10 >= $cc || $cc > ($page+1)*10 ){
+  if( ($page)*$pagelog >= $cc || $cc > ($page+1)*$pagelog ){
     //echo '#'.$cc.'continue'."<br/>\n";
     //echo '<h3>#cc='.$cc."</h3>\n";
     continue;
@@ -236,7 +240,7 @@ $tmp=preg_replace('/\s/','',$tmp);
   echo '<div class="text">'.$tmp.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
 $tmp=$row['timestamp'];//可讀時間
-$tmp=strtotime($tmp)+8*3600;//時間戳
+$tmp=strtotime($tmp)+8*3600;//時間戳,修正時差
 //$tmp=strtotime("+8 hours", $tmp );
 $tmp=date('Y/m/d H:i:s', $tmp );
   echo '<div class="date" title="時間"><h4>'.$tmp.'</h4></div>';
