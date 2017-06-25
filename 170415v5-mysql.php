@@ -18,16 +18,21 @@ $page=$_GET['page'];
 
 try{
 //連結
+require_once('170415v5__user.php');
+
+$tmp=function(){
 $dbhost = 'localhost';
-$dbuser = 'qwer';
-$dbpass = '12345';
-$dbname = 'qwer';
+$dbuser = 'id1568431_http';
+$dbpass = 'a1a1a1a1';
+$dbname = 'id1568431_http';
+};
 
 
 $db_config['dsn'] = "mysql:host=$dbhost;dbname=$dbname;";//charset=utf8
 $db_config['user'] = $dbuser;
 $db_config['password'] = $dbpass;
 $db_config['options'] = array();
+//array(PDO::MYSQL_ATTR_INIT_COMMAND =>"SET NAMES 'utf8' COLLATE 'utf8_general_ci';")
 $db = new PDO(
 	$db_config['dsn'],
 	$db_config['user'],
@@ -35,10 +40,23 @@ $db = new PDO(
 	$db_config['options']
 );
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+$db->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci';");
+//$db->query("SET NAMES UTF8");
+//print_r($db->errorInfo());
+//$db->query("ALTER table `nyaa170415` CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';");//
+//print_r($db->errorInfo());
 
+//if(1){}
 foreach( $db->query("SELECT @@global.time_zone, @@session.time_zone ,@@system_time_zone ,CURTIME() ,now();") as $k => $v ){
 	//print_r($v);
 }
+foreach( $db->query("show variables like 'character%';") as $k => $v ){
+	//print_r($v);
+}
+foreach( $db->query("SHOW CHARACTER SET;") as $k => $v ){
+	//print_r($v);
+}
+
 //show variables like '%time_zone%';
 
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤(連結):".$chk);}//錯誤訊息
@@ -121,7 +139,9 @@ $text  =$_POST['input_text'];
 //$text  =preg_replace("/\n/","<br/>\n",$text);
 //$text  =nl2br($text);
 //$text  =strip_tags($text,'<br>');
-$text  =strip_tags($text);
+//$text  =strip_tags($text);
+//htmlentities //轉換為HTML實體(包含中文字)
+$text  =htmlspecialchars($text);////轉換為HTML實體
 
 try{
 //插入資料
@@ -137,9 +157,10 @@ $stmt=$db->prepare($sql);
 //$stmt->bindParam(':c02', $array[':c02']);
 //$stmt->bindParam(':c03', $array[':c03']);
 //uniqid('u',1)
+
 $array=array(
   ':c01' => $title, 
-  ':c02' => $text,
+  ':c02' => base64_encode($text),
   ':c03' => md5($text),
 );
 //base64_encode($time2)
@@ -201,9 +222,20 @@ while ($row = $stmt->fetch() ) {
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$row['c01'].'</h3></div>';
-  echo '<div class="text">'.nl2br($row['c02']).'</div>';
+//mysql的utf8只支援到unicode5.0
+$tmp=$row['c02'];
+$tmp=base64_decode($tmp);
+$tmp=nl2br($tmp);
+$tmp=preg_replace('/\s/','',$tmp);
+  echo '<div class="text">'.$tmp.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
-  echo '<div class="date" title="'.base64_decode($row['c03']).'"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
+$tmp=$row['timestamp'];//可讀時間
+$tmp=strtotime($tmp)+8*3600;//時間戳
+//$tmp=strtotime("+8 hours", $tmp );
+$tmp=date('Y/m/d H:i:s', $tmp );
+  echo '<div class="date" title="時間"><h4>'.$tmp.'</h4></div>';
+  //echo $row['timestamp'];
+  //
   echo '</div>';
 }
   //
