@@ -196,6 +196,7 @@ exit;
 ///////////
 function html_body($x){
 	//$webm_count  =$x[5];
+$phpself=$GLOBALS['phpself'];
 	//
 $html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
