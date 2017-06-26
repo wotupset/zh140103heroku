@@ -1,5 +1,4 @@
 <?php
-
 //header("content-Type: application/json; charset=utf-8"); //強制
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
@@ -171,7 +170,28 @@ if($stmt->errorInfo() ==''){echo 'ok';}
 //$chk=$e->getMessage();print_r("try-catch錯誤(插入資料):".$chk);
 }//錯誤訊息
 
+$refresh_url='';
+$refresh_url.=$phpself;
+if(strlen($title)){
+$refresh_url.='?title='.$title;
 }
+header("refresh:4; url=$refresh_url");
+$tmp='ok';
+//<meta http-equiv="refresh" content="2; url=$t_url" />
+echo <<<EOT
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="0; url=$refresh_url" />
+</head>
+<body>
+$tmp
+</body>
+</html>
+EOT;
+exit;
+
+}//if
 
 //exit;
 
@@ -181,10 +201,23 @@ ob_start();
 try{
 //列出資料 (全部)
 $page=$_GET['page'];
+$page=floor($page);
+$title=$_GET['title'];
+
 //echo $page;
 //
-$sql=<<<EOT
+$sql='';
+$sql.=<<<EOT
 select * from $table_name 
+EOT;
+
+if(strlen($title)){
+$sql.=<<<EOT
+WHERE c01 = '$title'
+EOT;
+}
+
+$sql.=<<<EOT
 ORDER BY timestamp DESC
 EOT;
 // LIMIT 10
@@ -204,9 +237,13 @@ $pagelist='';
 $pagelist.='<span style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
 //$pagelist.='<h3 style="font-family: monospace;">';
 //$pagelist.='<code>';
+$tmp='';
+if(strlen($title)){
+$tmp.='&title='.$title;
+}
 for($x=0;$x*$pagelog < $rows_max ;$x++){
   //$pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
-  $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
+  $pagelist.= '<a href="'.$phpself.'?page='.$x.$tmp.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
@@ -263,12 +300,20 @@ exit;
 function html_body($x){
 	//$webm_count  =$x[5];
 $phpself=$GLOBALS['phpself'];
+$title=$_GET['title'];
 	//
+$action='';
+$action.=$phpself;
+if(strlen($title)){
+$action.='?title='.$title;
+}
+
+
 $html_inputbox=<<<EOT
-<form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
-<input type="text" name="input_title" size="20" value=""><br/>
-<textarea maxlength="" name="input_text" cols="48" rows="4" style="width: 400px; height: 80px;"></textarea>
-<input type="submit" name="sendbtn" value="送出">
+<form id='form01' enctype="multipart/form-data" action='$action' method="post" onsubmit="return check2();">
+<input id="input_title" name="input_title" type="text" size="20" value="$title"><br/>
+<textarea id="input_text" name="input_text" cols="48" rows="4" maxlength="" style="width: 400px; height: 80px;"></textarea>
+<input id="sendbtn" name="sendbtn" type="button" value="送出" onclick='check();'>
 </form>
 EOT;
 //
@@ -284,6 +329,20 @@ background-color:#bdbdbd;
 }
 	
 </style>
+<script>
+function check(){//onclick
+	document.getElementById("sendbtn").value="稍後";
+	document.getElementById("form01").onsubmit();
+}
+function check2(){//onsubmit
+	document.getElementById("sendbtn").value='submit';
+		//
+	tmp=document.getElementById("input_title").value;
+	//alert(tmp);
+	document.getElementById("form01").submit();
+}
+</script>
+
 </head>
 <body>
 $html_inputbox
