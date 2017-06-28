@@ -85,8 +85,10 @@ if($cc>0){
 
 
 
+print_r($_POST);
 
 if(count($_POST)>0){
+
 $title =$_POST['input_title'];
 $title =strip_tags($title);//清除html標籤
 $title =preg_replace('/\'/', '', $title);
