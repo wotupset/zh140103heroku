@@ -93,7 +93,7 @@ $title =$_POST['input_title'];
 $title =strip_tags($title);//清除html標籤
 $title =preg_replace('/\'/', '', $title);
 $title =preg_replace('/\"/', '', $title);
-$title =preg_replace('/\\/', '', $title);
+$title =preg_replace('/\\\/', '', $title);
 $title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
