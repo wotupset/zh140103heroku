@@ -85,7 +85,7 @@ if($cc>0){
 
 
 
-print_r($_POST);
+//print_r($_POST);
 
 if(count($_POST)>0){
 
