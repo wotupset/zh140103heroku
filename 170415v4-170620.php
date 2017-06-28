@@ -89,13 +89,18 @@ if($cc>0){
 if(count($_POST)>0){
 $title =$_POST['input_title'];
 $title =strip_tags($title);
+$title =preg_replace('/\'/', '', $title);
+$title =preg_replace('/\"/', '', $title);
+$title =preg_replace('/\\/', '', $title);
+$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
+$text  =strip_tags($text);
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
 //$text  =nl2br($text);
 //$text  =strip_tags($text,'<br>');
-$text  =strip_tags($text);
+
 
 try{
 //插入資料
