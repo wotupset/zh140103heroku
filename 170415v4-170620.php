@@ -124,7 +124,8 @@ $array=array(
   ':c02' => $text,
   ':c03' => base64_encode($time2) ,
 );
-  
+//hash('crc32',$title);
+//base64_encode($time2)
 $stmt->execute($array);
 
 
