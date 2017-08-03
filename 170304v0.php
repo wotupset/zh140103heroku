@@ -129,14 +129,14 @@ foreach($html->find('div.post') as $k => $v){
 		//$chat_array[$k]['image0'][]=$v2->outertext;
 		//$chat_array[$k]['image']
 		$FFF=$v2->href;
-		$FFF=''.$FFF;
+		$FFF='http:'.$FFF;
 		$chat_array[$k]['image']=$FFF;
 		
 
 		foreach($v2->find('img') as $k3 => $v3){
 			//$chat_array[$k]['image1'][]=$v3->outertext;
 			$FFF=$v3->src;
-			$FFF=''.$FFF;
+			$FFF='http:'.$FFF;
 			$chat_array[$k]['image_t']=$FFF;
 
 		}
@@ -169,25 +169,33 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<div id="box2">'."\n";
 	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
 	if(count($v['image'])){
-		$cc2++;//計算圖片數量
-		$array_imgurl[$cc2]=$v['image'];
 		//
-		$FFF=''.$v['image'];
-		$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 		if( preg_match('/\.webm$/',$v['image'])){
 			$cc3++;
+			//echo "影".$cc3;
+			$FFF=''.$v['image'];
+			$FFF2='http://web.archive.org/web/20170101020202/'.$v['image'];
+			$htmlbody.= '影'.$cc3.'<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
 			$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
-			$htmlbody.='<img src="'.$v['image_t'].'">';
+			$htmlbody.='<img src="'.$v['image_t'].'">';//video的縮圖 jquery啟動後會消失
+			//
+			$FFF=$cc2+$cc3;
+			$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
 		}else{
-			
+			$cc2++;//計算圖片數量
+			//echo "圖".$cc2;
+			$FFF=''.$v['image'];
+			$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
+			//
+			$FFF=$cc2+$cc3;
+			$array_imgurl[$FFF]=''.$v['image'];//js
 		}
-			
 	}
 
 	$htmlbody.= '</div>'."\n";
 	$htmlbody.= '</div>'."\n";
 }
-//print_r($array_imgurl);
+//print_r($array_imgurl);exit;
 $json_imgurl=json_encode($array_imgurl);
 //print_r($json_imgurl);
 
