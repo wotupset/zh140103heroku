@@ -185,7 +185,8 @@ foreach($chat_array as $k => $v){//迴圈
 			$cc2++;//計算圖片數量
 			//echo "圖".$cc2;
 			$FFF=''.$v['image'];
-			$htmlbody.= '圖'.$cc2.'<br/><span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
+			//'圖'.$cc2.'<br/>'.
+			$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 			//
 			$FFF=$cc2+$cc3;
 			$array_imgurl[$FFF]=''.$v['image'];//js
