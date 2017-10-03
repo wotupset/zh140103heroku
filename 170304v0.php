@@ -203,7 +203,7 @@ $json_imgurl=json_encode($array_imgurl);
 $hash_url=hash('crc32',$url);
 $FFF=substr($hash_url, 0, 6);
 $htmlbody='<div style="border-LEFT:#'.$FFF.' 10px solid;">'.$htmlbody.'</div>';
-$htmlbody=$board_title2.$htmlbody.$url;//加上網址
+$htmlbody=$board_title2.$htmlbody;//加上網址.$url
 $reply_count=$cc;
 $image_count=$cc2;
 $webm_count=$cc3;
