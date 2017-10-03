@@ -8,6 +8,7 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 $time = (string)time();
 //
 $query_string=$_SERVER['QUERY_STRING'];
+$url=$query_string;
 //
 require_once('curl_getinfo.php');
 $x=curl_FFF($url);
