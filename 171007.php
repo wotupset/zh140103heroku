@@ -101,6 +101,7 @@ EOT;
 	$data_new.=$page_bar;
 	$data_new.="\n";
 	$data_new.='<table>';
+	$data_new.="\n";
 	$cc=0;
 	foreach($html2->find('tr') as $k => $v){
 		$cc=$cc+1;
@@ -122,6 +123,7 @@ EOT;
 		//
 		//$data_new.=$v->outertext;
 		$data_new.='</tr>';
+		$data_new.="\n";
 	}
 	$data_new.='</table>';
 	//$data_new.=$cc;
