@@ -100,7 +100,7 @@ EOT;
 	$data_new.="\n";
 	$data_new.=$page_bar;
 	$data_new.="\n";
-	$data_new.='x<table>';
+	$data_new.='<table>';
 	$cc=0;
 	foreach($html2->find('tr') as $k => $v){
 		$cc=$cc+1;
@@ -124,7 +124,7 @@ EOT;
 		$data_new.='</tr>';
 	}
 	$data_new.='</table>';
-	$data_new.=$cc;
+	//$data_new.=$cc;
 	
 	$data_new.="\n";
 	$data_new.=$page_bar;
