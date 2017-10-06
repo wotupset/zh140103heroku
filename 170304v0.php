@@ -170,14 +170,16 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
 	if(count($v['image'])){
 		//
-		if( preg_match('/\.webm$/',$v['image'])){
+		if( preg_match('/\.webm$/',$v['image'] )){
 			$cc3++;
 			//echo "影".$cc3;
 			$FFF=''.$v['image'];
 			$FFF2='http://web.archive.org/web/20170101020202/'.$v['image'];
-			$htmlbody.= '影'.$cc3.'<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
-			$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
+			//$htmlbody.= '影'.$cc3;
+			//$htmlbody.='<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
+			//$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
 			$htmlbody.='<img src="'.$v['image_t'].'">';//video的縮圖 jquery啟動後會消失
+			$htmlbody.= '影'.$cc3;
 			//
 			$FFF=$cc2+$cc3;
 			$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
@@ -429,7 +431,7 @@ $(document).ready(function() {
 	//全域變數//global
 	time = new Date();
 	//
-	poi();
+	//poi(); //影片
 });
 
 function poi(){
