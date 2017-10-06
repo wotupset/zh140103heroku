@@ -129,21 +129,29 @@ foreach($html->find('div.post') as $k => $v){
 		//$chat_array[$k]['image0'][]=$v2->outertext;
 		//$chat_array[$k]['image']
 		$FFF=$v2->href;
-		$FFF='http:'.$FFF;
+		$FFF=''.'http:'.$FFF;
 		$chat_array[$k]['image']=$FFF;
-		
-
 		foreach($v2->find('img') as $k3 => $v3){
 			//$chat_array[$k]['image1'][]=$v3->outertext;
 			$FFF=$v3->src;
-			$FFF='http:'.$FFF;
+			$FFF=''.'http:'.$FFF;
 			$chat_array[$k]['image_t']=$FFF;
 
 		}
 		//
 		$v2->outertext="";
 	}
-
+	//
+	foreach($v->find('div.file-text') as $k2 => $v2){
+		$FFF=$v2->outertext;
+		$FFF=strip_tags($FFF,"<br><span>");//留下換行標籤
+		preg_match('/(\(.*\))/', $FFF, $matches); //, PREG_OFFSET_CAPTURE
+		//$FFF=print_r($matches,true);
+		$FFF=$matches[0];
+		$chat_array[$k]['file-text']=$FFF;
+		//
+		$v2->outertext="";
+	}
 	//
 	$chat_array[$k]['zzz_text']=$v->outertext;
 
@@ -170,16 +178,15 @@ foreach($chat_array as $k => $v){//迴圈
 	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
 	if(count($v['image'])){
 		//
-		if( preg_match('/\.webm$/',$v['image'] )){
+		if( preg_match('/\.webm$/',$v['image'])){
 			$cc3++;
 			//echo "影".$cc3;
-			$FFF=''.$v['image'];
-			$FFF2='http://web.archive.org/web/20170101020202/'.$v['image'];
-			//$htmlbody.= '影'.$cc3;
-			//$htmlbody.='<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
+			//$FFF=''.$v['image'];
+			//$FFF2='http://web.archive.org/web/20170101020202/'.$v['image'];
+			//$htmlbody.= '影'.$cc3.'<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
 			//$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
 			$htmlbody.='<img src="'.$v['image_t'].'">';//video的縮圖 jquery啟動後會消失
-			$htmlbody.= '影'.$cc3;
+			$htmlbody.= '影'.$cc3.$v['file-text'];
 			//
 			$FFF=$cc2+$cc3;
 			$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
@@ -187,7 +194,7 @@ foreach($chat_array as $k => $v){//迴圈
 			$cc2++;//計算圖片數量
 			//echo "圖".$cc2;
 			$FFF=''.$v['image'];
-			//'圖'.$cc2.'<br/>'.
+			$htmlbody.= '圖'.$cc2.$v['file-text'].'<br/>';
 			$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
 			//
 			$FFF=$cc2+$cc3;
@@ -267,8 +274,8 @@ $FFF.=<<<EOT
 console.log( '測試1');
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( '測試2');
-	poi();
-	ppp();
+	//poi();
+	//ppp();
 });
 function poi(){
 	console.log( '測試2-2');
