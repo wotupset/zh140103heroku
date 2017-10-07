@@ -180,26 +180,36 @@ foreach($chat_array as $k => $v){//迴圈
 		//
 		if( preg_match('/\.webm$/',$v['image'])){
 			$cc3++;
+			$FFF=''.$v['image_t'];
+			$FFF2="影";
 			//echo "影".$cc3;
 			//$FFF=''.$v['image'];
 			//$FFF2='http://web.archive.org/web/20170101020202/'.$v['image'];
 			//$htmlbody.= '影'.$cc3.'<br/><span class="image"><a href="'.$FFF2.'">影<img class="zoom" src="'.$FFF.'"/></a></span>'."\n";
 			//$htmlbody.='<video controls class="vv"><source src="2017" type="video/webm">video</video>'."\n";
-			$htmlbody.='<img src="'.$v['image_t'].'">';//video的縮圖 jquery啟動後會消失
-			$htmlbody.= '影'.$cc3.$v['file-text'];
+			//$htmlbody.='<span class="image"><img class="zoom" src="'.$v['image_t'].'"></span>'."\n";//video的縮圖 jquery啟動後會消失
+			//$htmlbody.= '影'.$cc3.$v['file-text'];
 			//
-			$FFF=$cc2+$cc3;
-			$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
+			//$FFF=$cc2+$cc3;
+			//$array_imgurl[$FFF]='http://web.archive.org/save/'.$v['image'];//js
 		}else{
 			$cc2++;//計算圖片數量
-			//echo "圖".$cc2;
 			$FFF=''.$v['image'];
-			$htmlbody.= '圖'.$cc2.$v['file-text'].'<br/>';
-			$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
+			$FFF2="圖";
+			//echo "圖".$cc2;
+			//$htmlbody.= '<span class="image"><img class="zoom" src="'.$FFF.'"/></span>'."\n";
+			//$htmlbody.= '圖'.$cc2.$v['file-text'].'<br/>';
 			//
-			$FFF=$cc2+$cc3;
-			$array_imgurl[$FFF]=''.$v['image'];//js
+			//$FFF=$cc2+$cc3;
+			//$array_imgurl[$FFF]=''.$v['image'];//js
 		}
+		$htmlbody.= '';
+		$htmlbody.= '<span class="image" style="float:left;">';
+		//$htmlbody.= '<span style="float:left;">xxx</span>';//
+		$htmlbody.= '<img class="zoom" src="'.$FFF.'"/>';
+		$htmlbody.= '</span>'."\n";
+		$htmlbody.= '<span>'.$FFF2.$cc2.$v['file-text'].'</span>';//float:left; 
+		$htmlbody.= '<br clear="both">';
 	}
 
 	$htmlbody.= '</div>'."\n";
