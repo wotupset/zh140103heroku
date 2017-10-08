@@ -173,9 +173,9 @@ foreach($chat_array as $k => $v){//迴圈
 	if(count($v['title'])){$htmlbody.= '<span class="title" title="'.$v['title'].'">'.$v['title'].'</span> ';}
 	$htmlbody.= '<span class="idno">'.$v['now'].$v['qlink'].'</span> ';
 	//$htmlbody.= '<span class="qlink">'.$v['qlink'].'</span> ';
-	$htmlbody.= '</div>'."\n";
+	$htmlbody.= "\n".'</div>'."\n";
 	$htmlbody.= '<div id="box2">'."\n";
-	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> '."\n";
+	$htmlbody.= '<span class="quote"><blockquote>'.$v['quote'].'</blockquote></span> ';
 	if(count($v['image'])){
 		//
 		if( preg_match('/\.webm$/',$v['image'])){
@@ -204,16 +204,17 @@ foreach($chat_array as $k => $v){//迴圈
 			//$array_imgurl[$FFF]=''.$v['image'];//js
 		}
 		$htmlbody.= '';
-		$htmlbody.= '<span class="image" style="float:left;">';
+		$htmlbody.= "\n";
+		$htmlbody.= '<span class="image">';// style="float:left;"
 		//$htmlbody.= '<span style="float:left;">xxx</span>';//
 		$htmlbody.= '<img class="zoom" src="'.$FFF.'"/>';
 		$htmlbody.= '</span>'."\n";
 		$htmlbody.= '<span>'.$FFF2.$cc2.$v['file-text'].'</span>';//float:left; 
-		$htmlbody.= '<br clear="both">';
+		//$htmlbody.= '<br clear="both">';
 	}
 
-	$htmlbody.= '</div>'."\n";
-	$htmlbody.= '</div>'."\n";
+	$htmlbody.= "\n".'</div>'."\n".'</div>'."\n"."\n";
+	//$htmlbody.= "\n".'</div>'."\n";
 }
 //print_r($array_imgurl);exit;
 $json_imgurl=json_encode($array_imgurl);
