@@ -115,14 +115,17 @@ while($row = $stmt->fetch() ) {
 	$cc++;
 	//echo "\n";
 	if($cc<10){
-	  fputcsv($fp, $row);
-	  //print_r($row);
+    echo $row[0]
+    echo ',';
+    echo $row[1]
+    echo ',';
+    echo $row[2]
+    echo ',';
+    echo $row[3]
+    echo ',';
+    echo $row[4]
 	}
 }//while
-fseek($fp, 0);
-fpassthru($fp);
-fclose($fp);
-
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
