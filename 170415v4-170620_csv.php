@@ -110,27 +110,23 @@ $rows_max = $stmt->rowCount();//計數
 	
 $filename = date("Y-m-d") . ".csv";
 $fp = fopen('php://output', 'w'); // 寫入 php://memory
+
 $cc=0;
 while($row = $stmt->fetch() ) {
 	$cc++;
 	//echo "\n";
 	if($cc<10){
-    echo $row[0];
-    echo ',';
-    echo $row[1];
-    echo ',';
-    echo $row[2];
-    echo ',';
-    echo $row[3];
-    echo ',';
-    echo $row[4];
+    fputcsv($fp, $row);
 	}
 }//while
-  
+fseek($fp, 0);
+fpassthru($fp);
+fclose($fp);
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 $out = ob_get_clean();
-
+header('Content-Type: application/csv');
+header('Content-Disposition: attachement; filename="' . $filename . '"');
 echo $out;
 
 exit;
