@@ -112,11 +112,14 @@ $filename = date("Y-m-d") . ".csv";
 $fp = fopen('php://output', 'w'); // 寫入 php://memory
 
 $cc=0;
+
 while($row = $stmt->fetch() ) {
 	$cc++;
 	//echo "\n";
 	if($cc<10){
-    fputcsv($fp, $row);
+		$row2=array();
+		$row2=array($row[0],$row[1],$row[2],$row[3],$row[4]);
+		fputcsv($fp, $row2);
 	}
 }//while
 fseek($fp, 0);
