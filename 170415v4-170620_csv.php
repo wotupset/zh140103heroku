@@ -115,15 +115,15 @@ while($row = $stmt->fetch() ) {
 	$cc++;
 	//echo "\n";
 	if($cc<10){
-    echo $row[0]
+    echo $row[0];
     echo ',';
-    echo $row[1]
+    echo $row[1];
     echo ',';
-    echo $row[2]
+    echo $row[2];
     echo ',';
-    echo $row[3]
+    echo $row[3];
     echo ',';
-    echo $row[4]
+    echo $row[4];
 	}
 }//while
   
