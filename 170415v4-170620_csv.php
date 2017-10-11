@@ -105,13 +105,24 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $rows_max = $stmt->rowCount();//計數
 //echo '<h3>log數='.$rows_max."</h3>\n";
+	
+	
+	
+$filename = date("Y-m-d") . ".csv";
+$fp = fopen('php://output', 'w'); // 寫入 php://memory
 $cc=0;
-while ($row = $stmt->fetch() ) {
-  $cc++;
-  if($cc<10){
-	  print_r($row);
-  }
-}
+while($row = $stmt->fetch() ) {
+	$cc++;
+	//echo "\n";
+	if($cc<10){
+	  fputcsv($fp, $row);
+	  //print_r($row);
+	}
+}//while
+fseek($fp, 0);
+fpassthru($fp);
+fclose($fp);
+
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
@@ -121,5 +132,19 @@ echo $out;
 
 exit;
 ///////////
-
+/*
+Array
+(
+    [c01] => 
+    [0] => 
+    [c02] => [新]Wake Up, Girls! 新章 #1 私たち、Wake Up, Girls!でーす
+    [1] => [新]Wake Up, Girls! 新章 #1 私たち、Wake Up, Girls!でーす
+    [c03] => MTUwNzY1MDExOS4wNzE0
+    [2] => MTUwNzY1MDExOS4wNzE0
+    [id] => 482
+    [3] => 482
+    [timestamp] => 2017-10-10 23:41:59.097848
+    [4] => 2017-10-10 23:41:59.097848
+)
+*/
 ?>
