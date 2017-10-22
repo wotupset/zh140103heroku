@@ -139,8 +139,9 @@ $title =rawurlencode($title);
 //$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
-$text  =htmlspecialchars($text);////轉換為HTML實體
-$text  =base64_encode($text);
+//$text  =htmlspecialchars($text);////轉換為HTML實體
+$text  =nl2br($text);
+//$text  =base64_encode($text);
 
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
@@ -289,8 +290,8 @@ while ($row = $stmt->fetch() ) {
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$FFF.'</h3></div>';
 //mysql的utf8只支援到unicode5.0
 $tmp=$row['c02'];
-$tmp=base64_decode($tmp);
-$tmp=nl2br($tmp);
+//$tmp=base64_decode($tmp);
+//$tmp=nl2br($tmp);
 $tmp=preg_replace('/\s/','',$tmp);
 
   echo '<div class="text">'.$tmp.'</div>';
