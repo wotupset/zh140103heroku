@@ -5,7 +5,8 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
 //echo 'php_timezone='.$tz."\n";
-$time  =time();
+//$time  =time();
+$time  =sprintf('%s',time());//%u=零或正整數//%s=字串
 $time2 =array_sum( explode( ' ' , microtime() ) );
 $php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
 //$php_dir=$php_info['dirname'];//
