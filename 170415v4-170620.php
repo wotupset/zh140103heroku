@@ -187,6 +187,7 @@ while ($row = $stmt->fetch() ) {
   }
 	
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
+  echo "\n";
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
   //$FFF=nl2br($row['c02']);
