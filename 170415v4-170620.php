@@ -188,8 +188,8 @@ while ($row = $stmt->fetch() ) {
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
-  //$FFF=nl2br($row['c02']);
-  $FFF=$row['c02'];
+  $FFF=nl2br($row['c02']);
+  //$FFF=$row['c02'];
   echo '<div class="text">'.$FFF.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
   echo '<div class="date" title="'.base64_decode($row['c03']).'"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
