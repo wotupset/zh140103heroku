@@ -91,17 +91,17 @@ if(count($_POST)>0){
 
 $title =$_POST['input_title'];
 $title =strip_tags($title);//清除html標籤
-$title =preg_replace('/\'/', '', $title);
-$title =preg_replace('/\"/', '', $title);
-$title =preg_replace('/\\\/', '', $title);
-$title =preg_replace('/\s/', '', $title);
+//$title =preg_replace('/\'/', '', $title);
+//$title =preg_replace('/\"/', '', $title);
+//$title =preg_replace('/\\\/', '', $title);
+//$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
-$text  =htmlspecialchars($text,ENT_QUOTES);////轉換為HTML實體
+//$text  =htmlspecialchars($text,ENT_QUOTES);////轉換為HTML實體
 //$text  =strip_tags($text);//清除html標籤
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
-//$text  =nl2br($text);
+$text  =nl2br($text);
 //$text  =strip_tags($text,'<br>');
 
 
@@ -188,7 +188,9 @@ while ($row = $stmt->fetch() ) {
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
-  echo '<div class="text">'.nl2br($row['c02']).'</div>';
+  //$FFF=nl2br($row['c02']);
+  $FFF=$row['c02'];
+  echo '<div class="text">'.$FFF.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
   echo '<div class="date" title="'.base64_decode($row['c03']).'"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
   echo '</div>';
