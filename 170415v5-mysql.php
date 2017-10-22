@@ -11,13 +11,14 @@ $php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
 $phpself=$php_info['basename'];
 //extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
 $query_string=$_SERVER['QUERY_STRING'];
-
+error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
 try{
 //連結
 require_once('170415v5__user.php');
 
-$tmp=function(){
+//$tmp=function(){
+if(0){
 $dbhost = 'localhost';
 $dbuser = 'id1568431_http';
 $dbpass = 'a1a1a1a1';
@@ -86,11 +87,11 @@ CREATE TABLE IF NOT EXISTS $table_name
     c02 text NOT NULL,
     c03 char(100) NOT NULL,
 	UNIQUE(c03),
-	auto_id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+	auto_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	auto_time timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    timestamp timestamp default current_timestamp
 )
 EOT;
+//timestamp timestamp default current_timestamp
 //UNIQUE(c02),
 //IF NOT EXISTS
 $stmt = $db->prepare($sql);
@@ -129,16 +130,25 @@ if($cc>0){
 
 if(count($_POST)>0){
 $title =$_POST['input_title'];
-$title =strip_tags($title);
+$title =strip_tags($title);//清除html標籤
+$title =rawurlencode($title);
+
+//$title =preg_replace('/\'/', '', $title);
+//$title =preg_replace('/\"/', '', $title);
+//$title =preg_replace('/\\\/', '', $title);
+//$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
+$text  =htmlspecialchars($text);////轉換為HTML實體
+$text  =base64_encode($text);
+
+
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
 //$text  =nl2br($text);
 //$text  =strip_tags($text,'<br>');
 //$text  =strip_tags($text);
 //htmlentities //轉換為HTML實體(包含中文字)
-$text  =htmlspecialchars($text);////轉換為HTML實體
 
 try{
 //插入資料
@@ -157,9 +167,10 @@ $stmt=$db->prepare($sql);
 
 $array=array(
   ':c01' => $title, 
-  ':c02' => base64_encode($text),
+  ':c02' => $text,
   ':c03' => md5($text),
 );
+//hash('crc32',$title);
 //base64_encode($time2)
   
 $stmt->execute($array);
@@ -200,11 +211,15 @@ ob_start();
 
 try{
 //列出資料 (全部)
-$page=$_GET['page'];
-$page=floor($page);
-$title=$_GET['title'];
+$page=  isset($_GET['page'] ) ? sprintf('%u', $_GET['page'] )  : NULL;//floor($_GET['page'])
+$title= isset($_GET['title']) ? sprintf('%s', $_GET['title'] ) : NULL;
+
+//$page=sprintf('%u',$page);
+//$title=sprintf('%s',$title);
 
 //echo $page;
+//echo $title;
+//exit;
 //
 $sql='';
 $sql.=<<<EOT
@@ -218,7 +233,7 @@ EOT;
 }
 
 $sql.=<<<EOT
-ORDER BY timestamp DESC
+ORDER BY auto_time DESC
 EOT;
 // LIMIT 10
 $stmt = $db->prepare($sql);
@@ -266,7 +281,7 @@ while ($row = $stmt->fetch() ) {
     //break;
   }
 	
-  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
+  //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['auto_time']."\n"
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$row['c01'].'</h3></div>';
 //mysql的utf8只支援到unicode5.0
@@ -274,14 +289,15 @@ $tmp=$row['c02'];
 $tmp=base64_decode($tmp);
 $tmp=nl2br($tmp);
 $tmp=preg_replace('/\s/','',$tmp);
+
   echo '<div class="text">'.$tmp.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
-$tmp=$row['timestamp'];//可讀時間
+$tmp=$row['auto_time'];//可讀時間
 $tmp=strtotime($tmp)+8*3600;//時間戳,修正時差
 //$tmp=strtotime("+8 hours", $tmp );
 $tmp=date('Y/m/d H:i:s', $tmp );
   echo '<div class="date" title="時間"><h4>'.$tmp.'</h4></div>';
-  //echo $row['timestamp'];
+  //echo $row['auto_time'];
   //
   echo '</div>';
 }
@@ -300,13 +316,16 @@ exit;
 function html_body($x){
 	//$webm_count  =$x[5];
 $phpself=$GLOBALS['phpself'];
-$title=$_GET['title'];
+//$title=$_GET['title'];
 	//
+	//
+$title='';
 $action='';
 $action.=$phpself;
-if(strlen($title)){
-$action.='?title='.$title;
-}
+if( isset($_GET['title']) ){
+	$title=$_GET['title'];
+	$action.='?title='.$title;
+}else{}
 
 
 $html_inputbox=<<<EOT
