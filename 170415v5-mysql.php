@@ -142,7 +142,6 @@ $text  =$_POST['input_text'];
 $text  =htmlspecialchars($text);////轉換為HTML實體
 $text  =base64_encode($text);
 
-
 //$text  =preg_replace("/\r\n/","\n",$text);
 //$text  =preg_replace("/\n/","<br/>\n",$text);
 //$text  =nl2br($text);
@@ -220,6 +219,8 @@ $title= isset($_GET['title']) ? sprintf('%s', $_GET['title'] ) : NULL;
 //echo $page;
 //echo $title;
 //exit;
+
+
 //
 $sql='';
 $sql.=<<<EOT
@@ -227,8 +228,9 @@ select * from $table_name
 EOT;
 
 if(strlen($title)){
+$FFF =rawurlencode($title);
 $sql.=<<<EOT
-WHERE c01 = '$title'
+WHERE c01 = '$FFF'
 EOT;
 }
 
@@ -283,7 +285,8 @@ while ($row = $stmt->fetch() ) {
 	
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['auto_time']."\n"
   echo '<div class="box">';
-  echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$row['c01'].'</h3></div>';
+  $FFF=rawurldecode( $row['c01'] );
+  echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$FFF.'</h3></div>';
 //mysql的utf8只支援到unicode5.0
 $tmp=$row['c02'];
 $tmp=base64_decode($tmp);
