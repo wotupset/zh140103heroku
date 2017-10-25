@@ -1,0 +1,106 @@
+<html><head>
+<title>怎么就是FC不了，怎么又是那个熟悉的nice</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Script-Type" content="text/javascript">
+<META http-equiv="Content-Style-Type" content="text/css">
+
+<meta name="Robots" content="noindex,follow">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+
+</script>
+
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+	//全域變數
+	FFF="";
+	//$("#ddd").append( '=>'+query+'<br/>' );
+	www();
+	poi();
+	//FFF="https://www.youtube.com/watch?v=KiT4YE7FR0E";
+	//xhr_test(FFF);
+	//
+});
+function www() {
+	//
+	var query = location.search.replace("?", "");
+	var a = new Array();
+	a = query.split("!");
+	//QUERY = new Object();
+	var QUERY = new Object();
+	for (i=0; i<a.length; i++) {
+		var b = new Array();
+		b = a[i].split('~')
+		QUERY[b[0]] = unescape(b[1]);
+	}
+	//全域
+	if( QUERY['door'] ){
+		door=QUERY['door'];
+	}else{
+		door='KiT4YE7FR0E';
+	}
+	console.log(door);
+	//
+}
+function poi() {
+	FFF="https://www.youtube.com/embed/"+door;
+
+	if(1 ==1){
+		var crt_e = document.createElement("iframe");// Create element
+		crt_e.setAttribute("id","id160912");
+		crt_e.setAttribute("width","100%");//800
+		crt_e.setAttribute("height","100%");//450
+		crt_e.setAttribute("frameborder","1");
+		crt_e.setAttribute("allowfullscreen","1");
+		crt_e.setAttribute("src",FFF);//UVgoCTHvNJk
+		document.body.appendChild(crt_e);// Append <button> to <body>
+	}
+	//<div id='ddd'>ddd</div>
+	//document.getElementById("ddd").innerHTML='';
+	//$("#ddd").html("");
+	//$("#ddd").append( '=>'+query+'<br/>' );
+}
+function xhr_test(x){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if ( this.status == 200 && this.readyState == 4 ) {
+			console.log(xhr);
+		}else{
+			console.log(xhr);
+		}
+	};//xhr.onreadystatechange//
+	xhr.open("GET", x);
+	xhr.send();
+}
+/*
+  BORDER:#f00 1px solid; 
+*/
+</script>
+<style>
+#aaa {
+  position: absolute;
+  top: 120px;
+  left: px;
+  width: 300px;
+  height: 200px;
+}
+a:link    {color:red;}
+a:visited {color:blue;}
+a:hover   {color:green;}
+a:active  {color:yellow;}
+
+</style>
+</head>
+
+<body bgcolor="#FFFFEE" text="#800000" link="#0000EE" vlink="#003333">
+
+
+<div id='aaa'>
+<a href="171025.htm">首頁</a><br>
+<a href="171025.htm?door~ZADZPdUbRzU">東森</a><br>
+<a href="171025.htm?door~wUPPkSANpyo">中天</a><br>
+
+
+</div>
+
+</body></html>
