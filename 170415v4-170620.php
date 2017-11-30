@@ -5,8 +5,8 @@ date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
 //echo 'php_timezone='.$tz."\n";
-//$time  =time();
-$time  =sprintf('%s',time());//%u=零或正整數//%s=字串
+//$time  =sprintf('%s',time());//%u=零或正整數//%s=字串
+$time  =time();
 $time2 =array_sum( explode( ' ' , microtime() ) );
 $php_info=pathinfo($_SERVER["PHP_SELF"]);//被執行的文件檔名
 //$php_dir=$php_info['dirname'];//
@@ -99,6 +99,7 @@ $title =strip_tags($title);//清除html標籤
 
 $text  =$_POST['input_text'];
 //$text  =htmlspecialchars($text,ENT_QUOTES);////轉換為HTML實體
+
 //$text  =strip_tags($text);//清除html標籤
 $text  =preg_replace("/\r\n/","\n",$text);
 $text  =preg_replace("/\n/","<br/>",$text);
@@ -125,6 +126,7 @@ $array=array(
   ':c02' => $text,
   ':c03' => base64_encode($time2) ,
 );
+
 //hash('crc32',$title);
 //base64_encode($time2)
 $stmt->execute($array);
@@ -192,10 +194,9 @@ while ($row = $stmt->fetch() ) {
   }
 	
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
-  echo "\n";
   echo '<div class="box">';
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
-  //$FFF=nl2br($row['c02']);
+  //echo '<div class="text">'.nl2br($row['c02']).'</div>';
   $FFF=$row['c02'];
   echo '<div class="text">'.$FFF.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
