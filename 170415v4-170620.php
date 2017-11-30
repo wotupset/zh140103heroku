@@ -144,6 +144,11 @@ try{
 //列出資料 (全部)
 $page=$_GET['page'];
 //echo $page;
+if(isset($_GET['tag'])){
+$tag=$_GET['tag'];
+}else{
+$tag='';//預設值
+}
 //
 $sql=<<<EOT
 select * from $table_name 
