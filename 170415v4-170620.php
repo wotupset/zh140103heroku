@@ -107,8 +107,7 @@ $text  =preg_replace("/\n/","<br/>",$text);
 //$text  =strip_tags($text,'<br>');
 
 
-try{
-//插入資料
+try{ //插入資料
 //;
 $sql=<<<EOT
 INSERT INTO $table_name (c01,c02,c03)
@@ -142,14 +141,16 @@ $stmt->execute($array);
 
 ob_start();
 
-try{
-//列出資料 (全部)
+try{ //列出資料 (全部)
 $page=$_GET['page'];
 //echo $page;
+$FFF='';
 if(isset($_GET['tag'])){
 $tag=$_GET['tag'];
+$FFF='tag='.$tag.'&';
 }else{
 $tag='';//預設值
+$FFF='';
 }
 //
 $sql=<<<EOT
@@ -170,8 +171,9 @@ if($page > floor($rows_max/$pagelog) ){
 $pagelist='';
 //$pagelist.='<code style="font-size:1.5em;display: block;font-weight: bold;">';
 $pagelist.='<span style="font-size:1.5em;display: block;font-weight: bold;font-family: monospace;">';
+$FFF.='page=';
 for($x=0;$x*$pagelog < $rows_max ;$x++){
-  $pagelist.= '<a href="'.$phpself.'?page='.$x.'">';
+  $pagelist.= '<a href="'.$phpself.'?'.$FFF.$x.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
