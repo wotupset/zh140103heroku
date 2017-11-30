@@ -1,4 +1,6 @@
 <?php
+echo '需要時再啟用';
+exit;
 
 //header("content-Type: application/json; charset=utf-8"); //強制
 date_default_timezone_set("Asia/Taipei");//時區設定
@@ -40,7 +42,7 @@ $db->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8' COLLATE 'utf8_
 //echo "\n";
 
 
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);exit;}//錯誤訊息
 
 //exit;
 
