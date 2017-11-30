@@ -154,6 +154,7 @@ $tag='';//預設值
 //
 $sql=<<<EOT
 select * from $table_name 
+WHERE c01 = '$tag' 
 ORDER BY timestamp DESC
 EOT;
 // LIMIT 10
