@@ -149,7 +149,7 @@ $FFF2='';
 if(isset($_GET['tag'])){
 $tag=$_GET['tag'];
 $FFF='tag='.$tag.'&';
-$FFF2='WHERE c01 = '.$tag.' ';
+$FFF2="WHERE c01 = '$tag' ";
 }else{
 $tag='';//預設值
 $FFF='';
