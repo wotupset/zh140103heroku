@@ -145,17 +145,20 @@ try{ //列出資料 (全部)
 $page=$_GET['page'];
 //echo $page;
 $FFF='';
+$FFF2='';
 if(isset($_GET['tag'])){
 $tag=$_GET['tag'];
 $FFF='tag='.$tag.'&';
+$FFF2='WHERE c01 = '.$tag;
 }else{
 $tag='';//預設值
 $FFF='';
+$FFF2='';
 }
 //
 $sql=<<<EOT
 select * from $table_name 
-WHERE c01 = '$tag' 
+$FFF2
 ORDER BY timestamp DESC
 EOT;
 // LIMIT 10
