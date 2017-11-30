@@ -128,7 +128,7 @@ if($cc>0){
 //exit;
 
 
-if(count($_POST)>0){
+if(count($_POST)>0){ //有POST的情況
 $title =$_POST['input_title'];
 $title =strip_tags($title);//清除html標籤
 $title =rawurlencode($title);
@@ -139,8 +139,9 @@ $title =rawurlencode($title);
 //$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
-$text  =preg_replace("/\r\n/","\n",$text);
-$text  =preg_replace("/\n/","<br/>",$text);
+$text  =nl2br($text);
+//$text  =preg_replace("/\r\n/","\n",$text);
+//$text  =preg_replace("/\n/","<br/>",$text);
 $text  =base64_encode($text);
 
 //$text  =htmlspecialchars($text);////轉換為HTML實體
@@ -352,6 +353,16 @@ $x=<<<EOT
 <title>title</title>
 
 <script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+	console.log( 'DOMContentLoaded' );
+	FFF='';
+	
+	FFF=document.getElementById("input_title").value;
+	console.log( ''+FFF );
+	document.title=''+document.title+'::'+FFF;
+
+});
+
 function check(){//onclick
 	document.getElementById("sendbtn").value="稍後";
 	document.getElementById("form01").onsubmit();
