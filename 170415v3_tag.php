@@ -8,6 +8,8 @@ $tz=date_default_timezone_get();
 $time  =time();
 $time2 =array_sum( explode( ' ' , microtime() ) );
 //
+//extract($_POST,EXTR_SKIP);extract($_GET,EXTR_SKIP);extract($_COOKIE,EXTR_SKIP);
+//$tag=$_GET['tag'];
 $query_string=$_SERVER['QUERY_STRING'];
 
 //echo 'now='.date("Y-m-d H:i:s",$time)."\n";
@@ -88,10 +90,15 @@ $page=(int)$query_string;
 ob_start();
 
 try{
+if(isset($_GET['tag'])){
+$tag=$_GET['tag'];
+}else{
+$tag='aaa';
+}
 //列出資料 (分頁)
 $sql=<<<EOT
 select * from $table_name 
-WHERE c01 = 'aaa' 
+WHERE c01 = '$tag' 
 ORDER BY timestamp DESC
 EOT;
 // LIMIT 10
