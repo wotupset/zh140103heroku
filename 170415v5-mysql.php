@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS $table_name
     c03 char(100) NOT NULL,
 	UNIQUE(c03),
 	auto_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	auto_time timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-)
+	auto_time timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 EOT;
 //timestamp timestamp default current_timestamp
 //UNIQUE(c02),
@@ -139,12 +139,14 @@ $title =rawurlencode($title);
 //$title =preg_replace('/\s/', '', $title);
 
 $text  =$_POST['input_text'];
-//$text  =htmlspecialchars($text);////轉換為HTML實體
-$text  =nl2br($text);
-//$text  =base64_encode($text);
+$text  =preg_replace("/\r\n/","\n",$text);
+$text  =preg_replace("/\n/","<br/>",$text);
+$text  =base64_encode($text);
 
-//$text  =preg_replace("/\r\n/","\n",$text);
-//$text  =preg_replace("/\n/","<br/>\n",$text);
+//$text  =htmlspecialchars($text);////轉換為HTML實體
+//$text  =nl2br($text);
+
+
 //$text  =nl2br($text);
 //$text  =strip_tags($text,'<br>');
 //$text  =strip_tags($text);
@@ -257,11 +259,12 @@ $pagelist.='<span style="font-size:1.5em;display: block;font-weight: bold;font-f
 //$pagelist.='<code>';
 $tmp='';
 if(strlen($title)){
-$tmp.='&title='.$title;
+$tmp.='title='.$title.'&';
 }
+$tmp.='page=';
 for($x=0;$x*$pagelog < $rows_max ;$x++){
   //$pagelist.= '<a href="'.$phpself.'?page='.$x.'">#['.$x.']</a>'."\n";
-  $pagelist.= '<a href="'.$phpself.'?page='.$x.$tmp.'">';
+  $pagelist.= '<a href="'.$phpself.'?'.$tmp.$x.'">';
   if($page==$x){$pagelist.='#';}else{$pagelist.='*';}
   $pagelist.= '['.$x.']</a>'."\n";
 }
@@ -285,14 +288,15 @@ while ($row = $stmt->fetch() ) {
   }
 	
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['auto_time']."\n"
+  echo "\n";
   echo '<div class="box">';
   $FFF=rawurldecode( $row['c01'] );
   echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['auto_id'].'</sup>#'.$FFF.'</h3></div>';
 //mysql的utf8只支援到unicode5.0
 $tmp=$row['c02'];
-//$tmp=base64_decode($tmp);
+$tmp=base64_decode($tmp);
 //$tmp=nl2br($tmp);
-$tmp=preg_replace('/\s/','',$tmp);
+//$tmp=preg_replace('/\s/','',$tmp);
 
   echo '<div class="text">'.$tmp.'</div>';
   //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
@@ -343,15 +347,10 @@ EOT;
 $x=<<<EOT
 <html>
 <head>
+<meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-div.box {
-border:1px solid blue;
-padding-left:10px;
-background-color:#bdbdbd;
-}
-	
-</style>
+<title>title</title>
+
 <script>
 function check(){//onclick
 	document.getElementById("sendbtn").value="稍後";
@@ -365,7 +364,17 @@ function check2(){//onsubmit
 	document.getElementById("form01").submit();
 }
 </script>
-
+<style>
+div.box {
+border:1px solid blue;
+padding-left:10px;
+background-color:#bdbdbd;
+}
+img{
+width:100%;
+height:auto;
+}
+</style>
 </head>
 <body>
 $html_inputbox
