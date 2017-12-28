@@ -378,8 +378,8 @@ function poi($x){
 $FFF=<<<EOT
 <html>
 <head>
-<title>$board_title2</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>$board_title2</title>
 
 <STYLE>
 img.zoom {
