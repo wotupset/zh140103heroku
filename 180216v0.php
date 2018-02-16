@@ -100,8 +100,11 @@ if(strpos($info_array['mime'],'image')===false){
 	
 //exit;
 $filetype=$getinfo['content_type'];
+$filetype_ext=explode('/',$filetype);
+$savename=$time.'.'.$filetype_ext[1];
+//print_r($savename);exit;
+
 header('Content-type:'.$filetype.'');//指定文件類型
-$savename=$time.'';
 header('Content-Disposition: filename="'.$savename.'"');//
 readfile($temp_file);
 exit;
