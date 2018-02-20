@@ -69,8 +69,7 @@ if(1){
   $content=$getdata;
 }
 
-//print_r($getinfo);
-//print_r($geterror);
+//print_r($getinfo);print_r($geterror);exit;
 
 if($geterror >0){
 	//有錯誤
@@ -81,16 +80,24 @@ if($geterror >0){
 		echo html_body('0');exit;
 	}
 }
+//print_r( strlen($content) );exit;
+
 ////
 //echo $getinfo['content_type'];exit;
+if(function_exists('tempnam') &&0){
+	$temp_file = tempnam(sys_get_temp_dir(), 'Poi');
+	print_r(sys_get_temp_dir());
+}else{
+	$temp_file = $phpself2.'.tmp';
+}
+//exit;
+//print_r($temp_file);exit;
 
-$temp_file = tempnam(sys_get_temp_dir(), 'Poi');
-//print_r($temp_file);// /export/tmp/Poic3dHnH
-$chk = file_put_contents($temp_file,$content) or die('!put');
-$info_array=getimagesize($temp_file);
+//$chk = file_put_contents($temp_file,$content) or die('!put');
+//$info_array=getimagesize($temp_file);
 //print_r($info_array);// 
 
-if(strpos($info_array['mime'],'image')===false){
+if(strpos( $getinfo['content_type'] ,'image')===false){ //$info_array['mime']
 	//不是圖片
 	echo html_body('不是圖片');exit;
 	//echo 'get_headers='.$header_data[0];
@@ -106,7 +113,8 @@ $savename=$time.'.'.$filetype_ext[1];
 
 header('Content-type:'.$filetype.'');//指定文件類型
 header('Content-Disposition: filename="'.$savename.'"');//
-readfile($temp_file);
+echo $getdata;
+//readfile($temp_file);
 exit;
 ////////////////function
 
