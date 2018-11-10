@@ -105,7 +105,7 @@ echo "\n";
 PostgreSQL移除table
 */
 
-if(1){
+if(0){
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
@@ -127,7 +127,7 @@ $stmt->execute();
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
-}
+}//if
   
 /*
 PostgreSQL列出全部table
