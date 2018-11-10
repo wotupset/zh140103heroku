@@ -78,7 +78,7 @@ try{
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
-$table_name='nya170415';
+$table_name='nya181110';
 
 try{
 //移除table
