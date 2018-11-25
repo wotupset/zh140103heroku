@@ -328,11 +328,11 @@ window.js_date = dateUTCvalues.join(",");
 
 /*
 //es6 string template
-window.str_json='';
-*/
 window.str_json=`
-$json
 `;
+*/
+window.str_json='$json';
+
 
 
 
@@ -386,7 +386,7 @@ try{
 	$.gginin=gg;
 	//console.log( $.gginin );
 	//
-    //poi_start();
+    poi_start();
 	//console.log( 'jq='+$.now() );
 	
   });
@@ -415,19 +415,14 @@ atob('SGVsbG8sIHdvcmxk'); // "Hello, world"
     }
 
 	//console.log( ary_json.length );
-	$("#ddd").html( ary_json.length );
+	$("#ddd").html( '讀取'+ary_json.length );
 	array_loop(ary_json);
 }
 
-/*
-$('<div/>',{
-	id: 'ddd',
-	class: 'ddd',
-	title: 'ddd'
-}).appendTo('body');
-*/
+
 ///
 function array_loop(ary_json){
+	$("#ddd").after("產生文章");
 	var cc=0;
 	var htmlbody=[];
 	cc=0;
@@ -485,8 +480,8 @@ function array_loop(ary_json){
 	time_check();
 	//$("body").("讀取大圖");
 	//prepend
-	$("#ddd").after("讀取大圖");
-}
+	//$("#ddd").after("讀取大圖");
+}//ff
 
 /*
 before
@@ -520,71 +515,66 @@ function test01(){
 }
 
 function time_check(){
-var FFF='';
-if(window.js_timestamp > window.php_timestamp){
-	//$("#ddd").before(""+navigator.userAgent);
-	//console.log("y");
-	FFF='';
-	FFF=window.js_timestamp - window.php_timestamp;
-	//console.log( FFF );
-	$("#ddd").after(FFF);
-	//10分鐘後
-	if(FFF > 600*1000){ 
-		//不顯示
-	}else{
-		//顯示
-		if( $(".image_orig").length >0 ){
-			//有圖
-			$("#ddd").after("有圖");
-			console.log("有圖");
-			show_image_orig(0);
-		}
-		$(".image_orig").css({
-			"height":"100px",
-			"width":"100px",
-			"vertical-align":"text-top",
-		});
-		$(".image_thumb").css({
-			"vertical-align":"text-top",
-		});
-	}
-}else{
-	$("#ddd").after("???");
-	//console.log("n");
-}
-
-}//f
-function show_image_orig(x=0){
-	console.log( x,$(".image_orig").length );
-	//console.log( $(".image_orig").get(x) );
-	//console.log( $(".image_orig")[x] );
-	//$(".image_orig")[x].after('->');
+	$("#ddd").after("檢查時間");
 	var FFF='';
-	FFF=$(".image_orig")[x];
-	//console.log( $(FFF) );
-	try{
-		console.log( $(FFF).attr('class') ,$(FFF).attr('class').length );
-		if( $(FFF).attr('class').length >0 ){
-			//$(FFF).after('next');
-			$(FFF).attr("src", $(FFF).attr("src2") );
-			$(FFF).removeAttr("src2");
-			$(FFF).on('load', function(){
-				$(FFF).after('成功');
-			});
-			$(FFF).on('error', function(){
-				$(FFF).after('失敗');
-			});
-			show_image_orig( x+1 );
+	if(window.js_timestamp > window.php_timestamp){
+		//$("#ddd").before(""+navigator.userAgent);
+		//console.log("y");
+		FFF='';
+		FFF=window.js_timestamp - window.php_timestamp;
+		//console.log( FFF );
+		$("#ddd").after(FFF);
+		//10分鐘後
+		if(FFF > 600*1000){ 
+			//不顯示
 		}else{
-			$("#ddd").after("設置完成");
-			console.log("設置完成");
+			//顯示
+			if( $(".image_orig").length >0 ){
+				//有圖
+				$("#ddd").after("有圖");
+				console.log("有圖");
+				poi10(0);
+			}
+			$(".image_orig").css({
+				"height":"100px",
+				"width":"100px",
+				"vertical-align":"text-top",
+			});
+			$(".image_thumb").css({
+				"vertical-align":"text-top",
+			});
 		}
+	}else{
+		$("#ddd").after("???");
+		//console.log("n");
 	}
-	catch(e){
-		console.log( '沒有class' );
-	}
-
 }//f
+
+function poi10(count){
+	var cc=count;
+	$("#ddd").after(cc);
+	var FFF='';
+	FFF=$(".image_orig");
+	console.log( cc , $(".image_orig").length );
+	if( cc < FFF.length ){
+		//console.log( FFF );
+		FFF=FFF[cc];
+		//console.log( $(FFF) );
+		$(FFF).attr("src", $(FFF).attr("src2") );
+		$(FFF).removeAttr("src2");
+		$(FFF).on('load', function(){
+			$(FFF).after('成功'+cc);
+			poi10(cc+1);
+		});
+		$(FFF).on('error', function(){
+			$(FFF).after('失敗');
+		});
+	}else{
+		$("#ddd").after("結束");
+		//$("#ddd").before(""+navigator.userAgent);
+		console.log("結束");
+	}
+}//ff
 
 ///
 //float:left
