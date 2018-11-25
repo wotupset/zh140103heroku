@@ -566,13 +566,13 @@ EOT;
 }
 function html_all($body,$js='',$css=''){
 	//$webm_count  =$x[5];
-	//
+	//<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 $x=<<<EOT
 <html>
 <head>
 <meta charset="UTF-8" />
 <title>title</title>
-<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+
 
 <style>
 $css
