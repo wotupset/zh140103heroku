@@ -567,12 +567,12 @@ EOT;
 function html_all($body,$js='',$css=''){
 	//$webm_count  =$x[5];
 	//<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+	//<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="no-store">
 $x=<<<EOT
 <html>
 <head>
 <meta charset="UTF-8" />
 <title>title</title>
-
 
 <style>
 $css
