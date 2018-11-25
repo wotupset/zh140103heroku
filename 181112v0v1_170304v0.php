@@ -494,36 +494,16 @@ after
 function test01(){
 		$(".image_orig").each(function(k,v){
 			console.log( $(this) );
-			$(this).after('->');
-			FFF='';
-			FFF=$(this).attr("src2");
-			$(this).removeAttr("src2");
-			$(this).attr("src",FFF);
-			//$(this).prev().css("background-image", 'url('+FFF+')' );
-			//console.log( $(this).parent() );//.next()
-			//console.log( $(this).prev() );
-			//console.log( $(this).closest("a") );
-			$(this).on('load', function(){//大圖讀取完成
-				//FFF='';
-				//FFF=$(this).attr("src");
-				//console.log( FFF );
-				//$(this).prev().append( FFF );
-				$(this).after('ok');
-			});
 		});
-	
 }
 
 function time_check(){
 	$("#ddd").after("檢查時間");
 	var FFF='';
-	if(window.js_timestamp > window.php_timestamp){
-		//$("#ddd").before(""+navigator.userAgent);
+	FFF=window.js_timestamp - window.php_timestamp;
+	$("#ddd").after(""+FFF);
+	if( FFF ){
 		//console.log("y");
-		FFF='';
-		FFF=window.js_timestamp - window.php_timestamp;
-		//console.log( FFF );
-		$("#ddd").after(FFF);
 		//10分鐘後
 		if(FFF > 600*1000){ 
 			//不顯示
