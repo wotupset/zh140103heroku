@@ -548,6 +548,7 @@ function poi10(count){
 		});
 		$(FFF).on('error', function(){
 			$(FFF).after('失敗');
+			poi10(cc+1);
 		});
 	}else{
 		$("#ddd").after("結束");
@@ -571,6 +572,8 @@ $x=<<<EOT
 <head>
 <meta charset="UTF-8" />
 <title>title</title>
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+
 <style>
 $css
 </style>
