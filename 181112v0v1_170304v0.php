@@ -296,7 +296,7 @@ EOT;
 	return $x;	
 }
 
-function html_js($str_json=''){
+function html_js($json){
 	$time=$GLOBALS['time'];
 	$now=$GLOBALS['now'];
 	$time_13=$time*1000;
@@ -328,9 +328,11 @@ window.js_date = dateUTCvalues.join(",");
 
 /*
 //es6 string template
-window.str_json=``;
+window.str_json='';
 */
-window.str_json='$str_json';
+window.str_json=`
+$json
+`;
 
 
 
@@ -342,16 +344,18 @@ window.str_json='$str_json';
 document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( 'DOMContentLoaded' );
 	//document.write('DOMContentLoaded');
+	
+	document.getElementById('ddd').insertAdjacentHTML('beforeend', '這是javascript');
 
 	var jsElm = document.createElement("script");
 	jsElm.type = "application/javascript";
-	jsElm.src = 'https://code.jquery.com/jquery-3.3.1.min.js';
+	//jsElm.src = 'https://code.jquery.com/jquery-3.3.1.min.js';
+	jsElm.src = './jquery-3.3.1.slim.min.js';
 	jsElm.onload = function(e){
 		console.log('jsElm.onload');
 		//console.log(e);
-		//var id01=document.getElementById('ddd');
-		var id01=document.getElementsByTagName("body")[0];
-		id01.insertAdjacentHTML('beforeend', 'jquery讀取成功');
+		document.getElementById('ddd').insertAdjacentHTML('beforeend','jquery讀取成功');
+		//document.getElementsByTagName("body")[0]
 		jquery_start();
 	};
 	//document.body.appendChild(jsElm);
@@ -371,8 +375,8 @@ function jquery_start(){
 try{
   $(document).ready(function() {
   	console.log('document.ready');
-	$("#ddd").html( 'document.ready' );
-	//$("#ddd").before(""+navigator.userAgent);
+	$("#ddd").append( 'document.ready' );//html
+
 	//
     time = new Date();
     gg=[];
