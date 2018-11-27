@@ -540,14 +540,17 @@ function poi10(count){
 		//console.log( FFF );
 		FFF=FFF[cc];
 		//console.log( $(FFF) );
+		$.gginin.time_checkpoint=(new Date()).getTime();
 		$(FFF).attr("src", $(FFF).attr("src2") );
 		$(FFF).removeAttr("src2");
 		$(FFF).on('load', function(){
 			$(FFF).after('成功'+cc);
+			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
 			poi10(cc+1);
 		});
 		$(FFF).on('error', function(){
 			$(FFF).after('失敗');
+			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
 			poi10(cc+1);
 		});
 	}else{
