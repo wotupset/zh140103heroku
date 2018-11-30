@@ -344,154 +344,31 @@ window.str_json='$json';
 
 
 
-window.addEventListener('ajaxReadyStateChange', function (e) {
-	console.log( 'ajaxReadyStateChange',e );
-});
-window.addEventListener('ajaxAbort', function (e) {
-	
-});
 
 ///
-document.addEventListener("readystatechange", function(e){
-	//console.log( e,this,this.readyState );
-});
-
-document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function(event) { 
 	console.log( 'DOMContentLoaded' );
-	var id01=document.getElementById('ddd');
-	id01.innerHTML="";
-	id01.insertAdjacentHTML('beforeend', '網頁DOM載入完成,');
+	//document.write('DOMContentLoaded');
+	
+	document.getElementById('ddd').insertAdjacentHTML('beforeend', '這是javascript');
 	//document.title=location.hostname;
 	document.title=window.php_date;
 
-	//
-	if(typeof(Blob)!='undefined'){}
-	if( window.URL !== undefined ){
-	//if( 1==0 ){
-		var id01=document.getElementById('ddd');
-		id01.insertAdjacentHTML('beforeend',"支援window.URL,");
-		console.log( 'window.URL' );
-		ver02a_new();
-		
-	}else{
-		var id01=document.getElementById('ddd');
-		id01.insertAdjacentHTML('beforeend',"不支援window.URL,");
-		ver02a_old();
-		
-	}
-});
-
-
-
-function ver02a_new(){
-	console.log( 'ver02a_new' );
-	//使用chrome版本70所支援的語法
-	var xhr=new XMLHttpRequest();
-	//console.log( 'xhr0',xhr.readyState );
-	//0 请求未初始化 客戶端已被建立，但 open() 方法尚未被呼叫。
-	
-	xhr.ypa='xopowo';
-	//xhr.onloadstart=function(){};//要加在open()之前
-	xhr.addEventListener("loadstart", function(e){
-		console.log("loadstart",e);
-	}, false);
-	
-	xhr.open("GET",'./jquery-3.3.1.slim.min.js');
-	//console.log( 'xhr1',xhr.readyState );
-	//1 服务器连接已建立 open() 方法已被呼叫。
-	/*
-	2	HEADERS_RECEIVED	send() 方法已被呼叫，而且可取得 header 與狀態。
-	3	LOADING	回應資料下載中，此時 responseText 會擁有部分資料。
-	4	DONE	完成下載操作。
-	*/
-	
-	xhr.overrideMimeType("application/javascript");
-	xhr.send(null);
-
-
-	
-	//xhr.onprogress = function(event) {};
-	//xhr.onreadystatechange = function(e){};
-	xhr.addEventListener("readystatechange", function(e){
-	}, false);
-	
-
-	xhr.addEventListener("progress", function(e){
-		console.log("progress");
-		console.log( e.lengthComputable,e.loaded,e.total);
-	}, false);
-	
-	
-	xhr.addEventListener("load", function(e){
-		console.log("load");
-		//console.log("產生blobUrl");
-		var blob = new Blob([xhr.responseText],{type:"text/javascript"});
-		var blobUrl = URL.createObjectURL(blob);
-		//
-		console.log( blobUrl );
-		
-		var jsElm = document.createElement("script");
-		jsElm.setAttribute("type","application/javascript");
-		jsElm.setAttribute("src",blobUrl);
-		document.getElementsByTagName("head")[0].appendChild(jsElm);
-		//
-		var xx=function(e){
-			console.log('jsElm.onload');
-			var id01=document.getElementById('ddd');
-			id01.insertAdjacentHTML('beforeend','jquery檔案載入成功new,');
-			jquery_start();
-		};
-		jsElm.addEventListener("load", function(){
-			//xx();
-		});
-		jsElm.onload=xx;
-
-	}, false);
-	xhr.addEventListener("loadend", function(e){
-		console.log("loadend");
-		console.log(xhr);
-		console.log(xhr.responseURL);
-		var myHeader = xhr.getAllResponseHeaders();
-		console.log(myHeader);
-		
-		
-	}, false);
-	//超時設定
-	xhr.timeout = 2000;//默認0毫秒，表示沒有時間限制
-	xhr.addEventListener("timeout", function(e){
-		console.log("timeout");
-	}, false);
-	//很少用到
-	xhr.addEventListener("abort", function(e){
-		console.log("abort");
-	}, false);
-	xhr.addEventListener("error", function(e){
-		console.log("error");
-	}, false);
-
-
-}
-///
-function ver02a_old(){
-	console.log( 'ver02a_old' );
-	//使用chrome版本50所支援的語法
 	var jsElm = document.createElement("script");
 	jsElm.type = "application/javascript";
+	//jsElm.src = 'https://code.jquery.com/jquery-3.3.1.min.js';
 	jsElm.src = './jquery-3.3.1.slim.min.js';
-	document.head.appendChild(jsElm);
-	jsElm.onload=function(e){
-		var id01=document.getElementById('ddd');
-		id01.insertAdjacentHTML('beforeend','jquery載入成功old,');
-		console.log('jquery載入成功old,');
+	jsElm.onload = function(e){
+		console.log('jsElm.onload');
+		//console.log(e);
+		document.getElementById('ddd').insertAdjacentHTML('beforeend','jquery讀取成功');
+		//document.getElementsByTagName("body")[0]
 		jquery_start();
 	};
-}
-///
-
-
-
-
-
+	//document.body.appendChild(jsElm);
+	document.head.appendChild(jsElm);
+	//document.head.insertAdjacentElement('beforeend', jsElm);
+});
 ///
 /*
 beforebegin
@@ -501,31 +378,32 @@ afterend
 */
 
 function jquery_start(){
-	console.log( 'jquery_start' );
 
-	try{
-	  $(document).ready(function() {
-		$("#ddd").append( 'jquery執行區塊,' );//html
-		//
-		time = new Date();
-		gg=[];
-		gg.time=time
-		gg["ypa"]='xopowo';
-		//
-		$.gginin=gg;
-		//console.log( $.gginin );
-		//
-		poi_start();
-		//console.log( 'jq='+$.now() );
-		
-	  });
-	}catch(err){
-		console.log( err );
-	}finally{
-		//
-	}
+try{
+  $(document).ready(function() {
+  	console.log('document.ready');
+	$("#ddd").append( 'document.ready' );//html
 
-}//ff
+	//
+    time = new Date();
+    gg=[];
+	gg["poi"]='123';
+	gg.ypa='456';
+	//
+	$.gginin=gg;
+	//console.log( $.gginin );
+	//
+    poi_start();
+	//console.log( 'jq='+$.now() );
+	
+  });
+}catch(err){
+  	console.log( ''+err.message );
+}finally{
+    console.log( 'try-catch-finally' );
+}
+
+}
 ///
 function poi_start(){
 /*
@@ -551,7 +429,7 @@ atob('SGVsbG8sIHdvcmxk'); // "Hello, world"
 
 ///
 function array_loop(ary_json){
-	$("#ddd").after("產生文章");
+	//$("#ddd").after("產生文章");
 	var cc=0;
 	var htmlbody=[];
 	cc=0;
@@ -587,11 +465,10 @@ function array_loop(ary_json){
 			//
 		}else{
 			if( v["image"].match(/\.webm$/)){
-				FFF+='<img class="image_thumb" src="'+v["image_t"]+'">';
+				FFF+='<img src="'+v["image_t"]+'">';
 				FFF+='影片';
 			}else{
-				FFF+='<a href="'+v["image"]+'"><img class="image_thumb" src="'+v["image_t"]+'">'+v['file-name']+' '+v['file-text']+'</a>';
-				FFF+='<img class="image_orig" src2="'+v["image"]+'">';
+				FFF+='<img src="'+v["image"]+'">';
 			} 
 		}
 		FFF+='<br clear="both">';
@@ -606,91 +483,13 @@ function array_loop(ary_json){
 	$("#ddd").html( FFF );
 	//
 	
-	time_check();
+	//time_check();
 	//$("body").("讀取大圖");
 	//prepend
 	//$("#ddd").after("讀取大圖");
 }//ff
 
-/*
-before
-prepend
-append
-after
-*/
 
-///
-function test01(){
-		$(".image_orig").each(function(k,v){
-			console.log( $(this) );
-		});
-}
-
-function time_check(){
-	$("#ddd").after("檢查時間");
-	var FFF='';
-	FFF=window.js_timestamp - window.php_timestamp;
-	$("#ddd").after(""+FFF);
-	if( FFF ){
-		//console.log("y");
-		//10分鐘後
-		if(FFF > 600*1000){ 
-			//不顯示
-		}else{
-			//顯示
-			if( $(".image_orig").length >0 ){
-				//有圖
-				$("#ddd").after("有圖");
-				console.log("有圖");
-				poi10(0);
-			}
-			$(".image_orig").css({
-				"height":"100px",
-				"width":"100px",
-				"vertical-align":"text-top",
-			});
-			$(".image_thumb").css({
-				"vertical-align":"text-top",
-			});
-		}
-	}else{
-		$("#ddd").after("???");
-		//console.log("n");
-	}
-}//f
-
-function poi10(count){
-	var cc=count;
-	$("#ddd").after(cc);
-	var FFF='';
-	FFF=$(".image_orig");
-	console.log( cc , $(".image_orig").length );
-	if( cc < FFF.length ){
-		//console.log( FFF );
-		FFF=FFF[cc];
-		//console.log( $(FFF) );
-		$.gginin.time_checkpoint=(new Date()).getTime();
-		$(FFF).attr("src", $(FFF).attr("src2") );
-		$(FFF).removeAttr("src2");
-		$(FFF).on('load', function(){
-			$(FFF).after('成功'+cc);
-			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
-			poi10(cc+1);
-		});
-		$(FFF).on('error', function(){
-			$(FFF).after('失敗');
-			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
-			poi10(cc+1);
-		});
-	}else{
-		$("#ddd").after("結束");
-		//$("#ddd").before(""+navigator.userAgent);
-		console.log("結束");
-	}
-}//ff
-
-///
-//float:left
 
 EOT;
 	//
