@@ -393,7 +393,7 @@ function ver02a_new(){
 	xhr.ypa='xopowo';
 	//xhr.onloadstart=function(){};//要加在open()之前
 	xhr.addEventListener("loadstart", function(e){
-		console.log("loadstart",e);
+		console.log("loadstart",e.timeStamp);
 	}, false);
 	
 	xhr.open("GET",'./jquery-3.3.1.slim.min.js');
@@ -410,20 +410,25 @@ function ver02a_new(){
 
 
 	
-	//xhr.onprogress = function(event) {};
 	//xhr.onreadystatechange = function(e){};
 	xhr.addEventListener("readystatechange", function(e){
+		if(xhr.readyState === 4 && xhr.status === 200) {
+			//console.log(xhr.responseText);
+			console.log("xhr成功",e.timeStamp);
+		}
 	}, false);
 	
 
+	//xhr.onprogress = function(event) {};
 	xhr.addEventListener("progress", function(e){
-		console.log("progress");
+		console.log("progress",e.timeStamp);
+		//console.log(e);
 		console.log( e.lengthComputable,e.loaded,e.total);
 	}, false);
 	
 	
 	xhr.addEventListener("load", function(e){
-		console.log("load");
+		console.log("load",e.timeStamp);
 		//console.log("產生blobUrl");
 		var blob = new Blob([xhr.responseText],{type:"text/javascript"});
 		var blobUrl = URL.createObjectURL(blob);
@@ -448,11 +453,11 @@ function ver02a_new(){
 
 	}, false);
 	xhr.addEventListener("loadend", function(e){
-		console.log("loadend");
-		console.log(xhr);
+		console.log("loadend",e.timeStamp);
 		console.log(xhr.responseURL);
+		//console.log(xhr);
 		var myHeader = xhr.getAllResponseHeaders();
-		console.log(myHeader);
+		console.log("文件檔頭",myHeader);
 		
 		
 	}, false);
