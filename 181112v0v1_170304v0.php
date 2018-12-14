@@ -29,6 +29,9 @@ if(isset($_POST['inputurl'])){
 $FFF=explode('#',$url);
 $url=$FFF[0];
 
+$url_hash=substr( hash('md5',$url) , 0, 6);
+
+
 //
 $html_inputbox=<<<EOT
 <form id='form01' enctype="multipart/form-data" action='$phpself' method="post" onsubmit="">
@@ -296,6 +299,9 @@ vertical-align:text-top;
 }
 .image_thumb{
 }
+.poi{
+pointer-events: none;
+}
 EOT;
 	//
 	return $x;	
@@ -304,7 +310,11 @@ EOT;
 function html_js($json){
 	$time=$GLOBALS['time'];
 	$now=$GLOBALS['now'];
+	$url_hash=$GLOBALS['url_hash'];
+	//echo "ss".$url_hash_2;
+	//
 	$time_13=$time*1000;
+	
 	//$str_json=base64_encode($str_json);
 	//global $a, $b;
 	//
@@ -363,6 +373,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 	id01.insertAdjacentHTML('beforeend', '網頁DOM載入完成,');
 	//document.title=location.hostname;
 	document.title=window.php_date;
+	test_TouchEvent();
 
 	//
 	if(typeof(Blob)!='undefined'){}
@@ -382,7 +393,20 @@ document.addEventListener("DOMContentLoaded", function(e){
 });
 
 
+function test_TouchEvent(){
+	var id01=document.getElementById('ddd');
+	var tmp='';
+	try{
+	document.createEvent('TouchEvent');
+	console.log('有觸控');
+	tmp='有觸控';
+	}catch(e){
+	console.log('無觸控');
+	tmp='無觸控';
+	}
+	id01.insertAdjacentHTML('beforebegin',tmp);
 
+}
 function ver02a_new(){
 	console.log( 'ver02a_new' );
 	//使用chrome版本70所支援的語法
@@ -394,7 +418,8 @@ function ver02a_new(){
 	//xhr.onloadstart=function(){};//要加在open()之前
 	xhr.addEventListener("loadstart", function(e){
 		console.log("loadstart",e.timeStamp);
-	}, false);
+	}, true);
+
 	
 	xhr.open("GET",'./jquery-3.3.1.slim.min.js');
 	//console.log( 'xhr1',xhr.readyState );
@@ -518,6 +543,11 @@ function jquery_start(){
 		gg["ypa"]='xopowo';
 		//
 		$.gginin=gg;
+		$.gginin.count=0;
+		$.gginin.cc181214=0;
+		$.gginin.var181214_t2cc2_a=0;
+		$.gginin.var181214_t2cc2_b=0;
+		
 		//console.log( $.gginin );
 		//
 		poi_start();
@@ -563,7 +593,6 @@ function array_loop(ary_json){
 	for(var i=0;i<ary_json.length;i++){
 		//console.log( ary_json[i] );
 		//
-		cc++;
 		//htmlbody+=""+i;
 	}
 	//console.log( htmlbody );
@@ -586,6 +615,7 @@ function array_loop(ary_json){
 		tmp=atob(tmp);
 		tmp=decodeURIComponent(tmp);
 		v["quote"]=tmp;
+		//
 		FFF+='<blockquote>'+v["quote"]+'</blockquote>';
 		//
 		if(v["image"] == null){
@@ -595,8 +625,10 @@ function array_loop(ary_json){
 				FFF+='<img class="image_thumb" src="'+v["image_t"]+'">';
 				FFF+='影片';
 			}else{
+				cc++;
 				FFF+='<a href="'+v["image"]+'"><img class="image_thumb" src="'+v["image_t"]+'">'+v['file-name']+' '+v['file-text']+'</a>';
-				FFF+='<img class="image_orig" src2="'+v["image"]+'">';
+				FFF+='<img id="image'+k+'" class="image_orig" src="x" src2="'+v["image"]+'">';
+				//time_check(k);
 			} 
 		}
 		FFF+='<br clear="both">';
@@ -610,8 +642,9 @@ function array_loop(ary_json){
 	FFF=htmlbody.join(",");
 	$("#ddd").html( FFF );
 	//
-	
-	time_check();
+	if(cc>0){//有圖
+		time_check();
+	}
 	//$("body").("讀取大圖");
 	//prepend
 	//$("#ddd").after("讀取大圖");
@@ -631,8 +664,83 @@ function test01(){
 		});
 }
 
+function test02(){
+	$.gginin.cc181214= $.gginin.cc181214 +1;
+	var t=setTimeout(function(){
+		var t2=$(".image_orig").length;
+		var t2_cc1=0;
+		var t2_cc2=0;
+		for(var i=0;i<t2;i++){
+			var t3=$(".image_orig")[i]
+			//console.log( $(t3).attr('src') );
+			//console.log( $(t3).width(),$(t3).height() );
+			//console.log( $(t3).prop('naturalWidth'),$(t3).prop('naturalHeight') );
+			var t4a='';
+			if( $(t3).attr('src') != "x" ){
+				t4a='y';
+			}else{
+				t4a='n';
+				t2_cc2 = t2_cc2 + 1 ;
+			}
+			var t4b='';
+			if( $(t3).prop('naturalWidth') > 0 ){
+				t4b='y';
+			}else{
+				t4b='n';
+			}
+			//console.log( $.gginin.cc181214,t4a,t4b,$(t3).attr('src') );
+			if( t4a=='y' && t4b=='n' ){ //src改變 但沒抓到wh
+				t2_cc1 = t2_cc1 + 1;
+			}
+		}
+		console.log( $.gginin.cc181214 , "讀取中=" + t2_cc1 , "未讀=" + t2_cc2 );
+		var FFF_a='';
+		var FFF_b='';
+		FFF_a=$.gginin.var181214_t2cc2_a;
+		FFF_b=$.gginin.var181214_t2cc2_b;
+		if(FFF_a == t2_cc2 ){ //未讀數量沒改變
+			FFF_b = FFF_b + 1 ; //記錄+1
+		}else{//未讀數量改變
+			FFF_b = 0 ; //記錄清空
+			FFF_a = t2_cc2; //更新
+		}
+		console.log( "FFF=",FFF_a,FFF_b );
+		$.gginin.var181214_t2cc2_a=FFF_a;
+		$.gginin.var181214_t2cc2_b=FFF_b;
+
+		
+		if(FFF_b > 3){ //未讀數量沒改變 超過3次
+			console.log( '未讀數量沒改變 超過3次' );
+			if(t2_cc2 == 0){
+				console.log( '未讀數量=0 停止' );
+				//停止
+			}else{
+				console.log( '未讀數量!=0 繼續 且改變' );
+				$(".image_orig").filter(function(index) {
+					if( $(this).attr('src') == 'x' ){
+						return (1==1);
+					}else{
+						return (1==0);
+					}
+				}).css('background-color', 'red');
+				//迴圈
+				test02();
+			}
+		}else{
+			test02();
+		}
+		//$.gginin.var181214_t2cc2_a=0;
+		//$.gginin.var181214_t2cc2_b=0;
+
+		//
+	},300);
+}
 function time_check(){
 	$("#ddd").after("檢查時間");
+	//
+	test02();
+	
+	//
 	var FFF='';
 	FFF=window.js_timestamp - window.php_timestamp;
 	$("#ddd").after(""+FFF);
@@ -647,7 +755,7 @@ function time_check(){
 				//有圖
 				$("#ddd").after("有圖");
 				console.log("有圖");
-				poi10(0);
+				poi10();
 			}
 			$(".image_orig").css({
 				"height":"100px",
@@ -664,8 +772,10 @@ function time_check(){
 	}
 }//f
 
-function poi10(count){
-	var cc=count;
+function poi10(){
+	//
+	var cc=$.gginin.count;
+	$.gginin.count=$.gginin.count+1;
 	$("#ddd").after(cc);
 	var FFF='';
 	FFF=$(".image_orig");
@@ -674,26 +784,42 @@ function poi10(count){
 		//console.log( FFF );
 		FFF=FFF[cc];
 		//console.log( $(FFF) );
+		console.log( $(FFF).attr("id") );
 		$.gginin.time_checkpoint=(new Date()).getTime();
+
 		$(FFF).attr("src", $(FFF).attr("src2") );
 		$(FFF).removeAttr("src2");
-		$(FFF).on('load', function(){
-			$(FFF).after('成功'+cc);
-			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
-			poi10(cc+1);
+		$(FFF).on('load', function(e){
+			//console.log(e);
+			//console.log( $(this) );
+			//console.log('event.type=' + e.type);
+			$(FFF).after('成功'+cc+'');
+			var tmp=((new Date()).getTime() - $.gginin.time_checkpoint);
+			$(FFF).after('耗時'+ tmp +'毫秒');
+			poi10();
 		});
-		$(FFF).on('error', function(){
+		$(FFF).on('error', function(e){
 			$(FFF).after('失敗');
 			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
-			poi10(cc+1);
+			poi10();
 		});
 	}else{
 		$("#ddd").after("結束");
 		//$("#ddd").before(""+navigator.userAgent);
 		console.log("結束");
+		//js_all_done();
 	}
+
 }//ff
 
+function js_all_done(){
+	console.log("js_all_done");
+	console.log( location.href );
+	
+	$("#ddd").css({
+		"border-left":"#$url_hash 1px solid",
+	});
+}//ff
 ///
 //float:left
 
