@@ -91,7 +91,7 @@ $board_title = $html->find('title',0)->innertext;//版面標題
 
 $ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
 $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
-echo $board_title2;echo "\n";
+//echo $board_title2;echo "\n";
 
 
 $cc=0;
