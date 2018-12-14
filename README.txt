@@ -1,3 +1,7 @@
+181214
+==
+
+
 恋は命の花だから
 [こい]は[いのち]の[はな]だから
 Koi wa inochi no hana dakara
