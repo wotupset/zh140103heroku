@@ -74,7 +74,7 @@ if(1){
 $html = str_get_html($content) or die('沒有收到資料');//simple_html_dom自訂函式
 $chat_array='';
 $chat_array = $html->outertext;
-//echo print_r($chat_array,true);exit;//檢查點
+echo print_r($chat_array,true);exit;//檢查點
 //
 
 $url_num='0000';
