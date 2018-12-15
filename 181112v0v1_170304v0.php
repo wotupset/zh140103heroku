@@ -85,7 +85,8 @@ if(preg_match($pattern, $url, $matches_url)){
 }
 //echo $url_num;echo "\n";
 $board_title = $html->find('title',0)->innertext;//版面標題
-//echo $board_title;echo "\n";
+//echo "?".$board_title;echo "\n";
+
 
 
 
@@ -373,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 	id01.insertAdjacentHTML('beforeend', '網頁DOM載入完成,');
 	//document.title=location.hostname;
 	document.title=window.php_date;
-	test_TouchEvent();
+	//test_TouchEvent();
 
 	//
 	if(typeof(Blob)!='undefined'){}
@@ -715,7 +716,8 @@ function test02(){
 				console.log( '未讀數量=0 停止' );
 				//停止
 			}else{
-				console.log( '未讀數量!=0 繼續 且改變' );
+				console.log( '未讀數量!=0 繼續' );
+				console.log( '改背景顏色' );
 				$(".image_orig").filter(function(index) {
 					if( $(this).attr('src') == 'x' ){
 						return (1==1);
@@ -724,7 +726,12 @@ function test02(){
 					}
 				}).css('background-color', 'red');
 				//迴圈
-				test02();
+				if(FFF_b>30){
+					console.log( '超過30秒沒讀取 停止' );
+					//stop
+				}else{
+					test02();
+				}
 			}
 		}else{
 			test02();
@@ -733,12 +740,12 @@ function test02(){
 		//$.gginin.var181214_t2cc2_b=0;
 
 		//
-	},300);
+	},1000);
 }
 function time_check(){
 	$("#ddd").after("檢查時間");
 	//
-	test02();
+
 	
 	//
 	var FFF='';
@@ -755,7 +762,10 @@ function time_check(){
 				//有圖
 				$("#ddd").after("有圖");
 				console.log("有圖");
+				//
+				//fnc181214_event();
 				poi10();
+				//test02();
 			}
 			$(".image_orig").css({
 				"height":"100px",
@@ -771,12 +781,26 @@ function time_check(){
 		//console.log("n");
 	}
 }//f
+function fnc181214_event(){
+	$(".image_orig").each(function(index,v) {
+		var cc=$.gginin.count;
+		$.gginin.count=$.gginin.count + 1;
+		$("#ddd").after(cc);
+		//
+		$(this).on("load", function(e){
+			$(this).after('成功');
+		});
+		$(this).on("error", function(e){
+			$(this).after('失敗');
+		});
+	});
+}
 
 function poi10(){
-	//
 	var cc=$.gginin.count;
-	$.gginin.count=$.gginin.count+1;
+	$.gginin.count=$.gginin.count + 1;
 	$("#ddd").after(cc);
+	//
 	var FFF='';
 	FFF=$(".image_orig");
 	console.log( cc , $(".image_orig").length );
@@ -786,9 +810,10 @@ function poi10(){
 		//console.log( $(FFF) );
 		console.log( $(FFF).attr("id") );
 		$.gginin.time_checkpoint=(new Date()).getTime();
-
+		//改變src
 		$(FFF).attr("src", $(FFF).attr("src2") );
 		$(FFF).removeAttr("src2");
+		//事件
 		$(FFF).on('load', function(e){
 			//console.log(e);
 			//console.log( $(this) );
@@ -798,12 +823,16 @@ function poi10(){
 			$(FFF).after('耗時'+ tmp +'毫秒');
 			poi10();
 		});
+		//事件
 		$(FFF).on('error', function(e){
 			$(FFF).after('失敗');
 			$(FFF).after('耗時'+ ((new Date()).getTime() - $.gginin.time_checkpoint) +'毫秒');
 			poi10();
 		});
+
+
 	}else{
+		//完成
 		$("#ddd").after("結束");
 		//$("#ddd").before(""+navigator.userAgent);
 		console.log("結束");

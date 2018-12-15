@@ -59,7 +59,10 @@ function zh150530(){
 //die('xxx');
 zh150530();//直接打開php時的反應
 //exit;die('http_code');
-
+/*
+更新紀錄
+181118 更新$useragent
+*/
 
 ////////函式區
 function curl_FFF($url){
@@ -82,7 +85,8 @@ function curl_FFF($url){
 	//print_r($FFF);exit;
 	//if( in_array('curl_exec', $FFF) ){die('[x]curl_exec');}//判斷是否有禁用
 	//
-	$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
+	//$useragent='Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36';
+	$useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
 	$ch = curl_init();//初始化
 	if(!$ch){die('[x]curl初始化失敗');}
 	//
