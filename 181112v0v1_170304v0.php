@@ -87,6 +87,16 @@ if(preg_match($pattern, $url, $matches_url)){
 $board_title = $html->find('title',0)->innertext;//版面標題
 //echo "?".$board_title;echo "\n";
 
+try{
+	if( strlen($board_title) > 0 ){
+		//
+	}else{
+		die('title解析失敗');
+	}
+}catch(Exception $e){
+	print_r($e);
+	die('title解析失敗2');
+}
 
 
 
