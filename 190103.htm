@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded",function(e){
 			var str=''+img.naturalWidth+'x'+img.naturalHeight+' '+nn;
 			//console.log(str);
 			img.insertAdjacentHTML('beforebegin', str+'<br/>');
+			document.title=''+str;
 			//
 			var aa = document.getElementById('aa01');
 			aa.href = img.src;
