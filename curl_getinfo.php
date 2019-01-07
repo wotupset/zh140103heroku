@@ -32,6 +32,7 @@ function zh150530(){
 				echo $getdata;
 			}else{
 				header('content-Type: text/plain; charset=utf-8 '); //語言強制
+				// header("Access-Control-Allow-Origin: *");
 				//echo $getdata;
 				echo "\n".strlen($getdata);
 				//

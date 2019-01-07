@@ -498,7 +498,7 @@ function ver02a_new(){
 		
 	}, false);
 	//超時設定
-	xhr.timeout = 2000;//默認0毫秒，表示沒有時間限制
+	xhr.timeout = 10*1000;//默認0毫秒，表示沒有時間限制
 	xhr.addEventListener("timeout", function(e){
 		console.log("timeout");
 	}, false);
@@ -650,7 +650,9 @@ function array_loop(ary_json){
 				}catch(e){
 					console.log('無觸控');
 					//顯示影片
-					FFF+='<video id="video'+k+'" class="video_orig" controls="controls" preload="auto" src="'+v["image"]+'">';
+					FFF+='<video id="video'+k+'" class="video_orig" controls="controls" preload="auto" src="'+v["image"]+'"></video>';
+					//放置原圖的區塊 等待js執行開啟圖片
+					//FFF+='<img id="image'+k+'" class="video_orig" src="'+$.gginin.var181219.base64_image+'" src2="'+v["image"]+'">';
 				}
 			}else{
 				//縮圖顯示連結
@@ -794,6 +796,7 @@ function time_check(){
 				//
 				//fnc181214_event();
 				poi10();
+				poi190107();
 				//test02();
 			}
 			$(".image_orig").css({
@@ -828,6 +831,15 @@ function fnc181214_event(){
 			$(this).after('失敗');
 		});
 	});
+}
+function poi190107(){
+	//顯示影片img
+	FFF=$("img.video_orig");
+	if( FFF.length > 0 ){
+		$(FFF).attr("src", $(FFF).attr("src2") );
+		$(FFF).removeAttr("src2");
+	}
+	
 }
 
 function poi10(){
