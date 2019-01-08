@@ -58,7 +58,7 @@ function zh150530(){
 	}
 }
 //die('xxx');
-zh150530();//直接打開php時的反應
+//zh150530();//直接打開php時的反應
 //exit;die('http_code');
 /*
 更新紀錄
