@@ -1,8 +1,23 @@
 <?php
 
 //print_r( $_SERVER['QUERY_STRING'] );
-$url=$_GET['inputurl'];
+if( $_GET['inputurl'] ){
+	$url=$_GET['inputurl'];
+}else{
+$str=<<<EOF
+curl_getinfo_usage.php?inputurl=http://ram.komica2.net/00/src/1546866116535.webm
+EOF;
+	die($str);
+}
 //print_r( $url );
+
+$FFF=get_headers($url, 0);
+//print_r($FFF);
+if( count($FFF) >0 ){
+	//繼續
+}else{
+	die('get_headers???');;
+}
 
 require_once('curl_getinfo.php');
 
@@ -13,19 +28,32 @@ if(1){
   $getinfo =$x_1 =$x[1];//訊息
   $geterror=$x_2 =$x[2];//錯誤
   //simple_html_dom
-  if(!$getdata){echo print_r($getinfo,true);exit;}
+  //if(!$getdata){echo print_r($getinfo,true);exit;}
   //echo print_r($getinfo,true);//檢查點
   $content=$getdata;
 }
 
+if($getinfo['http_code'] != 200 ){
+	die('http_code='.$getinfo['http_code']);
+}
+if($geterror > 0 ){
+	die('geterror');
+}
+if( strlen($getdata) == 0 ){
+	die('0size');
+}
+
 //print_r( $getinfo );
+//print_r( $geterror );
+//exit;
+
 //header('content-Type: text/plain; charset=utf-8 '); //語言強制
 //header("Access-Control-Allow-Origin: *");
 //echo $content;
 //echo mime_content_type( $content );
 //$file = tmpfile();
 
-$file = tempnam(sys_get_temp_dir(), 'FOO');
+$file = tempnam(sys_get_temp_dir(), 'poi');
 //print_r( $file );
 file_put_contents($file,$content);
 $poi_filesize=filesize($file);

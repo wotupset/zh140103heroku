@@ -13,12 +13,14 @@ function zh150530(){
 	date_default_timezone_set("Asia/Taipei");//時區設定
 	//$time = time();//UNIX時間時區設定
 	$time=sprintf('%s',time());//%u=零或正整數//%s=字串
+	//echo "\n".$time;
 	//
 	//if(strlen($url_150610)==0){$url_150610='http://codepad.org/lvszFXtk/raw.txt';}
 	//$content = file_get_contents($url_150610);//echo $content;
 	if($phpself == 'curl_getinfo.php'){
 		//
 		$query_string=$_SERVER['QUERY_STRING'];
+		//echo $query_string;
 		$url_150610=$query_string;
 		$x=curl_FFF($url_150610);
 		$getdata =$x_0=$x[0];
@@ -26,20 +28,23 @@ function zh150530(){
 		$geterror=$x_2=$x[2];
 		//
 		if($getinfo['http_code'] == '200'){
-			if(0){
-				//echo $getinfo['content_type'];
-				header("content-Type: ".$getinfo['content_type'].""); //語言強制
-				echo $getdata;
-			}else{
-				header('content-Type: text/plain; charset=utf-8 '); //語言強制
-				// header("Access-Control-Allow-Origin: *");
-				//echo $getdata;
-				echo "\n".strlen($getdata);
-				//
-				echo "\n".print_r($getinfo,true);
-				echo "\n".$url_150610;
-				echo "\n".$phpself;
-			}
+			//echo $getinfo['content_type'];
+			//header("content-Type: ".$getinfo['content_type'].""); //語言強制
+			//echo $getdata;
+			
+			header('content-Type: text/plain; charset=utf-8 '); //語言強制
+			// header("Access-Control-Allow-Origin: *");
+			//echo $getdata;
+			//echo "\n".strlen($getdata);
+			//
+			$file = tempnam(sys_get_temp_dir(), 'poi');
+			file_put_contents($file,$getdata);
+			echo "\n".filesize($file).' '.$file;
+			echo "\n".print_r($getinfo,true);
+			echo "\n".print_r($getinfo['size_download'],true);
+			echo "\n".$url_150610;
+			echo "\n".$phpself;
+			
 			//
 		}else{//錯誤時
 			echo "\n".print_r($getinfo,true);
@@ -58,7 +63,7 @@ function zh150530(){
 	}
 }
 //die('xxx');
-//zh150530();//直接打開php時的反應
+zh150530();//直接打開php時的反應
 //exit;die('http_code');
 /*
 更新紀錄
@@ -102,6 +107,7 @@ function curl_FFF($url){
 	$ret = curl_setopt($ch, CURLOPT_MAXREDIRS,      3);//跟随重定向页面的最大次數
 	$ret = curl_setopt($ch, CURLOPT_AUTOREFERER,    1);//重定向页面自动添加 Referer header 
 	$ret = curl_setopt($ch, CURLOPT_USERAGENT,      $useragent);
+	$ret = curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	//
 	if(0){
 		try{
