@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>title</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, max-age=0, must-revalidate">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+
+
+<meta property="og:title" content="標題"/>
+<meta property="og:description" content="描述"/>
+<meta property="og:image" content="http://ram.komica2.net/00/thumb/1546848349332s.jpg"/>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<style>
+body{}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(e){
+	console.log( "DOMContentLoaded" );
+	var bb=document.querySelector("body");
+	bb.insertAdjacentHTML('beforeend', 'body');
+	console.log(bb);
+});
+
+$(function(){});
+$(()=>{
+	console.log('jq');
+  //
+  $.gg=[];
+$.gg.url=`
+https://zh150129.gear.host/curl_getinfo_usage.php?inputurl=https://i.imgur.com/I35UW5M.jpg
+`;
+  $.gg.bloburl='';
+  //
+  //poi();
+  poi2();
+});
+function poi2(){
+ 	console.log('poi2');
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(){
+	switch(this.readyState){
+		case 1:
+			console.log(this.readyState,'服务器连接已建立');
+			break;
+		case 2:
+			console.log(this.readyState,'请求已接收');
+			break;
+		case 3:
+			console.log(this.readyState,'请求处理中');
+			break;
+		case 4:
+			console.log(this.readyState,'请求已完成，且响应已就绪');
+			break;
+		default:
+			console.log('default:');
+	}
+    if (this.readyState == 4 && this.status == 200){
+      //img.src = url.createObjectURL(this.response);
+    	console.log('ok');
+      $.gg.bloburl =  window.URL.createObjectURL(this.response);
+    	console.log( $.gg.bloburl );
+      
+      $( '<img>', {
+        html: '圖片',
+        'class': 'good',
+        src:$.gg.bloburl,
+      }).appendTo('body');
+    }
+  }
+  xhr.open('GET', $.gg.url);
+  xhr.responseType = 'blob';
+  xhr.send();      
+}
+/*
+      $( '<video>', {
+        html: '影片',
+        'class': 'good',
+        src:$.gg.bloburl,
+        'controls':'controls',
+      }).appendTo('body');
+
+*/
+
+
+function poi(){
+  var url=``;
+  
+  var FFF=$.get(url);
+  FFF.done(function(a,b,c){
+    	console.log('成功',b,c);
+  });
+  FFF.fail(function(e){
+    	console.log('失敗');
+  });
+  FFF.always(function(e){
+    	console.log('總是');
+  });
+  
+}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
