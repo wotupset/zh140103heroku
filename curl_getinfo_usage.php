@@ -16,6 +16,9 @@ $FFF=get_headers($url, 0);
 if( count($FFF) >0 ){
 	//繼續
 }else{
+	header('content-Type: text/plain; charset=utf-8 '); //語言強制
+	header("Access-Control-Allow-Origin: *");
+	header("HTTP/1.0 404 Not Found");
 	die('get_headers???');;
 }
 
@@ -34,12 +37,21 @@ if(1){
 }
 
 if($getinfo['http_code'] != 200 ){
+	header('content-Type: text/plain; charset=utf-8 '); //語言強制
+	header("Access-Control-Allow-Origin: *");
+	header("HTTP/1.0 404 Not Found");
 	die('http_code='.$getinfo['http_code']);
 }
 if($geterror > 0 ){
+	header('content-Type: text/plain; charset=utf-8 '); //語言強制
+	header("Access-Control-Allow-Origin: *");
+	header("HTTP/1.0 404 Not Found");
 	die('geterror');
 }
 if( strlen($getdata) == 0 ){
+	header('content-Type: text/plain; charset=utf-8 '); //語言強制
+	header("Access-Control-Allow-Origin: *");
+	header("HTTP/1.0 404 Not Found");
 	die('0size');
 }
 
@@ -76,10 +88,14 @@ $mime = finfo_file($finfo, $file );
 //echo $mime;
 
 //exit;
+header("Access-Control-Allow-Origin: *");//cross domin
 header('content-Type:'.$mime); //語言強制
 header('Content-Length:'.$poi_filesize);
 header('Accept-Ranges: bytes');
-header("Access-Control-Allow-Origin: *");//cross domin
+header("Access-Control-Expose-Headers: Content-Length,Accept-Ranges,Access-Control-Allow-Origin");//cross domin
+
+header("Cache-Control: public,only-if-cached	"); //HTTP 1.1
+
 
 echo file_get_contents($file);
 	

@@ -405,17 +405,20 @@ document.addEventListener("DOMContentLoaded", function(e){
 
 
 function test_TouchEvent(){
-	var id01=document.getElementById('ddd');
-	var tmp='';
+	//測試是否支援觸控
+	//var id01=document.getElementById('ddd');
+	//var tmp='';
 	try{
-	document.createEvent('TouchEvent');
-	console.log('有觸控');
-	tmp='有觸控';
+		document.createEvent('TouchEvent');
+		console.log('有觸控');
+		//tmp='有觸控';
+		$.gginin.var190114.TouchEvent=1;
 	}catch(e){
-	console.log('無觸控');
-	tmp='無觸控';
+		console.log('無觸控');
+		//tmp='無觸控';
+		$.gginin.var190114.TouchEvent=0;
 	}
-	id01.insertAdjacentHTML('beforebegin',tmp);
+	//id01.insertAdjacentHTML('beforebegin',tmp);
 
 }
 function ver02a_new(){
@@ -561,6 +564,9 @@ function jquery_start(){
 		$.gginin.var181214.t2cc2_b=0;
 		$.gginin.var181219=[];
 		$.gginin.var181219.base64_image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=";
+		$.gginin.var190114=[]
+		$.gginin.var190114.TouchEvent=0;
+		
 		//console.log( $.gginin );
 		//
 		poi_start();
@@ -639,21 +645,20 @@ function array_loop(ary_json){
 				//
 				//縮圖不顯示連結
 				FFF+='<img class="image_thumb" src="'+v["image_t"]+'">';
+				//檔案訊息
 				FFF+=''+v['file-name']+' '+v['file-text'];
 				FFF+='影';
 				//判斷是否支援觸控
-				try{
-					document.createEvent('TouchEvent');
-					console.log('有觸控');
+				if( $.gginin.var190114.TouchEvent >0 ){
+					//console.log('有觸控');
 					//不顯示影片
-					FFF+='<video id="video'+k+'" class="video_orig" >';
-				}catch(e){
-					console.log('無觸控');
+					FFF+='[x]';
+				}else{
+					//console.log('無觸控');
 					//顯示影片
-					FFF+='<video id="video'+k+'" class="video_orig" controls="controls" preload="auto" src="'+v["image"]+'"></video>';
-					//放置原圖的區塊 等待js執行開啟圖片
-					//FFF+='<img id="image'+k+'" class="video_orig" src="'+$.gginin.var181219.base64_image+'" src2="'+v["image"]+'">';
+					FFF+='<video id="video'+k+'" class="video_orig" src="'+v["image"]+'"  muted controls autoplay ></video>';
 				}
+
 			}else{
 				//縮圖顯示連結
 				FFF+='<a href="'+v["image"]+'"><img class="image_thumb" src="'+v["image_t"]+'">'+v['file-name']+' '+v['file-text']+'</a>';
@@ -786,29 +791,45 @@ function time_check(){
 		//console.log("y");
 		//10分鐘後
 		if(FFF > 600*1000){ 
-			//不顯示
+			//不顯示圖 //顯示影片
+			
+			if( $(".video_orig").length >0 ){
+				//CSS樣式
+				$(".video_orig").css({
+					"height":"auto",
+					"width":"auto",
+				});
+			}
 		}else{
 			//顯示
 			if( $(".image_orig").length >0 ){
 				//有圖
 				$("#ddd").after("有圖");
 				//console.log("有圖");
+				//CSS樣式
+				$(".image_orig").css({
+					"height":"100px",
+					"width":"100px",
+					"vertical-align":"text-top",
+				});
 				//
 				//fnc181214_event();
-				poi10();
-				poi190107();
+				poi10();//逐個讀取圖片 //把src2改成src
 				//test02();
 			}
-			$(".image_orig").css({
-				"height":"100px",
-				"width":"100px",
-				"vertical-align":"text-top",
-			});
-			$(".video_orig").css({
-				"height":"100px",
-				"width":"100px",
-				"vertical-align":"text-top",
-			});
+			if( $(".video_orig").length >0 ){
+				$("#ddd").after("有影");
+				//console.log("有影");
+				//CSS樣式
+				$(".video_orig").css({
+					"height":"100px",
+					"width":"100px",
+					"vertical-align":"text-top",
+				});
+				//
+				//poi190107();//用xhr讀取一次
+			}
+
 			$(".image_thumb").css({
 				"vertical-align":"text-top",
 			});
@@ -833,14 +854,92 @@ function fnc181214_event(){
 	});
 }
 function poi190107(){
-	//顯示影片img
-	FFF=$("img.video_orig");
-	if( FFF.length > 0 ){
-		$(FFF).attr("src", $(FFF).attr("src2") );
-		$(FFF).removeAttr("src2");
+	//console.log('poi190107()');
+	var FFF=$("video.video_orig");
+	//console.log( FFF.length );
+	if(window.location.hostname == 'web.archive.org' ){
+		//console.log('要備份');
+		//遍歷影片
+		FFF.each(function(index,element) {
+			//console.log('[jq]',index,element);
+			//console.log('[jq]',element.src);
+			//poi190113(element);//讀取
+			poi190113ajax(element);//讀取
+		});
+		
+	}else{
+		//console.log('不要備份');
+		//隨便做點什麼
+		if( FFF.length > 0 ){
+			//$(FFF).attr("src", $(FFF).attr("src2") );
+			//$(FFF).removeAttr("src2");
+			//$(FFF).attr("muted",'true');
+			//$(FFF).attr("autoplay",'true');
+			$(FFF).attr("title",'標題');
+			$(FFF).after('尚未備份');
+		}
 	}
 	
+	
+}//poi190107()
+function poi190113ajax(element){
+	var elem=$(element);
+ 	console.log( elem );
+	
 }
+
+function poi190113(element){
+ 	//console.log('poi190113');
+	var video_url=element.src;
+ 	//console.log( video_url );
+	
+	
+	var xhr = new XMLHttpRequest();
+	xhr.onloadstart = function () {
+		//console.log("xhr.onloadstart");
+		//console.log( element );
+		//var id_new='id'+Date.now();
+		var id_new='span_id_'+element.id;
+		//
+		//console.log( id_new );
+		element.insertAdjacentHTML('afterend', '<sapn id="'+id_new+'">'+element.id+'</span>');
+	};	
+	xhr.open('GET', video_url);
+	xhr.responseType = 'blob';
+	xhr.overrideMimeType('video/webm');
+	xhr.send();
+	//
+    xhr.ontimeout = function(e){
+		console.log("xhr.ontimeout");
+	};
+	xhr.onreadystatechange = function(e){
+		console.log("xhr.onreadystatechange");
+		if(xhr.readystate == 4){
+			if(xhr.status ==200){
+				if('response' in xhr){
+					//xhr.response
+					console.log(xhr);
+				}
+			}
+		}
+	};
+	xhr.onprogress = function(e) {
+		//console.log("progress",e,this);
+		//console.log("progress",e.loaded,e.total);
+		var id_new='span_id_'+element.id;
+		$('#'+id_new).html('讀'+e.loaded);
+	};//xhr.onprogress
+	xhr.onload = function(e){
+		var id_new='span_id_'+element.id;
+		console.log( id_new );
+		$('#'+id_new).append('成功'+id_new);
+	};
+	
+	
+	
+}//poi190113()
+
+
 
 function poi10(){
 	var cc=$.gginin.count;
@@ -863,7 +962,7 @@ function poi10(){
 			//圖片連結被改變了
 			poi10();//跳過
 		}
-		//img區塊顯示原圖
+		//img區塊顯示原圖 //把src2改成src
 		$(FFF).attr("src", $(FFF).attr("src2") );
 		$(FFF).removeAttr("src2");
 		//讀取完成的事件

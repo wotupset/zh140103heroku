@@ -34,7 +34,7 @@ $(()=>{
   //
   $.gg=[];
 $.gg.url=`
-https://zh150129.gear.host/curl_getinfo_usage.php?inputurl=https://i.imgur.com/I35UW5M.jpg
+https://zh150129.gear.host/curl_getinfo_usage.php?inputurl=http://ram.komica2.net/00/src/1546997766421.jpg
 `;
   $.gg.bloburl='';
   //
@@ -43,40 +43,80 @@ https://zh150129.gear.host/curl_getinfo_usage.php?inputurl=https://i.imgur.com/I
 });
 function poi2(){
  	console.log('poi2');
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function(){
-	switch(this.readyState){
-		case 1:
-			console.log(this.readyState,'服务器连接已建立');
-			break;
-		case 2:
-			console.log(this.readyState,'请求已接收');
-			break;
-		case 3:
-			console.log(this.readyState,'请求处理中');
-			break;
-		case 4:
-			console.log(this.readyState,'请求已完成，且响应已就绪');
-			break;
-		default:
-			console.log('default:');
-	}
-    if (this.readyState == 4 && this.status == 200){
-      //img.src = url.createObjectURL(this.response);
-    	console.log('ok');
-      $.gg.bloburl =  window.URL.createObjectURL(this.response);
-    	console.log( $.gg.bloburl );
-      
-      $( '<img>', {
-        html: '圖片',
-        'class': 'good',
-        src:$.gg.bloburl,
-      }).appendTo('body');
-    }
-  }
-  xhr.open('GET', $.gg.url);
-  xhr.responseType = 'blob';
-  xhr.send();      
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		switch(this.readyState){
+			case 1:
+				console.log(this.readyState,'服务器连接已建立');
+				break;
+			case 2:
+				console.log(this.readyState,'请求已接收');
+				break;
+			case 3:
+				console.log(this.readyState,'请求处理中');
+				break;
+			case 4:
+				console.log(this.readyState,'请求已完成，且响应已就绪');
+				break;
+			default:
+				console.log('default:');
+		}//switch
+		if (this.readyState == 1){
+			$( '<img>', {
+				html: '圖片',
+				'class': 'good',
+				'id':'img01',
+				'alt':'等待下載',
+			}).appendTo('body');
+		}
+		if(this.readyState == 4 && this.status == 200){
+			//img.src = url.createObjectURL(this.response);
+			console.log('ok');
+			$.gg.bloburl =  window.URL.createObjectURL(this.response);
+			//替換成blob
+			console.log( $.gg.bloburl );
+			$('#img01').attr({
+				src:$.gg.bloburl,
+			});
+
+		}//if
+	}//xhr.onreadystatechange
+	xhr.onerror = function (e) {
+    	console.log('error');
+	};//xhr.onerror
+	xhr.onload = function (e) {
+		console.log('load');
+		var headers = xhr.getAllResponseHeaders();
+		console.log( headers );
+
+		if(this.status == 200){
+			//
+		}else{
+			console.log( this.status );
+			$('#img01').attr({
+				'alt':'錯誤',
+			});
+		}
+	};//xhr.onload
+	xhr.onloadstart = function () {
+		console.log("loadstart");
+	};//xhr.onloadstart
+	xhr.onprogress = function(e) {
+		//console.log("progress",e,this);
+		console.log("progress",e.loaded,e.total);
+	};//xhr.onprogress
+	xhr.onabort = function () {
+		console.log('xhr.onabort');
+	};//xhr.onabort
+	
+	xhr.open('GET', $.gg.url);
+	xhr.responseType = 'blob';
+	xhr.send();
+
+	//xhr.abort(); // This will invoke our onabort handler above
+
+  
+  //
 }
 /*
       $( '<video>', {

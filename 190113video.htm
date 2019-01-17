@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>title</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, max-age=0, must-revalidate">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+
+
+<meta property="og:title" content="標題"/>
+<meta property="og:description" content="描述"/>
+<meta property="og:image" content=""/>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<style>
+body{}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(e){
+	console.log( "DOMContentLoaded" );
+	var bb=document.querySelector("body");
+	bb.insertAdjacentHTML('beforeend', '<h3>動態元素</h3>');
+	console.log(bb);
+});
+
+$(function(){});
+$(()=>{
+	console.log('jq');
+  //
+  $.gg=[];
+  $.gg.time=Date.now();
+  $.gg.cc=0;
+	console.log( $.gg );
+  //
+	console.log( window.location );
+
+  
+  //
+  poi();//設置動態video 
+  poi2();//遍歷video元素
+});
+
+
+function poi(){
+	var url='http://ram.komica2.net/00/src/1547385619246.webm';
+	$( '<video>', {
+		'src': url,
+		'id':'video01',
+		'muted':'true',
+		'controls':'true',
+		'autoplay':'true',
+		'width':'auto',
+		'height':'auto',
+	}).appendTo('body');
+	//靜音失敗 //html屬性已棄用
+	//自動撥放失敗 //chrome安全政策
+	//muted controls autoplay
+	var video01 = document.getElementById("video01");
+	video01.muted = true;
+
+	video01.addEventListener('loadeddata', function() {
+		if(video01.readyState >= 2) {
+			video01.play();
+		}
+	});
+
+
+	//
+	//var video_url=$('#video01').attr('src');
+	var video_url= video01.src;
+	//$('body').append(video_url);
+	
+	//
+	//
+	//poi2(video_url);
+	$('#video01').on( "click", function () {
+		console.log( "click" );
+	});
+ 	$('#video01').trigger("click"); //
+}//poi()
+
+function poi2(){
+	var vv1=$('video');
+	//console.log( vv1 );
+	var vv2=document.querySelectorAll('video');
+	//console.log( vv2 );
+	//
+	
+	vv1.each(function(index,element) {
+		//console.log('[jq]',index,element);
+		//console.log('[jq]',element.src);
+		poi2x(element);
+	});
+	vv2.forEach(function(element,index) {
+		//console.log('[js]',index,element);
+		//console.log('[js]',element.src);
+		//poi2x(element);
+	});
+	
+}//poi2
+
+
+
+function poi2x(element){
+ 	//console.log('poi2');
+	$.gg.cc = $.gg.cc+1;
+	var video_url=element.src;
+	//
+	var xhr = new XMLHttpRequest();
+	xhr.onloadstart = function () {
+		//console.log("xhr.onloadstart");
+		//console.log( element );
+		//var id_new='id'+Date.now();
+		var id_new='span_id_'+element.id;
+		//
+		//console.log( id_new );
+		element.insertAdjacentHTML('afterend', '<sapn id="'+id_new+'">'+element.id+'</span>');
+	};	
+	xhr.open('GET', video_url);
+	//xhr.responseType = 'blob';
+	xhr.send();
+	
+	xhr.onprogress = function(e) {
+		//console.log("progress",e,this);
+		//console.log("progress",e.loaded,e.total);
+		var id_new='span_id_'+element.id;
+		$('#'+id_new).html(''+e.loaded);
+	};//xhr.onprogress
+	xhr.onload = function(e){
+		var id_new='span_id_'+element.id;
+		console.log( id_new );
+		$('#'+id_new).append('成功'+id_new);
+	};
+}
+
+</script>
+
+</head>
+<body>
+<h3>靜態元素</h3>
+<video src="http://ram.komica2.net/00/src/1547387503214.webm" id="video02" muted="muted" controls="controls" autoplay="autoplay"></video>
+
+
+</body>
+</html>
