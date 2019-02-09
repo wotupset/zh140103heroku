@@ -576,8 +576,10 @@ function jquery_start(){
 		$.gginin.var181214.t2cc2_b=0;
 		$.gginin.var181219=[];
 		$.gginin.var181219.base64_image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=";
-		$.gginin.var190114=[]
+		$.gginin.var190114=[];
 		$.gginin.var190114.TouchEvent=0;
+		$.gginin.var190209=[];
+		$.gginin.var190209.count=0;
 		
 		//console.log( $.gginin );
 		//
@@ -710,15 +712,10 @@ function array_loop(ary_json){
 			$(".image_thumb").css({
 				"vertical-align":"text-top",
 			});
-			setTimeout(function(){
-				$(".image_orig").each(function(index,v){
-					$(v).attr("src", $(v).attr("src2") );
-				});
-			},2000);
-			
+			//兩秒後顯示大圖
+			timeloop190209();//
 		}else{
 			//console.log('無觸控');
-
 			time_check();//
 		}
 	}
@@ -726,6 +723,22 @@ function array_loop(ary_json){
 	//prepend
 	//$("#ddd").after("讀取大圖");
 }//ff
+
+
+function timeloop190209(){
+	alert('timeloop190209');
+	//$.gginin.var190209.count;//全域變數
+	//
+	//var xx=$(".image_orig");//$(".image_orig")
+	$(".image_orig").each(function(index,v){
+		setTimeout(function(){
+			$(v).attr("src", $(v).attr("src2") );
+			$(v).prev().removeAttr("href");
+		}, $.gginin.var190209.count *1000);
+		$.gginin.var190209.count++;
+	});
+}//fnc
+
 
 /*
 before
