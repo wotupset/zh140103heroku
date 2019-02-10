@@ -8,7 +8,13 @@ error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 
 date_default_timezone_set("UTC"); 
 $time=time();
-$now=date('Y-m-d H-i-s',$time);
+$now=date('Y-m-d H:i:s',$time);
+$now2=date('Y-m-d',$time).'T'.date('H:i:s',$time).'+00:00';//
+$now2b64=base64_encode($now2);
+
+
+
+
 
 
 $FFF=pathinfo($_SERVER["SCRIPT_FILENAME"]);
@@ -321,6 +327,9 @@ EOT;
 function html_js($json){
 	$time=$GLOBALS['time'];
 	$now=$GLOBALS['now'];
+	$now2=$GLOBALS['now2'];
+	$now2b64=$GLOBALS['now2b64'];
+	
 	$url_hash=$GLOBALS['url_hash'];
 	//echo "ss".$url_hash_2;
 	//
@@ -332,6 +341,11 @@ function html_js($json){
 $x=<<<EOT
 window.php_timestamp='$time_13';
 window.php_date='$now';
+window.php_date2='$now2';
+window.php_date2b64='$now2b64';
+console.log( 'b64還原',atob(window.php_date2b64) );
+
+
 
 var date = (new Date());
 window.js_timestamp = (new Date()).getTime(); //Date().now();//Math.floor(  / 1000);
@@ -346,10 +360,10 @@ var dateUTCvalues = [
    date.getUTCSeconds(),
 ];
 window.js_date = dateUTCvalues.join(",");
-//console.log( window.js_date );
+console.log( window.js_date );
 
-//console.log( window.php_timestamp );
-//console.log( window.js_timestamp );
+console.log( window.php_timestamp );
+console.log( window.js_timestamp );
 
 
 /*
@@ -672,8 +686,8 @@ function array_loop(ary_json){
 					//console.log('無觸控');
 					//顯示影片
 					//影片 太花流量 先停用
-					//FFF+='<video id="video'+k+'" class="video_orig" src="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
-					FFF+='<a href="'+v["image"]+'">[手動下載]</a>';
+					FFF+='<video id="video'+k+'" class="video_orig" src="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
+					//FFF+='<a href="'+v["image"]+'">[手動下載]</a>';
 				}
 
 			}else{
@@ -842,15 +856,21 @@ function time_check(){
 	$("#ddd").after(""+FFF);
 	if( FFF ){
 		//console.log("y");
-		//60*1分後
+		//10分後
 		if(FFF > 10*60*1000){ 
 			//不顯示圖 //顯示影片
+			if( $(".image_orig").length >0 ){
+				$(".image_orig").each(function(index,v){
+					$(v).after('remove');
+					$(v).remove();
+				});
+			}
 			
 			if( $(".video_orig").length >0 ){
 				//CSS樣式
 				$(".video_orig").css({
-					"height":"auto",
-					"width":"auto",
+					"height":"100px",
+					"width":"300px",
 				});
 			}
 		}else{
@@ -876,11 +896,11 @@ function time_check(){
 				//CSS樣式
 				$(".video_orig").css({
 					"height":"100px",
-					"width":"100px",
+					"width":"300px",
 					"vertical-align":"text-top",
 				});
 				//
-				//poi190107();//用xhr讀取一次
+				poi190210();//用xhr讀取一次
 			}
 
 			$(".image_thumb").css({
@@ -906,42 +926,30 @@ function fnc181214_event(){
 		});
 	});
 }
-function poi190107(){
-	//console.log('poi190107()');
+function poi190210(){
+	//console.log('poi190210');
 	var FFF=$("video.video_orig");
 	//console.log( FFF.length );
 	if(window.location.hostname == 'web.archive.org' ){
-		//console.log('要備份');
-		//遍歷影片
-		FFF.each(function(index,element) {
-			//console.log('[jq]',index,element);
-			//console.log('[jq]',element.src);
-			//poi190113(element);//讀取
-			poi190113ajax(element);//讀取
-		});
-		
 	}else{
-		//console.log('不要備份');
-		//隨便做點什麼
-		if( FFF.length > 0 ){
-			//$(FFF).attr("src", $(FFF).attr("src2") );
-			//$(FFF).removeAttr("src2");
-			//$(FFF).attr("muted",'true');
-			//$(FFF).attr("autoplay",'true');
-			$(FFF).attr("title",'標題');
-			$(FFF).after('尚未備份');
-		}
 	}
-	
-	
-}//poi190107()
-function poi190113ajax(element){
-	var elem=$(element);
- 	console.log( elem );
-	
-}
+	FFF.each(function(index,element) {
+		$(element).on('loadedmetadata',function(){
+			$(this).after('loadedmetadata');
+		});
+		$(element).on('error',function(){
+			//$(this).after('error');
+			console.log( 'error',this.id );
+		});
+		$(element).on('stalled',function(){
+			//$(this).after('stalled');
+			console.log( 'stalled',this.id );
+		});
+	});
+}//poi190210
 
-function poi190113(element){
+
+function poi190113(element){//????
  	//console.log('poi190113');
 	var video_url=element.src;
  	//console.log( video_url );
