@@ -577,7 +577,7 @@ function jquery_start(){
 		//$("#ddd").append( 'jquery執行區塊,' );//html
 		$("#ddd").before( 'jquery執行區塊,' );//html
 		//
-		time = new Date();
+		time = Date.now();//new Date()//timestamp
 		gg=[];
 		gg.time=time
 		gg["ypa"]='xopowo';
@@ -594,6 +594,8 @@ function jquery_start(){
 		$.gginin.var190114.TouchEvent=0;
 		$.gginin.var190209=[];
 		$.gginin.var190209.count=0;
+		$.gginin.var190211=[];
+		$.gginin.var190211.video_start_time=Date.now();//
 		
 		//console.log( $.gginin );
 		//
@@ -666,40 +668,32 @@ function array_loop(ary_json){
 		//
 		FFF+='<blockquote>'+v["quote"]+'</blockquote>';
 		//
-		if(v["image"] == null){
+		if(v["image_t"] == null){ //有伴隨縮圖就附加處理
 			//
 		}else{
-			cc++;//有縮圖
+			cc++;//計算縮圖數量//
+			//
+			//縮圖顯示連結
+			FFF+='<a href="'+v["image"]+'"><img class="image_thumb" src="'+v["image_t"]+'">'+v['file-name']+' '+v['file-text']+'</a>';
+			//
 			if( v["image"].match(/\.webm$/)){
-				//是影片
-				//縮圖不顯示連結
-				FFF+='<img class="image_thumb" src="'+v["image_t"]+'">';
-				//檔案訊息
-				FFF+=''+v['file-name']+' '+v['file-text'];
+				//這是影片
 				FFF+='影';
-				//判斷是否支援觸控
+				//判斷是否支援觸控 //有觸控=移動裝置 //不顯示全部影片
 				if( $.gginin.var190114.TouchEvent >0 && 1==1){
 					//console.log('有觸控');
-					//不顯示影片
-					FFF+='[x]';
+					FFF+='[點連結觀看]';
 				}else{
 					//console.log('無觸控');
-					//顯示影片
-					//影片 太花流量 先停用
-					FFF+='<video id="video'+k+'" class="video_orig" src="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
-					//FFF+='<a href="'+v["image"]+'">[手動下載]</a>';
 				}
+				//顯示影片 //太花流量 使用preload="meta"
+				FFF+='<video id="video'+k+'" class="video_orig" src="../" src2="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
 
 			}else{
-				//是圖片
-				
-				//縮圖顯示連結
-				FFF+='<a href="'+v["image"]+'"><img class="image_thumb" src="'+v["image_t"]+'">'+v['file-name']+' '+v['file-text']+'</a>';
+				//這是圖片
 				FFF+='圖';
 				//放置原圖的區塊 等待js執行開啟圖片
 				FFF+='<img id="image'+k+'" class="image_orig" src="'+$.gginin.var181219.base64_image+'" src2="'+v["image"]+'">';
-				//time_check(k);
-
 			} 
 		}
 		FFF+='<br clear="both">';
@@ -713,25 +707,13 @@ function array_loop(ary_json){
 	FFF=htmlbody.join(",");
 	$("#ddd").html( FFF );
 	//
+	css_setting();
 	if(cc>0 ){//有縮圖
 		//有縮圖
 		//console.log('有縮圖');
-		if( $.gginin.var190114.TouchEvent >0  ){ //|| 1==1
-			console.log('有觸控');
-			$(".image_orig").css({
-				"height":"100px",
-				"width":"100px",
-				"vertical-align":"text-top",
-			});
-			$(".image_thumb").css({
-				"vertical-align":"text-top",
-			});
-			//兩秒後顯示大圖
-			timeloop190209();//
-		}else{
-			//console.log('無觸控');
-			time_check();//
-		}
+
+		//檢查時間
+		time_check();//
 	}
 	//$("body").("讀取大圖");
 	//prepend
@@ -739,20 +721,22 @@ function array_loop(ary_json){
 }//ff
 
 
-function timeloop190209(){
-	alert('timeloop190209');
-	//$.gginin.var190209.count;//全域變數
-	//
-	//var xx=$(".image_orig");//$(".image_orig")
-	$(".image_orig").each(function(index,v){
-		setTimeout(function(){
-			$(v).attr("src", $(v).attr("src2") );
-			$(v).prev().removeAttr("href");
-		}, $.gginin.var190209.count *1000);
-		$.gginin.var190209.count++;
+function css_setting(){
+	$(".image_orig").css({
+		"height":"100px",
+		"width":"100px",
+		"vertical-align":"text-top",
 	});
-}//fnc
+	$(".video_orig").css({
+		"height":"100px",
+		"width":"300px",
+		"vertical-align":"text-top",
+	});
+	$(".image_thumb").css({
+		"vertical-align":"text-top",
+	});
 
+}
 
 /*
 before
@@ -762,11 +746,6 @@ after
 */
 
 ///
-function test01(){
-		$(".image_orig").each(function(k,v){
-			console.log( $(this) );
-		});
-}
 
 function test02(){
 	$.gginin.cc181214= $.gginin.cc181214 +1;
@@ -853,65 +832,87 @@ function time_check(){
 	//
 	var FFF='';
 	FFF=window.js_timestamp - window.php_timestamp;
-	$("#ddd").after(""+FFF);
+	$("#ddd").after(","+FFF);
 	if( FFF ){
 		//console.log("y");
 		//10分後
-		if(FFF > 10*60*1000){ 
-			//不顯示圖 //顯示影片
+		if(FFF > 10*60*1000){
+			$("#ddd").after(",顯示檔案");
+			//不顯示原圖 減輕頁面負擔 
 			if( $(".image_orig").length >0 ){
 				$(".image_orig").each(function(index,v){
 					$(v).after('remove');
 					$(v).remove();
 				});
 			}
-			
+			//不顯示影片
 			if( $(".video_orig").length >0 ){
-				//CSS樣式
-				$(".video_orig").css({
-					"height":"100px",
-					"width":"300px",
+				$(".video_orig").each(function(index,v){
+					$(v).after('remove');
+					$(v).remove();
 				});
 			}
 		}else{
+			$("#ddd").after(",備份檔案");
 			//顯示
-			if( $(".image_orig").length >0 ){
-				//有圖
-				$("#ddd").after(",有圖");
-				//console.log("有圖");
-				//CSS樣式
-				$(".image_orig").css({
-					"height":"100px",
-					"width":"100px",
-					"vertical-align":"text-top",
-				});
-				//
-				//fnc181214_event();
-				poi10();//逐個讀取圖片 //把src2改成src
-				//test02();
+			if( $.gginin.var190114.TouchEvent >0  ){ //|| 1==1
+				console.log('有觸控');
+				timeloop190209();//一秒顯示一張大圖
+			}else{
+				console.log('無觸控');
+				pp190211();
 			}
-			if( $(".video_orig").length >0 ){
-				$("#ddd").after(",有影");
-				//console.log("有影");
-				//CSS樣式
-				$(".video_orig").css({
-					"height":"100px",
-					"width":"300px",
-					"vertical-align":"text-top",
-				});
-				//
-				poi190210();//用xhr讀取一次
-			}
-
-			$(".image_thumb").css({
-				"vertical-align":"text-top",
-			});
 		}
 	}else{
 		$("#ddd").after("???");
 		console.log("時間錯誤");
 	}
 }//f
+
+function timeloop190209(){
+	//alert('timeloop190209');
+	//一秒顯示一張大圖
+	//$.gginin.var190209.count;//全域變數
+	//
+	//var xx=$(".image_orig");//$(".image_orig")
+	//var FFF=$(".image_orig").length;\
+	//var cc=0;
+	$(".image_orig").each(function(index,v){
+		setTimeout(function(){
+			$(v).attr("src", $(v).attr("src2") );
+			//$(v).prev().removeAttr("href");
+		}, $.gginin.var190209.count *1000);
+		$.gginin.var190209.count++;
+	});
+	$("#ddd").after("," + $.gginin.var190209.count );
+	
+}//fnc
+
+
+
+function pp190211(){
+	if( $(".image_orig").length >0 ){
+		//有圖
+		//$("#ddd").after(",圖");
+		//console.log("圖");
+
+		//
+		//fnc181214_event();
+		poi10();//逐個讀取圖片 //把src2改成src
+		//test02();
+	}
+	if( $(".video_orig").length >0 ){
+		$("#ddd").after(",影");
+		//console.log("影");
+
+		//
+		poi190210();//檢查video狀態
+	}
+
+
+}//ff
+
+
 function fnc181214_event(){
 	$(".image_orig").each(function(index,v) {
 		var cc=$.gginin.count;
@@ -928,20 +929,28 @@ function fnc181214_event(){
 }
 function poi190210(){
 	//console.log('poi190210');
-	var FFF=$("video.video_orig");
-	//console.log( FFF.length );
-	if(window.location.hostname == 'web.archive.org' ){
-	}else{
-	}
-	FFF.each(function(index,element) {
-		$(element).on('loadedmetadata',function(){
-			$(this).after('loadedmetadata');
+	//檢查video狀態
+	//if(window.location.hostname == '' ){}else{}
+	
+	$("video.video_orig").each(function(index,v) {
+		$(v).attr("src", $(v).attr("src2") );
+		$(v).removeAttr("src2");
+	});
+	var video_time_start=$.gginin.var190211.video_start_time;
+	var video_time_end=0;
+	var time_diff=0;
+	$("video.video_orig").each(function(index,v) {
+		$(v).on('loadedmetadata',function(){
+			//$(this).after('loadedmetadata');
+			video_time_end=Date.now();//
+			time_diff=video_time_end-video_time_start;
+			$(this).after('🌐'+time_diff);
 		});
-		$(element).on('error',function(){
+		$(v).on('error',function(){
 			//$(this).after('error');
 			console.log( 'error',this.id );
 		});
-		$(element).on('stalled',function(){
+		$(v).on('stalled',function(){
 			//$(this).after('stalled');
 			console.log( 'stalled',this.id );
 		});
@@ -951,6 +960,7 @@ function poi190210(){
 
 function poi190113(element){//????
  	//console.log('poi190113');
+	//xhr讀取
 	var video_url=element.src;
  	//console.log( video_url );
 	
@@ -1003,6 +1013,7 @@ function poi190113(element){//????
 
 
 function poi10(){
+	//逐個讀取圖片 //把src2改成src
 	var cc=$.gginin.count;
 	$.gginin.count=$.gginin.count + 1;
 	$("#ddd").after(","+cc);
@@ -1051,17 +1062,18 @@ function poi10(){
 		$("#ddd").after("結束");
 		//$("#ddd").before(""+navigator.userAgent);
 		console.log("結束");
-		//js_all_done();
+		js_all_done();
 	}
 
 }//ff
 
 function js_all_done(){
 	console.log("js_all_done");
-	console.log( location.href );
-	
+	//console.log( location.href );
 	$("#ddd").css({
-		"border-left":"#$url_hash 1px solid",
+		"border-left":"#$url_hash 2px solid",
+		"pointer-events":"auto", //none
+
 	});
 }//ff
 ///
