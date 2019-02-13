@@ -20,11 +20,27 @@ print_r($host_hash_array);
 //$hash_array[0]=substr($host_hash, 0, 8);  // bcd
 
 
+$testGD = get_extension_funcs("gd"); // Grab function list 
+if( $testGD ){
+	//ok
+	echo "GD ok";
+	echo "\n";
+}else{
+	die('testGD');
+}
+
+if( function_exists('imageCreate') ){
+	//ok
+	echo "function_exists ok";
+	echo "\n";
+}else{
+	die('function_exists');
+}
 
 
 
 //Header("Content-type: image/png");//指定文件類型為PNG
-$img = imageCreate(64,64);
+$img = imageCreate(64,64) or die('imageCreate');;
 $color_bg = imageColorAllocate($img, 255, 255, 255);
 imageFill($img, 0, 0, $color_bg);//底色
 
