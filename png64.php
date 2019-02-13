@@ -37,8 +37,8 @@ for($i=0 ; $i<strlen($host_hash_array[111]) ; $i++){ // 8個
 	echo $i.gettype($i);
 	echo " ";
 	$i2=(int)$i; 
-	$FFF=substr($host_hash_array[111], $i2, 1);//expects parameter 2 to be long //???
-	echo $FFF;
+	$b16=substr($host_hash_array[111], $i2, 1);//expects parameter 2 to be long //???
+	echo $b16;
 	echo " ";
 	$color=$host_hash_array[$i2];
 	echo $color;
@@ -54,7 +54,7 @@ for($i=0 ; $i<strlen($host_hash_array[111]) ; $i++){ // 8個
 	echo "=b ";
 	
 	
-	$b10 = strpos($bit16str, $FFF);
+	$b10 = strpos($bit16str, $b16);
 	echo $b10;
 	echo " ";
 	$b10tob2=base_convert($b10, 10, 2);
@@ -63,9 +63,9 @@ for($i=0 ; $i<strlen($host_hash_array[111]) ; $i++){ // 8個
 	echo "\n";
 	
 	for($j=0 ; $j<strlen($b10tob2) ; $j++){ // 4位
-	
-		$x=$bb+($w*$j);$y=$bb+($h*$FFF);
-		$color_yn= substr($b10tob2, $j, 1);
+		$j2=(int)$j;// A non-numeric value encountered
+		$x=$bb+($w*$j2);$y=$bb+($h*$i2); //位置
+		$color_yn= substr($b10tob2, $j2, 1);
 		echo $color_yn;
 		echo " ";
 		
@@ -74,7 +74,7 @@ for($i=0 ; $i<strlen($host_hash_array[111]) ; $i++){ // 8個
 		}else{
 			$color_rect = imagecolorallocate ( $img, 100, 100, 100 );
 		}
-		$x=$bb+($w*$j);$y=$bb+($h*$i2);
+		$x=$bb+($w*$j2);$y=$bb+($h*$i2);
 		imagefilledrectangle( $img, $x, $y, $x+$w-1, $y+$h-1, $color_rect );
 	}
 		echo "\n";
