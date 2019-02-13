@@ -1,4 +1,6 @@
 <?php 
+error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
+
 header('Content-Type: application/json; charset=utf-8');
 $host=$_SERVER['HTTP_HOST'];
 echo $host;
