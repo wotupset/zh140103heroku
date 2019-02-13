@@ -26,7 +26,7 @@ if( $testGD ){
 	echo "GD ok";
 	echo "\n";
 }else{
-	die('testGD');
+	die('[x]testGD');
 }
 
 if( function_exists('imageCreate') ){
@@ -34,13 +34,13 @@ if( function_exists('imageCreate') ){
 	echo "function_exists ok";
 	echo "\n";
 }else{
-	die('function_exists');
+	die('[x]function_exists');
 }
 
 
 
 //Header("Content-type: image/png");//指定文件類型為PNG
-$img = imageCreate(64,64) or die('imageCreate');;
+$img = imageCreate(64,64) or die('[x]imageCreate');;
 $color_bg = imageColorAllocate($img, 255, 255, 255);
 imageFill($img, 0, 0, $color_bg);//底色
 
