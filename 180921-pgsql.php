@@ -24,7 +24,18 @@ PostgreSQL連線
 */
 $db_p = parse_url( getenv("DATABASE_URL") );
 $db_p["path"]=ltrim($db_p["path"],"/");
-print_r( $db_p );
+//print_r( $db_p );
+$tmp='';
+foreach($db_p as $k => $v){
+	if($k=="pass"){
+		$tmp=substr($v,0,4)."...省略";
+		//$v=hash('crc32', $v);
+	}else{
+		$tmp=$v;
+	}
+	echo "[$k]=$tmp";
+}
+
 $db_url="pgsql:host=".$db_p['host'].";port=".$db_p['port'].";user=".$db_p['user'].";password=".$db_p['pass'].";dbname=".$db_p["path"].";";
 print_r($db_url );
                            
