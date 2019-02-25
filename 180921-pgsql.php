@@ -34,6 +34,7 @@ foreach($db_p as $k => $v){
 		$tmp=$v;
 	}
 	echo "[$k]=$tmp";
+	echo "\n";
 }
 
 $db_url="pgsql:host=".$db_p['host'].";port=".$db_p['port'].";user=".$db_p['user'].";password=".$db_p['pass'].";dbname=".$db_p["path"].";";
