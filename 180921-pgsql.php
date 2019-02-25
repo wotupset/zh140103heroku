@@ -30,12 +30,13 @@ $db_p2=$db_p;
 foreach($db_p2 as $k => $v){
 	if($k=="pass"){
 		$v=substr($v,0,4)."...省略";
+		$db_p2[$k]=$v;
 		//$v=hash('crc32', $v);
 	}else{
-		$v=$v;
+		//$v=$v;
 	}
-	echo "[$k]=".$v;
-	echo "\n";
+	//echo "[$k]=".$v;
+	//echo "\n";
 }
 print_r( $db_p2 );
 
