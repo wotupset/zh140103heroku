@@ -1,6 +1,6 @@
 <?php
 //header('Content-Type: application/javascript; charset=utf-8');
-header('Content-type: text/html; charset=utf-8');
+//header('Content-type: text/html; charset=utf-8');
 //**************
 extract($_POST,EXTR_SKIP);//接受post
 //header('Content-type: text/html; charset=utf-8');
@@ -22,6 +22,8 @@ ob_start(); //打开缓冲区
 //$uid=uniqid(chr(rand(97,122)).chr(rand(97,122)),true);//建立唯一ID
 $host =$_SERVER["SERVER_NAME"];
 echo $host ;
+echo "\n";
+echo date("Y年m月d日", $time);
 echo "\n";
 echo "ymdHis: \t\t\t";
 echo date("ymd_His", $time);
