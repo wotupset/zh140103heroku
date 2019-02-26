@@ -1,12 +1,21 @@
 <?php
-
+error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
 //header("content-Type: application/json; charset=utf-8"); //強制
+header("Content-Type: text/html; charset=utf-8");
+
 date_default_timezone_set("Asia/Taipei");//時區設定
 //date_default_timezone_set("UTC");//時區設定
 $tz=date_default_timezone_get();
 //echo 'php_timezone='.$tz."\n";
 $time  =time();
 $time2 =array_sum( explode( ' ' , microtime() ) );
+
+ob_start();
+//$out = ob_get_clean();
+
+
+//echo $time;
+//echo "\n";
 
 //echo 'now='.date("Y-m-d H:i:s",$time)."\n";
 //echo 'UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
@@ -16,36 +25,64 @@ $time2 =array_sum( explode( ' ' , microtime() ) );
 //if( $auth != "國" ){exit;}
 
 try{
-$dbopts=parse_url(getenv('DATABASE_URL'));
-//print_r($dbopts);
-$dbhost = $dbopts["host"];
-$dbuser = $dbopts["user"];
-$dbpass = $dbopts["pass"];
-$dbname = ltrim($dbopts["path"],'/');
-//pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
-$tmp='';
-$tmp.='pgsql:';
-$tmp.='dbname='   .$dbname.';';
-$tmp.='host='     .$dbhost.';';
-$tmp.='user='     .$dbuser.';';
-$tmp.='password=' .$dbpass.';';
+	//echo "建立pgsql連線";
+	//echo "\n";
+		
+	$dbopts=parse_url(getenv('DATABASE_URL'));
+	//print_r($dbopts);
+	$dbhost = $dbopts["host"];
+	$dbuser = $dbopts["user"];
+	$dbpass = $dbopts["pass"];
+	$dbname = ltrim($dbopts["path"],'/');
+	//pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
+	$tmp='';
+	$tmp.='pgsql:';
+	$tmp.='dbname='   .$dbname.';';
+	$tmp.='host='     .$dbhost.';';
+	$tmp.='user='     .$dbuser.';';
+	$tmp.='password=' .$dbpass.';';
 
-$db = new PDO($tmp);
-//$db->exec("SET TIME ZONE '$tz';");//+8
-$db->exec("set timezone TO '$tz';");//+8
-  
-foreach( $db->query("show TimeZone") as $k => $v ){
-  //echo 'pgsql_timezone='.$v[0]."\n";
+	$db = new PDO($tmp);
+	if(!$db){
+		die('連線失敗');
+	}else{
+		//echo "連線成功";
+		//echo "\n";
+		$arr=[
+			'status'=> $db->getAttribute(PDO::ATTR_CONNECTION_STATUS) ,
+			'name'=> $db->getAttribute(PDO::ATTR_DRIVER_NAME) ,
+			'server'=> $db->getAttribute(PDO::ATTR_SERVER_INFO) ,
+			'server_version'=> $db->getAttribute(PDO::ATTR_SERVER_VERSION) ,
+			'client_version'=> $db->getAttribute(PDO::ATTR_CLIENT_VERSION ) ,
+		];
+		//print_r($arr);
+		//echo "\n";
+	}
+
+
+	//$db->exec("SET TIME ZONE '$tz';");//+8
+	$db->exec("set timezone TO '$tz';");//+8
+	foreach( $db->query("show TimeZone") as $k => $v ){
+	  //echo 'pgsql_timezone='.$v[0]."\n";
+	}
 }
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+catch(PDOException $e){
+	$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
+catch(Exception $e){print_r($e);}//錯誤訊息
+catch(Error $e){print_r($e);}//錯誤訊息
+
+
+//exit;
 
 
 
-try{
-  
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+try{}
+catch(PDOException $e){print_r($e);}//錯誤訊息
+catch(Exception $e){print_r($e);}//錯誤訊息
+catch(Error $e){print_r($e);}//錯誤訊息
 
-
+//共用變數
 $table_name='nya170415';
 
 //刪除table
@@ -55,29 +92,54 @@ $table_name='nya170415';
 
 try{
 //列出全部table
+echo "列出全部table";
+echo "\n";
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname != 'pg_catalog' 
 AND schemaname != 'information_schema';
 EOT;
+$sql=<<<EOT
+SELECT * FROM pg_catalog.pg_tables 
+WHERE schemaname = 'public';
+EOT;
+
 //AND schemaname != 'information_schema';
 $stmt = $db->prepare($sql);
 $stmt->execute();
 //
 $cc=0;
-while ($row = $stmt->fetch() ) {
-  if($row['tablename'] == $table_name ){
+foreach($stmt as  $key => $value){ 
+  $cc++;
+  //echo "#".$cc."\t".$value['tablename']."";
+  //echo "\n";
+  if($value['tablename'] == $table_name ){
     $cc=$cc+1;
   }
 }
+
+while ($row = $stmt->fetch() ) {
+}
+
 if($cc>0){
-  //echo '成功';
+  //echo '有找到';
+  //echo "\n";
 }else{
   echo '失敗';
+  echo "\n";
   exit;
 }
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
+
+
+
+
+}
+catch(Exception $e){print_r($e);}//錯誤訊息
+catch(Error $e){print_r($e);}//錯誤訊息
+
+//
+//exit;
 
 
 
@@ -121,9 +183,10 @@ $stmt->execute($array);
 
 }
 
-
+$out = ob_get_clean();
 
 ob_start();
+//$out = ob_get_clean();
 
 try{
 //列出資料 (全部)
@@ -145,16 +208,13 @@ $cc=0;
 //foreach($datalist as $row){
 while ($row = $stmt->fetch() ) {
   $cc++;
-  if($cc>10){
-	  echo 'break';
-	  break;
-  }
+  if($cc>100){break;}
   //echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n"
   echo '<div class="box">';
-  echo '<div class="title"><h3>#<sub>'.$cc.'</sub>#<sup>'.$row['id'].'</sup>#'.$row['c01'].'</h3></div>';
+  echo '<div class="title"><h3>#'.$row['id'].'# '.$row['c01'].'</h3></div>';
   echo '<div class="text">'.nl2br($row['c02']).'</div>';
-  //echo '<pre>'.$row['c03'].'</pre>';//base64_decode($row['c03']).
-  echo '<div class="date" title="'.base64_decode($row['c03']).'"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
+  echo '<pre>'.$row['c03'].base64_decode($row['c03']).'</pre>';
+  echo '<div class="date"><h4>'.date('Y/m/d H:i:s',strtotime($row['timestamp'])).'</h4></div>';
   echo '</div>';
 }
   //

@@ -1,10 +1,11 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
+header("content-Type: application/json; charset=utf-8"); //強制
 /*
 PostgreSQL練習
 */
-header("content-Type: application/json; charset=utf-8"); //強制
 
-error_reporting(E_ALL & ~E_NOTICE); //所有錯誤中排除NOTICE提示
+
 
 
 $time  =time();
@@ -16,6 +17,8 @@ echo '[php]timezone='.$timezone."\n";
 echo '[php]now='.date("Y-m-d H:i:s",$time)."\n";
 echo '[php]UTC='.gmdate("Y-m-d H:i:s",$time)."\n";
 
+
+
 ///
 try{
 /*
@@ -26,22 +29,32 @@ $db_p = parse_url( getenv("DATABASE_URL") );
 $db_p["path"]=ltrim($db_p["path"],"/");
 //print_r( $db_p );
 $db_p2=$db_p;
-//$tmp='';
-foreach($db_p2 as $k => $v){
-	if($k=="pass"){
-		$v=substr($v,0,4)."...省略";
-		$db_p2[$k]=$v;
-		//$v=hash('crc32', $v);
-	}else{
-		//$v=$v;
-	}
-	//echo "[$k]=".$v;
-	//echo "\n";
-}
+$db_p2['pass']=substr( $db_p2['pass'] ,0,4)."...省略";
 print_r( $db_p2 );
 
-$db_url="pgsql:host=".$db_p['host'].";port=".$db_p['port'].";user=".$db_p['user'].";password=".$db_p['pass'].";dbname=".$db_p["path"].";";
-print_r($db_url );
+$db_url='';
+$db_url="pgsql:";
+$db_url2=$db_url;
+
+foreach($db_p as $k => $v){
+}
+$cc=0;
+switch($cc){
+case 0:
+break;
+case 1:
+break;
+case 2:
+break;
+default:
+}
+$FFF=$db_p;
+$db_url="pgsql:host=".$FFF['host'].";port=".$FFF['port'].";user=".$FFF['user'].";password=".$FFF['pass'].";dbname=".$FFF["path"].";";
+$FFF=$db_p2;
+$db_url2="pgsql:host=".$FFF['host'].";port=".$FFF['port'].";user=".$FFF['user'].";password=".$FFF['pass'].";dbname=".$FFF["path"].";";
+
+//print_r($db_url );
+print_r($db_url2 );
                            
 //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
   
@@ -70,11 +83,13 @@ echo "\n";
   
 
 
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(PDOException $e){
+	$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
 
 
 ///
-
+//exit;
 
 
 echo '[php]version='.phpversion()."\n";
@@ -111,7 +126,7 @@ echo "\n";
 
 try{
 $table_name=<<<EOT
-nya170415
+nya20190226
 EOT;
 echo '[pgsql]table_name='.$table_name;
 echo "\n";
@@ -119,8 +134,15 @@ echo "\n";
 /*
 PostgreSQL移除table
 */
+define("移除table", TRUE );//TRUE//false
+//define("移除table", false );//TRUE//false
+//echo 移除table;
+//echo "\n";
 
-if(1){
+if( 移除table ){
+echo "移除table";
+echo "\n";
+	
 $sql=<<<EOT
 DROP TABLE IF EXISTS {$table_name}
 EOT;
@@ -142,6 +164,10 @@ $stmt->execute();
 $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
+}else{
+echo "不移除table";
+echo "\n";
+	
 }
   
 /*
@@ -169,7 +195,7 @@ if($err[0]>0){print_r( $err );}//錯誤資訊
 $cc=0;
 foreach($stmt as  $key => $value){ 
   $cc++;
-  echo "a".$cc."\t";
+  echo "#".$cc."\t";
   //print_r($value);
   echo $value['tablename']."";
   echo "\n";
@@ -204,6 +230,8 @@ $err=$db->errorInfo();
 if($err[0]>0){print_r( $err );}//錯誤資訊
 
 ////
+echo "列出非系統table";
+echo "\n";
 $sql=<<<EOT
 SELECT * FROM pg_catalog.pg_tables 
 WHERE schemaname = 'public';
@@ -224,12 +252,17 @@ while ($row = $stmt->fetch() ) {
   echo "\n";
 }
   
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(PDOException $e){
+	$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
 
 
+//exit;
 
 
 try{
+echo "插入資料";
+echo "\n";
 
 //插入資料 方法1 问号占位符的预处理语句
 $sql=<<<EOT
@@ -277,7 +310,12 @@ foreach ($array as $k=>$v){
 }catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
+//exit;
+
 try{
+echo "列出資料";
+echo "\n";
+	
 $sql=<<<EOT
 select * from {$table_name} 
 EOT;
@@ -307,8 +345,12 @@ while ($row = $stmt->fetch() ) {
   
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
+//exit;
+
 
 try{
+echo "資料庫size";
+echo "\n";
 /*
 PostgreSQL資料庫size
 */
@@ -348,6 +390,8 @@ while($row = $stmt->fetch() ) {
 
 //
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
+
 
 
 ?>

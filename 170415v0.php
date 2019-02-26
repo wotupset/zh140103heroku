@@ -36,20 +36,21 @@ $tmp.='password=' .$dbpass.';';
 
 $db = new PDO($tmp);
 if(!$db){die('連線失敗');}
-echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+//echo '連線狀態='.$db->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+//echo "\n";
+echo "連線成功";
+echo "\n";
+$arr=[
+	'status'=> $db->getAttribute(PDO::ATTR_CONNECTION_STATUS) ,
+	'name'=> $db->getAttribute(PDO::ATTR_DRIVER_NAME) ,
+	'server'=> $db->getAttribute(PDO::ATTR_SERVER_INFO) ,
+	'server_version'=> $db->getAttribute(PDO::ATTR_SERVER_VERSION) ,
+	'client_version'=> $db->getAttribute(PDO::ATTR_CLIENT_VERSION ) ,
+];
+print_r($arr);
 echo "\n";
 
-/*
-$myQuery = 'SELECT * FROM users WHERE username = :username';
-$params = array(':username' => 'admin');
-$db->query($myQuery)->execute($params);
-*/
 
-echo 'version_php='.phpversion()."\n";
-foreach( $db->query("select version();") as $k => $v ){
-  echo 'version_pgsql='.$v[0]."\n";
-}
-  
 //$db->exec("SET TIME ZONE '$tz';");//+8
 $db->exec("set timezone TO '$tz';");//修改成+8時區
 foreach( $db->query("show TimeZone") as $k => $v ){
@@ -78,7 +79,7 @@ try{
 }catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
 
 
-$table_name='nya181110';
+$table_name='nya170415';
 
 try{
 //移除table
@@ -125,23 +126,12 @@ EOT;
 //AND schemaname != 'information_schema';
 $stmt = $db->prepare($sql);
 $stmt->execute();
-$cc=0;
 while ($row = $stmt->fetch() ) {
-  $cc++;
-  echo $cc."\t";
-  echo $row['tablename']."\t";
-  echo "\n";
+  echo $row['tablename']."\n";
 }
-//
-$FFF='select pg_size_pretty(pg_tablespace_size("'.$table_name.'"));'."\n";
-echo $FFF;
-$db->exec($FFF);
-foreach( $db->query($FFF) as $k => $v ){
-  echo 'pg_tablespace_size='.$v[0]."\n";
-}
-
-//
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(PDOException $e){
+  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
 
 try{
 //列出column名稱與格式
@@ -157,6 +147,8 @@ EOT;
 $stmt = $db->prepare($sql);
 $stmt->execute();
 
+$columns_max = $stmt->columnCount();//計數
+echo 'columns_max='.$columns_max."\n";
 
 $cc=0;
 while ($row = $stmt->fetch() ) {
@@ -168,32 +160,56 @@ while ($row = $stmt->fetch() ) {
   echo "\n";
 }
 
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+}catch(PDOException $e){
+  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
 
 
-
-
-if(0){
-try{
-//插入資料
-//;
-$sql=<<<EOT
-INSERT INTO $table_name (c01,c02,c03)
-VALUES ( ? , ? , ? );
-EOT;
-$stmt=$db->prepare($sql);
-$array=array( uniqid('u',1),'不用不用',  $time );
-$stmt->execute($array);
-  
-}catch(Exception $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
-
-}
 
 try{
-//插入資料
-echo '插入資料';
+//列出資料 (全部)
+echo '資料筆數';
 echo "\n";
 
+$sql=<<<EOT
+select * from $table_name 
+ORDER BY timestamp DESC
+EOT;
+// LIMIT 10
+$stmt = $db->prepare($sql);
+$stmt->execute();
+
+$rows_max = $stmt->rowCount();//計數
+echo 'rows_max='.$rows_max."\n";
+
+//列出資料
+$cc=0;
+while ($row = $stmt->fetch() ) {
+  $cc++;
+  if($cc>1000){break;}
+  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
+  echo pg_unescape_bytea($row['c03'])."\n";
+}
+
+  
+  
+}catch(PDOException $e){
+  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
+
+
+try{
+//插入資料
+if($rows_max>10){
+  echo '資料筆數大於10 不插入資料';
+  echo "\n";
+  goto tryend;
+}else{
+  echo '插入新資料';
+  echo "\n";
+}
+
+  
 //;
 $sql=<<<EOT
 INSERT INTO $table_name (c01,c02,c03)
@@ -214,53 +230,40 @@ $array=array(
 $stmt->execute($array);
   
 
-
-
-
   
 }catch(Exception $e){
   print_r($db->errorInfo());
   print_r($db->errorCode());
-  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
+
+//goto的位置
+tryend:
+exit;
+////
 
 
 
+
+if(0){
 try{
-//列出資料 (全部)
-echo '列出資料';
-echo "\n";
-
+//插入資料
+//;
 $sql=<<<EOT
-select * from $table_name 
-ORDER BY timestamp DESC
+INSERT INTO $table_name (c01,c02,c03)
+VALUES ( ? , ? , ? );
 EOT;
-// LIMIT 10
-$stmt = $db->prepare($sql);
-$stmt->execute();
+$stmt=$db->prepare($sql);
+$array=array( uniqid('u',1),'不用不用',  $time );
+$stmt->execute($array);
+  
+}catch(Exception $e){
+  $chk=$e->getMessage();print_r("try-catch錯誤:".$chk);
+}//錯誤訊息
 
-$rows_max = $stmt->rowCount();//計數
-echo 'rows_max='.$rows_max."\n";
-$columns_max = $stmt->columnCount();//計數
-echo 'columns_max='.$columns_max."\n";
-
-if(1){
-  //
-$cc=0;
-while ($row = $stmt->fetch() ) {
-  $cc++;
-  if($cc>5){
-    echo 'break'."\n";
-    break;
-  }
-  echo $row['c01']."\t".$row['c02']."\t".$row['c03']."\t".$row['c04']."\t".$row['id']."\t".$row['timestamp']."\n";
-  echo pg_unescape_bytea($row['c03'])."\n";
 }
-  //
-}  
-  
 
-  
-}catch(PDOException $e){$chk=$e->getMessage();print_r("try-catch錯誤:".$chk);}//錯誤訊息
+
 
 ////
 
