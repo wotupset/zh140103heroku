@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded",function(e){
 	url=url.hash.substr(1);
 	//console.log( url );
 	url = new URL( url );
-	console.log( url );
+	//console.log( url );
 	if( url.host == 'pbs.twimg.com' ){
 	  //沒事
 	}else{
@@ -30,27 +30,35 @@ document.addEventListener("DOMContentLoaded",function(e){
 	//取得網址裡的參數
 	var urlhash_format =url.searchParams.get('format');
 	var urlhash_name   =url.searchParams.get('name');
-	console.log( urlhash_format,urlhash_name );
+	//console.log( urlhash_format,urlhash_name );
 	
+	var str='';
 	if( urlhash_format == 'jpg' || urlhash_format == 'png' ){
-	  //沒事
+		//沒事
+		str=url.href.split("?")[0] + '.' + urlhash_format;
+		//https://pbs.twimg.com/media/D2g4G9YU8AAc_QC.jpg
 	}else{
-	  throw '錯誤'+urlhash_format;
+		str=url.href;
+		str=str.split(':'); //字元分割 
+		str=str[0]+':'+str[1];
+		//https://pbs.twimg.com/media/D2g4G9YU8AAc_QC.jpg
+		//throw '錯誤'+urlhash_format;
 	}
+	//console.log( str );
 	//url.searchParams.set('name','4096x4096');
-	url.searchParams.set('name','orig');
+	//url.searchParams.set('name','orig');
 	//console.log( url );
 	
-	var new_url = new URL( url.href.split("?")[0] + '.' + urlhash_format +'?'+ url.href.split("?")[1]);
 	//console.log( new_url );
 	//console.log( new_url.pathname );
 	//console.log( new_url.pathname.split("\/")[2] );
+	var new_url = new URL( str );
+	//console.log( new_url );
 	var nn=new_url.pathname.split("\/")[2];
 	nn=nn.split(".")[0] +'_orig.'+ nn.split(".")[1];
 
 	
-	//var url='https://pbs.twimg.com/media/Dv6TGrKU8AALiBt.jpg';
-	var url=''+new_url;
+	var url=''+new_url+':orig';
 	
 
  
