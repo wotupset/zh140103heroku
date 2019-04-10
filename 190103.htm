@@ -13,18 +13,10 @@ body{}
 </style>
 
 <script>
-time=new Date();//可讀時間
 document.addEventListener("DOMContentLoaded",function(e){
-	window.gg=[]; //globalVar
-	gg.date=time;
-	gg.dateLocale=time.toLocaleString();
-	gg.dateISO=time.toISOString();
-	gg.dateUTC=time.toUTCString();
-	gg.timestamp=time.getTime();//Date.now();//new Date().getTime();
-	gg.timestampUTC=Date.parse( gg.dateUTC );
-	console.log( gg );
+	poi190410();
 	var hh=human_date(window.time);
-	console.log( hh );
+	//console.log( hh );
 	
 	//取得hash的網址字串
 	var url='';
@@ -77,7 +69,7 @@ document.addEventListener("DOMContentLoaded",function(e){
 	xhr.onreadystatechange = function(){
 		if(this.readyState == 4 && this.status == 200){
 			//console.log(this.response, typeof this.response);
-			console.log(nn);
+			//console.log(nn);
 			//console.log( this.response.size );
 			gg.human_size=human_size( this.response.size );
 			console.log( gg.human_size );
@@ -120,6 +112,40 @@ document.addEventListener("DOMContentLoaded",function(e){
 
 });//DOMContentLoaded
 
+function poi190410(){
+	window.time=new Date();//可讀時間
+	window.gg=[]; //globalVar
+	//
+	gg.date=time;
+	gg.dateLocale=time.toLocaleString();
+	gg.dateISO=time.toISOString();
+	gg.dateUTC=time.toUTCString();
+	gg.Timezone=time.getTimezoneOffset();
+	gg.timestamp=time.getTime();//Date.now();//new Date().getTime();
+	gg.timestampUTC=time.getTime() - time.getTimezoneOffset()*60*1000;
+	//gg.timestampUTC=Date.parse( gg.dateUTC );
+	console.log( gg );
+	
+	var aa= [
+	  time.getFullYear(),
+	  time.getMonth()+1,
+	  time.getDate(),
+	  time.getHours(),
+	  time.getMinutes(),
+	  time.getSeconds(),
+	];
+
+	var aaUTC= [
+	  time.getUTCFullYear(),
+	  time.getUTCMonth()+1,
+	  time.getUTCDate(),
+	  time.getUTCHours(),
+	  time.getUTCMinutes(),
+	  time.getUTCSeconds(),
+	];
+	//console.log( aa );
+	//console.log( aaUTC );
+}
 function human_size(xx){
 	var str='';
 	str='bytes';
@@ -151,11 +177,11 @@ function human_date(xx){
 		dd[index]=''+item;
 		}
 	});//forEach
-	console.log( dd );
+	//console.log( dd );
 
 	//xx
 	xx=dd.join('');
-	console.log( xx );
+	//console.log( xx );
 	return ''+xx;
 }
 
