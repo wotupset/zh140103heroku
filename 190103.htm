@@ -13,7 +13,19 @@ body{}
 </style>
 
 <script>
+time=new Date();//可讀時間
 document.addEventListener("DOMContentLoaded",function(e){
+	window.gg=[]; //globalVar
+	gg.date=time;
+	gg.dateLocale=time.toLocaleString();
+	gg.dateISO=time.toISOString();
+	gg.dateUTC=time.toUTCString();
+	gg.timestamp=time.getTime();//Date.now();//new Date().getTime();
+	gg.timestampUTC=Date.parse( gg.dateUTC );
+	console.log( gg );
+	var hh=human_date(window.time);
+	console.log( hh );
+	
 	//取得hash的網址字串
 	var url='';
 	url=window.location;
@@ -56,52 +68,96 @@ document.addEventListener("DOMContentLoaded",function(e){
 	//console.log( new_url );
 	var nn=new_url.pathname.split("\/")[2];
 	nn=nn.split(".")[0] +'_orig.'+ nn.split(".")[1];
-
-	
+	nn=hh+'_'+nn;
 	var url=''+new_url+':orig';
-	
 
  
   //
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
-	if(this.readyState == 4 && this.status == 200){
-		//console.log(this.response, typeof this.response);
-		console.log(nn);
-		var img = document.getElementById('img01');
-		img.onload = function(){
-			var str=''+img.naturalWidth+'x'+img.naturalHeight+' '+nn;
-			//console.log(str);
-			img.insertAdjacentHTML('beforebegin', str+'<br/>');
-			document.title=''+str;
-			//
+		if(this.readyState == 4 && this.status == 200){
+			//console.log(this.response, typeof this.response);
+			console.log(nn);
+			//console.log( this.response.size );
+			gg.human_size=human_size( this.response.size );
+			console.log( gg.human_size );
+			
+			var img = document.getElementById('img01');
+			img.onload = function(e){
+				//console.log(e);
+				var str='';
+				str=str+img.naturalWidth+'x'+img.naturalHeight+'🌊';
+				str=str+gg.human_size+'🌊';
+				str=str+nn+'🌊';
+				//console.log(str);
+				img.insertAdjacentHTML('beforebegin', str+'<br/>');
+				document.title=''+str;
+				//
+				var aa = document.getElementById('aa01');
+				aa.href = img.src;
+				aa.download=''+nn;
+				aa.click();
+
+			};
+			img.src = window.URL.createObjectURL(this.response);
+	/*
 			var aa = document.getElementById('aa01');
-			aa.href = img.src;
+			aa.href = window.URL.createObjectURL(this.response);
 			aa.download=''+nn;
 			aa.click();
 
-		};
-		img.src = window.URL.createObjectURL(this.response);
-/*
-		var aa = document.getElementById('aa01');
-		aa.href = window.URL.createObjectURL(this.response);
-		aa.download=''+nn;
-		aa.click();
-
-*/
+	*/
 
 
-		//var win = window.open("about:blank", "_self");
-		//win.close();
-		//window.top.close();
-	}//if
+			//var win = window.open("about:blank", "_self");
+			//win.close();
+			//window.top.close();
+		}//if
 	}//xhr
 	xhr.open('GET', url);
 	xhr.responseType = 'blob';
 	xhr.send();      
 
-});
+});//DOMContentLoaded
 
+function human_size(xx){
+	var str='';
+	str='bytes';
+	if( xx>1024 ){ xx=(xx/1024);str='KB'; }
+	if( xx>1024 ){ xx=(xx/1024);str='MB'; }
+	if( xx>1024 ){ xx=(xx/1024);str='GB'; }
+	xx=xx.toFixed(2);
+
+	return ''+xx+str;
+}
+function human_date(xx){
+	var time=xx;
+	var dd= [
+		time.getFullYear(),
+		time.getMonth()+1,
+		time.getDate(),
+		time.getHours(),
+		time.getMinutes(),
+		time.getSeconds(),
+	];
+	//console.log( dd );
+	dd.forEach(function(item,index){
+		var aa= item.toString().length;
+		//console.log( aa );
+		//console.log(item,index);
+		if( 0<aa && aa<2 ){
+		dd[index]='0'+item;
+		}else{
+		dd[index]=''+item;
+		}
+	});//forEach
+	console.log( dd );
+
+	//xx
+	xx=dd.join('');
+	console.log( xx );
+	return ''+xx;
+}
 
 
 
