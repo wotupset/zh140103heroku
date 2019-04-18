@@ -836,7 +836,7 @@ function time_check(){
 	if( FFF ){
 		//console.log("y");
 		//10分後
-		if(FFF > 10*60*1000){
+		if( 0 ){ // (FFF > 10*60*1000)
 			$("#ddd").after(",顯示檔案");
 			//不顯示原圖 減輕頁面負擔 
 			if( $(".image_orig").length >0 ){
@@ -860,7 +860,7 @@ function time_check(){
 				timeloop190209();//一秒顯示一張大圖
 			}else{
 				console.log('無觸控');
-				pp190211();
+				pp190211();//逐次讀取圖片 //一張讀完再讀下一張
 			}
 		}
 	}else{
