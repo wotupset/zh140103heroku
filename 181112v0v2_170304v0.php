@@ -282,6 +282,8 @@ die("結束");
 function html_body($x=''){
 $x=<<<EOT
 <div id="ddd">ddd</div>
+<div id="END">END</div>
+
 EOT;
 	//
 	return $x;	
@@ -468,18 +470,18 @@ function array_loop(ary_json){
 				FFF+='<img src="'+v["image_t"]+'">';
 				FFF+='影片';
 			}else{
-				FFF+='<img src="'+v["image"]+'">';
+				FFF+='<img src="'+v["image"]+'">';//圖片
+				FFF+='<br clear="both">';//換行
 			} 
 		}
-		FFF+='<br clear="both">';
-		
-		    
 
 		FFF='<div id="block'+k+'">'+FFF+'</div>';
+		FFF=FFF+',';//分隔用的逗號
 		htmlbody[k]=FFF;
 	});
 	//console.log( htmlbody );
-	FFF=htmlbody.join(",");
+	//FFF=htmlbody.join(",");
+	FFF=htmlbody.join("");
 	$("#ddd").html( FFF );
 	//
 	
