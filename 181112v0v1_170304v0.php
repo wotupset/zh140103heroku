@@ -439,7 +439,7 @@ function test_TouchEvent(){
 		var id01=document.getElementById('ddd');
 		id01.insertAdjacentHTML('beforebegin',"x,");
 	}finally{
-		console.log('觸控事件');
+		//console.log('觸控事件');
 	}	
 	//id01.insertAdjacentHTML('beforebegin',tmp);
 
@@ -701,10 +701,13 @@ function array_loop(ary_json){
 		    
 
 		FFF='<div id="block'+k+'">'+FFF+'</div>';
+		FFF=FFF+',';//分隔用的逗號
 		htmlbody[k]=FFF;
 	});
 	//console.log( htmlbody );
-	FFF=htmlbody.join(",");
+	//FFF=htmlbody.join(",");//分隔用的逗號
+	FFF=htmlbody.join("");
+	FFF=FFF+'<div id="END">END</div>';
 	$("#ddd").html( FFF );
 	//
 	css_setting();
