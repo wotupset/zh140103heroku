@@ -234,37 +234,26 @@ foreach($chat_array as $k => $v){//迴圈
 		if($v["image"] == null){
 			//沒事
 		}else{
-			if( preg_match("/\.webm$/",$v["image"]) ){
-				$FFF.='影片';
+			
+			if( preg_match("/\.webm$/",$v["image_t"]) ){
+				//影片只顯示縮圖
 				$FFF.='<img src="'.$v["image_t"].'">';
+				$FFF.='影片';
 			}else{
 				$img_url=$v["image"];
-				//$img_url = explode("//",$img_url );
-				//$img_url = 'https://i2.wp.com/'.$img_url[1].'?fit=2048,2048';
+				$img_url = explode("//",$img_url );
+				$img_url = 'https://i2.wp.com/'.$img_url[1].'?fit=2048,2048';
 				
-				$FFF.='<img src="'.$img_url.'" style="width: auto; height: auto; max-width: 480px; max-height: 360px;">';//圖片
+				$FFF.='<img src="'.$img_url.'" style="width: auto; height: auto; max-width: 400px; max-height: 400px;">';//圖片
 				
 				//$FFF.=''.$v['file-text'].''; //檔案資訊 
 				//$FFF.='<img src="'.$v["image_t"].'">'; //縮圖
 				//$FFF.='<img src="'.$v["image"].'">';//圖片
 				$FFF.='<br clear="both">';//換行
 			} 
-			//$FFF.='<img src="'.$v["image_t"].'">';
-			//$FFF.='<img src="'.$v["image"].'" class="img01">';//圖片
-/*
-			if( preg_match("/\.webm$/",$v["image"]) ){
-				$FFF.='<video src="'.$v["image"].'" controls  class="vid01">';
-				$FFF.='</video>';
-			}else{
-				$FFF.='<img src="'.$v["image"].'" class="img01">';//圖片
-			} 
-
-*/
-			$FFF.='<br clear="both">';//換行
 		}//if
 		//
 		$FFF="\n".'<div id="block'.$k.'">'.$FFF.'</div>'."\n";
-		//$FFF='<div id="block'.$k.'">'.$FFF.'</div>';
 		$FFF=$FFF.',';//分隔用的逗號
 		//
 		//echo $FFF;
@@ -316,16 +305,6 @@ $x=<<<EOT
 <title>title</title>
 
 <style>
-.img01 {
-height: 100px;
-width: 100px;
-}
-.vid01 {
-height: 300px;
-width: 300px;
-}
-
-
 </style>
 <script>
 </script>

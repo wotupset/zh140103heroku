@@ -236,35 +236,23 @@ foreach($chat_array as $k => $v){//迴圈
 		}else{
 			if( preg_match("/\.webm$/",$v["image"]) ){
 				$FFF.='影片';
-				$FFF.='<img src="'.$v["image_t"].'">';
+				//$FFF.='<img src="'.$v["image"].'" class="img_webm">';
+				$FFF.='<video class="vid_01" src="'.$v["image"].'" controls></video>'; //失敗
 			}else{
 				$img_url=$v["image"];
 				//$img_url = explode("//",$img_url );
 				//$img_url = 'https://i2.wp.com/'.$img_url[1].'?fit=2048,2048';
 				
-				$FFF.='<img src="'.$img_url.'" style="width: auto; height: auto; max-width: 480px; max-height: 360px;">';//圖片
+				$FFF.='<img src="'.$img_url.'" style="width: auto; height: auto; max-width: 400px; max-height: 400px;">';//圖片
 				
 				//$FFF.=''.$v['file-text'].''; //檔案資訊 
 				//$FFF.='<img src="'.$v["image_t"].'">'; //縮圖
 				//$FFF.='<img src="'.$v["image"].'">';//圖片
 				$FFF.='<br clear="both">';//換行
 			} 
-			//$FFF.='<img src="'.$v["image_t"].'">';
-			//$FFF.='<img src="'.$v["image"].'" class="img01">';//圖片
-/*
-			if( preg_match("/\.webm$/",$v["image"]) ){
-				$FFF.='<video src="'.$v["image"].'" controls  class="vid01">';
-				$FFF.='</video>';
-			}else{
-				$FFF.='<img src="'.$v["image"].'" class="img01">';//圖片
-			} 
-
-*/
-			$FFF.='<br clear="both">';//換行
 		}//if
 		//
 		$FFF="\n".'<div id="block'.$k.'">'.$FFF.'</div>'."\n";
-		//$FFF='<div id="block'.$k.'">'.$FFF.'</div>';
 		$FFF=$FFF.',';//分隔用的逗號
 		//
 		//echo $FFF;
@@ -314,20 +302,22 @@ $x=<<<EOT
 <head>
 <meta charset="UTF-8" />
 <title>title</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-.img01 {
-height: 100px;
-width: 100px;
-}
-.vid01 {
-height: 300px;
-width: 300px;
-}
-
-
 </style>
 <script>
+$( document ).ready(function() {
+	//console.log( "ready!" );
+	var aa = $(".vid_01");
+	//console.log( aa );
+	aa.each(function(index,element){
+		var bb= $(element).prev().attr('src');
+		//console.log( bb );
+		$(element).attr('src',bb);
+		var cc= $(element).attr('src');
+		//console.log( cc );
+	});//each
+});
 </script>
 
 <head>

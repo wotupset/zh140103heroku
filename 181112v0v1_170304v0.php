@@ -685,9 +685,13 @@ function array_loop(ary_json){
 					FFF+='[點連結觀看]';
 				}else{
 					//console.log('無觸控');
+					FFF+='<img class="image_webm" src="'+v["image"]+'" >';
+					FFF+='<button type="button" class="btn_01">看影片</button>';
+					FFF+='<video class="vid_01" controls style="vertical-align: text-top;"></video>'; 
+					
 				}
 				//顯示影片 //太花流量 使用preload="meta"
-				FFF+='<video id="video'+k+'" class="video_orig" src="../" src2="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
+				//FFF+='<video id="video'+k+'" class="video_orig" src="../" src2="'+v["image"]+'"  muted controls  preload="meta">autoplay</video>';
 
 			}else{
 				//這是圖片
@@ -703,7 +707,8 @@ function array_loop(ary_json){
 		FFF='<div id="block'+k+'">'+FFF+'</div>';
 		FFF=FFF+',';//分隔用的逗號
 		htmlbody[k]=FFF;
-	});
+	});//forEach
+	
 	//console.log( htmlbody );
 	//FFF=htmlbody.join(",");//分隔用的逗號
 	FFF=htmlbody.join("");
@@ -715,14 +720,33 @@ function array_loop(ary_json){
 		//有縮圖
 		//console.log('有縮圖');
 
-		//檢查時間
-		time_check();//
+		
+		time_check();//檢查時間
+		poi190928();//處理video
 	}
 	//$("body").("讀取大圖");
 	//prepend
 	//$("#ddd").after("讀取大圖");
 }//ff
 
+function poi190928(){
+	console.log( 'poi190928' );
+	//console.log( aa );
+	var aa = $(".btn_01");
+	aa.click(function(e){
+		var bb= $(this).prev().attr('src');
+		console.log( bb );
+		var cc=$(this).next().attr('src',bb);
+		console.log( cc );
+	});
+	var bb = $(".vid_01");
+	bb.css({
+        "width": "auto",
+        "height": "auto",
+        "max-width": "480px",
+        "max-height": "480px",
+	});
+}
 
 function css_setting(){
 	$(".image_orig").css({
@@ -864,6 +888,7 @@ function time_check(){
 			}else{
 				console.log('無觸控');
 				pp190211();//逐次讀取圖片 //一張讀完再讀下一張
+				//timeloop190209();//一秒顯示一張大圖//190828
 			}
 		}
 	}else{
@@ -1099,7 +1124,7 @@ $x=<<<EOT
 <style>
 $css
 </style>
-<script id="jq_tmp" src2="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 $js
 </script>
