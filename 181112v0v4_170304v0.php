@@ -45,17 +45,18 @@ document.addEventListener("DOMContentLoaded",function(e){
 EOT;
 
 if( substr_count($url, "?res=")>0 ){
-	echo html_all( $html_inputbox, $html_js_title);
+	echo html_all( $html_inputbox);
 	//ok
 }else{
 	//echo "?res=";
-	echo html_all( $html_inputbox, $html_js_title);
+	echo html_all( $html_inputbox);
 	exit;}
 
 
 //exit;
 
 if(1){
+	//使用curl抓網頁
   $x=curl_FFF($url);
   //echo print_r($x,true);exit;
   $getdata =$x_0 =$x[0];//資料
@@ -81,9 +82,23 @@ if(preg_match($pattern, $url, $matches_url)){
 	$url_num=$matches_url[1];
 }
 //echo $url_num;echo "\n";
-$board_title = $html->find('title',0)->innertext;//版面標題
-//echo $board_title;echo "\n";
-
+$doc_title = $html->find('title',0)->innertext;//版面標題
+//echo $doc_title;echo "\n"; //標題
+$board_title = $html->find('h1',0)->innertext;//版面標題
+//echo $board_title;echo "\n"; //綜合
+$title=$board_title.'#'.$url_num;
+$FFF='';
+foreach( $html->find('meta') as $k => $v){
+	$FFF2=$v->property;
+	$fff3="og";
+	if( substr($FFF2, 0, strlen($fff3)  ) == $fff3 ){
+		$FFF.=$v->outertext;
+		$FFF.="\n";
+	}	
+}
+//print_r( $FFF );
+$doc_meta=$FFF; //網頁上的meta標籤
+//exit;
 
 
 $ymdhis=date('y/m/d H:i:s',$time);//輸出的檔案名稱
@@ -92,12 +107,15 @@ $board_title2=''.$board_title.'=第'.$url_num.'篇 於'.$ymdhis.'擷取';
 
 
 $cc=0;
-foreach( $html->find('div.quote') as $k => $v){$cc++;}
+foreach( $html->find('div.quote') as $k => $v){
+	$cc++;
+}
 if($cc>0){
 	//echo $cc;echo "\n";
 }else{
-	die('[x]blockquote');
+	die('[x]blockquote');//沒找到發文
 }
+
 ////////////
 //批次找留言
 $chat_array=array();
@@ -281,7 +299,7 @@ $phpself  = $FFF['basename'];
 $phpself2 = $FFF['filename'];
 
 $output_filename  = '181112.htm';
-$output_content = html_all( $htmlbody );
+$output_content = html_all( $htmlbody,$title,$doc_meta );
 
 file_put_contents($output_filename,$output_content);//輸出檔案
 
@@ -305,7 +323,7 @@ die("結束");
 ////
 
 
-function html_all($body){
+function html_all($body,$title='',$doc_meta=''){
 	//$webm_count  =$x[5];
 	//<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 	//<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="no-store">
@@ -313,7 +331,9 @@ $x=<<<EOT
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>title</title>
+<title>$title</title>
+$doc_meta
+
 
 <style>
 .img01 {
