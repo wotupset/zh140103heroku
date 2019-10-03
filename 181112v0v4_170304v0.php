@@ -200,7 +200,8 @@ $array_clear=array();
 
 //print_r($chat_array);exit;
 
-
+$ext_ary=[];
+$qq=0;
 foreach($chat_array as $k => $v){//迴圈
 	unset( $chat_array[$k]['org_text'] );
 	unset( $chat_array[$k]['zzz_text'] );
@@ -214,7 +215,32 @@ foreach($chat_array as $k => $v){//迴圈
 	//unset( $chat_array[$k]["image"] );
 	//unset( $chat_array[$k]["file-text"] );
 	//unset( $chat_array[$k]["file-name"] );
+	//
+	if( $chat_array[$k]["quote"] ){
+		$qq++;
+	}
+	if( $chat_array[$k]["file-name"] ){
+		$FFF='';
+		$FFF=explode(".",$chat_array[$k]["file-name"]);
+		$ext=$FFF[1];
+		if(in_array( $ext , $ext_ary)) {
+			//沒事
+			$nn=$ext_ary[$ext];
+			$nn++;
+			$ext_ary[$ext]=$nn;
+		}else{
+			$ext_ary[$ext]=1;
+		}
+	}
 }
+
+$FFF='';
+$ext_str='';
+foreach($ext_ary as $k => $v){//迴圈
+	$FFF.=$k.$v;
+}
+$ext_str='post'.$qq.$FFF;
+
 
 //print_r($chat_array);exit;
 
@@ -310,6 +336,7 @@ $FFF=substr($FFF,0,strrpos($FFF,"/")+1); //根目錄
 
 $output_fileurl=$FFF.$output_filename;
 $FFF='';
+$FFF.=$ext_str."<br/>\n";
 $FFF.='<a href="https://web.archive.org/save/'.$output_fileurl.'">archive.org</a>'."<br/>\n";
 $FFF.='<a href="https://archive.is/?run=1&url='.$output_fileurl.'">archive.is</a>'."<br/>\n";
 $FFF.='<a href="https://megalodon.jp/?url='.$output_fileurl.'">megalodon.jp</a>'."<br/>\n";
