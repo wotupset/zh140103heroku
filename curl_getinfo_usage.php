@@ -4,8 +4,36 @@
 if( $_GET['inputurl'] ){
 	$url=$_GET['inputurl'];
 }else{
+header('content-Type: text/html; charset=utf-8 '); //語言強制
 $str=<<<EOF
+<!DOCTYPE html>
+<html>
+<head>
+<title>title</title>
+<script>
+document.addEventListener("DOMContentLoaded", function(event){
+	poi();
+});//DOMContentLoaded
+function poi(){
+	var aa = document.querySelector("input[name='sendbtn']");
+	var bb = document.querySelector("input[name='inputurl']");
+
+	aa.addEventListener("click", function( event ){
+		console.log( bb.value );
+		window.location.href = 'curl_getinfo_usage.php?inputurl='+bb.value;
+	});	
+	
+
+}
+</script>
+
+</head>
+<body>
+<input type="text" name="inputurl" size="20" value="">
+<input type="submit" name="sendbtn" value="送出">
 curl_getinfo_usage.php?inputurl=http://ram.komica2.net/00/src/1546866116535.webm
+</body>
+</html>
 EOF;
 	die($str);
 }
