@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 function poi(){
 	var aa = document.querySelector("input[name='sendbtn']");
 	var bb = document.querySelector("input[name='inputurl']");
-
+	bb.value='';
 	aa.addEventListener("click", function( event ){
 		console.log( bb.value );
 		window.location.href = 'curl_getinfo_usage.php?inputurl='+bb.value;
@@ -37,6 +37,8 @@ curl_getinfo_usage.php?inputurl=http://ram.komica2.net/00/src/1546866116535.webm
 EOF;
 	die($str);
 }
+
+
 //print_r( $url );
 
 $FFF=get_headers($url, 0);
@@ -112,10 +114,14 @@ $poi_filesize=filesize($file);
 
 $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime = finfo_file($finfo, $file );
+$mime2 = explode("/", $mime);
+$uid = uniqid();
+$fname = $mime2[0].'_'.$uid.'.'.$mime2[1];
 
-//echo $mime;
-
+//echo $mime2;
 //exit;
+
+
 header("Access-Control-Allow-Origin: *");//cross domin
 header('content-Type:'.$mime); //語言強制
 header('Content-Length:'.$poi_filesize);
@@ -123,6 +129,8 @@ header('Accept-Ranges: bytes');
 header("Access-Control-Expose-Headers: Content-Length,Accept-Ranges,Access-Control-Allow-Origin");//cross domin
 
 header("Cache-Control: public,only-if-cached	"); //HTTP 1.1
+
+header('Content-disposition: inline ;filename="'.$fname.'"'); 
 
 
 echo file_get_contents($file);
