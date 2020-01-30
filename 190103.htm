@@ -62,50 +62,106 @@ document.addEventListener("DOMContentLoaded",function(e){
 	nn=nn.split(".")[0] +'_orig.'+ nn.split(".")[1];
 	nn=hh+'_'+nn;
 	var url=''+new_url+':orig';
+	window.gg.url=url;
+
+	
 
  
   //
 	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		if(this.readyState == 4 && this.status == 200){
-			//console.log(this.response, typeof this.response);
-			//console.log(nn);
-			//console.log( this.response.size );
-			gg.human_size=human_size( this.response.size );
-			console.log( gg.human_size );
-			
-			var img = document.getElementById('img01');
-			img.onload = function(e){
-				//console.log(e);
-				var str='';
-				str=str+img.naturalWidth+'x'+img.naturalHeight+'🌊';
-				str=str+gg.human_size+'🌊';
-				str=str+nn+'🌊';
-				//console.log(str);
-				img.insertAdjacentHTML('beforebegin', str+'<br/>');
-				document.title=''+str;
-				//
-				var aa = document.getElementById('aa01');
-				aa.href = img.src;
-				aa.download=''+nn;
-				aa.click();
+	xhr.onload = function(e){
+		console.log( 'xhr.onload' );
+	};
+	xhr.ontimeout = function(e){
+		console.log( 'xhr.ontimeout' );
+		var aa = document.getElementById('img01');
+		var str='timeout';
+		aa.insertAdjacentHTML('afterend', '<br/>'+str);
+	};
+	xhr.onerror = function(e){
+		console.log( 'xhr.onerror' );
+	};
+	xhr.onloadstart = function(e){
+		console.log( 'xhr.onloadstart' );
+	};
+	xhr.onprogress = function(e){
+		console.log( 'xhr.onprogress' );
+		var aa=0.0+(e.loaded / e.total);
+		aa= (aa * 100);
+		//var a1 = Math.floor( aa );
+		//var bb=aa.toString();//
+		//var cc=bb.split('.');
+		//bb=bb.substr(0,4);
+		//var aa2=Math.floor(aa);整數
+		var aa3 = aa.toFixed(2);//取小數2位
+		var new_aa='';
+		new_aa=''+aa3+'%';
+		//new_aa=Number(new_aa);
+		console.log( new_aa );
+	    var ee = document.querySelector("#poi200129");
+		ee.innerHTML=new_aa;
+		
+		
+	};
+	
+	xhr.onreadystatechange = function(e){
+		//console.log(e,this, this.status);
+		if(this.readyState == 1){
+			console.log('open');
+		}
+		if(this.readyState == 2){
+			console.log('send');
+		}
+		if(this.readyState == 3){
+			console.log('load');
+			//console.log( this );
+		}
+		if(this.readyState == 4){
+			console.log( this.getAllResponseHeaders() ); //simple response header 
+			//
+			if( this.status == 200 ){
+				//console.log(this.response, typeof this.response);
+				//console.log(nn);
+				//console.log( this.response.size );
+				gg.human_size=human_size( this.response.size );
+				console.log( gg.human_size );
+				
+				var img = document.getElementById('img01');
+				img.onload = function(e){
+					//console.log(e);
+					var str='';
+					str=str+img.naturalWidth+'x'+img.naturalHeight+'🌊';
+					str=str+gg.human_size+'🌊';
+					str=str+nn+'🌊';
+					//console.log(str);
+					img.insertAdjacentHTML('beforebegin', str+'<br/>');
+					img.insertAdjacentHTML('afterend', '<br/>'+window.gg.url);
+					
+					document.title=''+str;
+					//
+					var aa = document.getElementById('aa01');
+					aa.href = img.src;
+					aa.download=''+nn;
+					aa.click();
 
-			};
-			img.src = window.URL.createObjectURL(this.response);
-	/*
-			var aa = document.getElementById('aa01');
-			aa.href = window.URL.createObjectURL(this.response);
-			aa.download=''+nn;
-			aa.click();
+				};
+				img.src = window.URL.createObjectURL(this.response);
 
-	*/
-
-
-			//var win = window.open("about:blank", "_self");
-			//win.close();
-			//window.top.close();
+			}else{
+				console.log( this.status );
+				var aa = document.getElementById('img01');
+				var str='失敗'+this.status;
+				aa.insertAdjacentHTML('afterend', '<br/>'+str);
+				
+			}//if //this.status
 		}//if
+		
 	}//xhr
+	console.log(xhr.readyState);//0
+	//console.log( xhr.timeout );//0
+	xhr.timeout = 10*1000;
+	//console.log( xhr.timeout );//0
+	
 	xhr.open('GET', url);
 	xhr.responseType = 'blob';
 	xhr.send();      
@@ -241,7 +297,7 @@ $(document).ready(function(){
 
 </head>
 <body>
-<a id="aa01" href="">下載</a>
+<a id="aa01" href="">下載</a><span id="poi200129"></span>
 <br>
 <img id="img01">
 
