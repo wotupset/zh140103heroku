@@ -234,13 +234,14 @@ foreach($chat_array as $k => $v){//迴圈
 		if($v["image"] == null){
 			//沒事
 		}else{
-			if( preg_match("/\.webm$/",$v["image_t"]) ){
+			if( preg_match("/\.webm$/",$v["image"]) ){
 				$FFF.='<img src="'.$v["image_t"].'">';
 				$FFF.='影片';
 			}else{
 				$img_url=$v["image"];
 				$img_url = explode("//",$img_url );
-				$img_url = 'https://i2.wp.com/'.$img_url[1].'?fit=2048,2048';
+				$img_url = 'https://i2.wp.com/'.$img_url[1].'?fit=1600,1600&quality=50';
+				//https://developer.wordpress.com/docs/photon/api/
 				
 				$FFF.='<img src="'.$img_url.'" style="width: auto; height: auto; max-width: 400px; max-height: 400px;">';//圖片
 				
